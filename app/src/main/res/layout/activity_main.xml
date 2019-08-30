@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    >
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/logoH"
+            android:src="@drawable/logo"
+            android:layout_marginTop="@dimen/marginH"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/usuario"
+            android:textSize="@dimen/textM"
+            android:layout_marginTop="@dimen/marginH"
+
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginL"
+            android:layout_marginEnd="@dimen/marginL"
+            android:textSize="@dimen/textM"
+            android:tooltipText="@string/toolUsuario"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/password"
+            android:textSize="@dimen/textM"
+            android:layout_marginTop="@dimen/marginL"
+
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginL"
+            android:layout_marginEnd="@dimen/marginL"
+            android:textSize="@dimen/textM"
+            android:tooltipText="@string/toolPassword"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ingresar"
+            android:layout_marginStart="@dimen/marginL"
+            android:layout_marginEnd="@dimen/marginL"
+            android:layout_marginTop="@dimen/marginH"
+            android:textSize="@dimen/textL"
+            style="@style/BotonAgeptar"
+
+            />
+
+    </LinearLayout>
+
+</FrameLayout>
