@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Login">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,6 +56,7 @@
             android:text="@string/ingresar"
             android:textSize="@dimen/textL"
             style="@style/BotonAgeptar"
+            android:elevation="10dp"
             />
 
         <Button
@@ -67,8 +67,22 @@
             android:textSize="@dimen/textL"
             android:textColor="@color/agregar"
             android:layout_marginTop="@dimen/marginL"
-            style="@style/Widget.AppCompat.Button.Borderless"/>
+            style="@style/Widget.AppCompat.Button.Borderless"
+            />
 
     </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:layout_gravity="bottom |right"
+        android:backgroundTint="@color/agregar"
+        app:borderWidth="0dp"
+        android:src="@drawable/plus"
+        app:maxImageSize="45dp"
+        app:fabCustomSize="70dp"
+        android:elevation="10dp"
+        />
 
 </FrameLayout>
