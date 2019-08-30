@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Clima</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="usuario">Usuario</string>
+    <string name="toolUsuario">Ingresar usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="toolPassword">Ingresar contraseña</string>
+    <string name="ingresar">Ingresar</string>
+
+</resources>
