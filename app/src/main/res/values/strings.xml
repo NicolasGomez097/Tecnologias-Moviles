@@ -6,5 +6,6 @@
     <string name="password">Contraseña</string>
     <string name="toolPassword">Ingresar contraseña</string>
     <string name="ingresar">Ingresar</string>
+    <string name="errorLogin">Usuario o contraseña incorrecto/a</string>
 
 </resources>
