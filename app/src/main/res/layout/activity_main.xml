@@ -4,10 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".Login"
     >
-
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,10 +30,8 @@
             />
 
         <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/marginL"
-            android:layout_marginEnd="@dimen/marginL"
+            android:id="@+id/userInput"
+            style="@style/inputText"
             android:textSize="@dimen/textM"
             android:tooltipText="@string/toolUsuario"
             />
@@ -47,29 +43,31 @@
             android:text="@string/password"
             android:textSize="@dimen/textM"
             android:layout_marginTop="@dimen/marginL"
-
             />
 
         <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/marginL"
-            android:layout_marginEnd="@dimen/marginL"
+            android:id="@+id/passInput"
+            style="@style/inputText"
             android:textSize="@dimen/textM"
             android:tooltipText="@string/toolPassword"
             />
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:id="@+id/btnIngresar"
             android:text="@string/ingresar"
-            android:layout_marginStart="@dimen/marginL"
-            android:layout_marginEnd="@dimen/marginL"
-            android:layout_marginTop="@dimen/marginH"
             android:textSize="@dimen/textL"
             style="@style/BotonAgeptar"
-
             />
+
+        <Button
+            android:id="@+id/btnCrearUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Crear usuario"
+            android:textSize="@dimen/textL"
+            android:textColor="@color/agregar"
+            android:layout_marginTop="@dimen/marginL"
+            style="@style/Widget.AppCompat.Button.Borderless"/>
 
     </LinearLayout>
 
