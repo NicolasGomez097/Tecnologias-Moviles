@@ -8,12 +8,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 public class Login extends AppCompatActivity {
 
     private EditText userInput;
     private EditText passInput;
     private Button btnIngresar;
     private Button btnCrearUsuario;
+    private FloatingActionButton fl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,7 @@ public class Login extends AppCompatActivity {
         passInput = findViewById(R.id.passInput);
         btnCrearUsuario = findViewById(R.id.btnCrearUsuario);
         btnIngresar = findViewById(R.id.btnIngresar);
+        fl = findViewById(R.id.Floating);
 
         btnIngresar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,6 +40,13 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 crearUsuario();
+            }
+        });
+
+        fl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ingresar();
             }
         });
     }

@@ -15,7 +15,6 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/logoH"
             android:src="@drawable/logo"
-            android:layout_marginTop="@dimen/marginH"
             />
 
         <TextView
@@ -23,7 +22,7 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:text="@string/usuario"
-            android:textSize="@dimen/textM"
+            android:textSize="@dimen/textL"
             android:layout_marginTop="@dimen/marginH"
 
             />
@@ -31,7 +30,7 @@
         <EditText
             android:id="@+id/userInput"
             style="@style/inputText"
-            android:textSize="@dimen/textM"
+            android:textSize="@dimen/textL"
             android:tooltipText="@string/toolUsuario"
             />
 
@@ -40,14 +39,14 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:text="@string/password"
-            android:textSize="@dimen/textM"
+            android:textSize="@dimen/textL"
             android:layout_marginTop="@dimen/marginL"
             />
 
         <EditText
             android:id="@+id/passInput"
             style="@style/inputText"
-            android:textSize="@dimen/textM"
+            android:textSize="@dimen/textL"
             android:tooltipText="@string/toolPassword"
             />
 
@@ -73,6 +72,7 @@
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/Floating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
@@ -82,7 +82,7 @@
         android:src="@drawable/plus"
         app:maxImageSize="45dp"
         app:fabCustomSize="70dp"
-        android:elevation="10dp"
+        android:elevation="30dp"
         />
 
 </FrameLayout>
