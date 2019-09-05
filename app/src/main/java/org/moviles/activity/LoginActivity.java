@@ -1,22 +1,20 @@
-package org.moviles.controller;
+package org.moviles.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-public class Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private EditText userInput;
     private EditText passInput;
     private Button btnIngresar;
     private Button btnCrearUsuario;
-    private FloatingActionButton fl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +25,6 @@ public class Login extends AppCompatActivity {
         passInput = findViewById(R.id.passInput);
         btnCrearUsuario = findViewById(R.id.btnCrearUsuario);
         btnIngresar = findViewById(R.id.btnIngresar);
-        fl = findViewById(R.id.Floating);
 
         btnIngresar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,12 +40,6 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        fl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ingresar();
-            }
-        });
     }
 
     private void ingresar(){
@@ -60,6 +51,7 @@ public class Login extends AppCompatActivity {
     }
 
     private void crearUsuario(){
-
+        Intent i = new Intent(LoginActivity.this, RegistrarUsuarioActivity.class);
+        startActivity(i);
     }
 }
