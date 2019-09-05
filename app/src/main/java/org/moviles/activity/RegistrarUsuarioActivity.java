@@ -4,11 +4,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.logging.Logger;
 
@@ -46,11 +51,17 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
 
         try{
             FileWriter fw = new FileWriter(file);
-            Json
-            fw.append()
+            JSONObject json = new JSONObject();
+            json.put("usuario",nuevoUsuario.getText());
+            json.put("contrasena",nuevaPassword.getText());
+            json.put("email",nuevoCorreo.getText());
+            fw.append(json.toString());
+            fw.close();
         }catch (Exception e){
             e.printStackTrace();
+            Toast.makeText(v.getContext(),"No se creo correctamente", Toast.LENGTH_SHORT).show();
         }
 
+        Toast.makeText(v.getContext(),"Se creo correctamente", Toast.LENGTH_SHORT).show();
     }
 }
