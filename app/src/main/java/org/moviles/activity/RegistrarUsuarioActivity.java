@@ -9,13 +9,10 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.logging.Logger;
 
 public class RegistrarUsuarioActivity extends AppCompatActivity {
 
@@ -45,9 +42,16 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
     }
 
     private void registrarUsuario(View v){
-        File file = new File(getApplicationContext().getFilesDir().toString(),"usuarios.txt");
-        if(!file.exists())
-            file.mkdir();
+        File dir = new File(getApplicationContext().getFilesDir(),nuevoUsuario.getText().toString());
+        if(!dir.exists())
+            dir.mkdir();
+        else{
+            Toast.makeText(v.getContext(),"El usuario ya existe", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+        File file = new File(dir,"password.txt");
 
         try{
             FileWriter fw = new FileWriter(file);
@@ -55,13 +59,17 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
             json.put("usuario",nuevoUsuario.getText());
             json.put("contrasena",nuevaPassword.getText());
             json.put("email",nuevoCorreo.getText());
-            fw.append(json.toString());
+            fw.write(json.toString());
             fw.close();
+
         }catch (Exception e){
             e.printStackTrace();
             Toast.makeText(v.getContext(),"No se creo correctamente", Toast.LENGTH_SHORT).show();
+            return;
         }
 
         Toast.makeText(v.getContext(),"Se creo correctamente", Toast.LENGTH_SHORT).show();
+
+        finish();
     }
 }

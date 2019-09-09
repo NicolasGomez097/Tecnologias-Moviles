@@ -43,6 +43,7 @@
     <EditText
         android:id="@+id/passInput"
         style="@style/inputText"
+        android:inputType="textPassword"
         android:textSize="@dimen/textL"
         android:tooltipText="@string/toolPassword"
         />
