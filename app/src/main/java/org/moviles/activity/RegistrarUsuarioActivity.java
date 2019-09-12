@@ -50,7 +50,6 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
             return;
         }
 
-
         File file = new File(dir,"password.txt");
 
         try{
