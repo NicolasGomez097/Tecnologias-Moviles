@@ -7,5 +7,17 @@
     <string name="toolPassword">Ingresar contraseña</string>
     <string name="ingresar">Ingresar</string>
     <string name="errorLogin">Usuario o contraseña incorrecto/a</string>
-
+    <string name="dia">DíA</string>
+    <string name="noche">NOCHE</string>
+    <string name="correo">Correo</string>
+    <string name="ingreseUsuario">Ingresar Usuario</string>
+    <string name="ingreseContrasena">Ingresar Contraseña</string>
+    <string name="ingreseCorreo">Ingresar Correo</string>
+    <string name="crear">Crear</string>
+    <string name="registrar">Registrar</string>
+    <string name="crearUSuario">Crear usuario</string>
+    <string name="ingresoNoValido">Usuario o contraseña no valido</string>
+    <string name="mantenerIniciado">Mantener sesion abierta</string>
+    <string name="errorEliminarUsuario">No se pudo eliminar el usuario</string>
+    <string name="usuarioEliminado">Se elimino correctamente</string>
 </resources>

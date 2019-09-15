@@ -1,10 +1,13 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="logoH">200dp</dimen>
-    <dimen name="textH">40dp</dimen>
-    <dimen name="textM">30dp</dimen>
-    <dimen name="textL">20dp</dimen>
-    <dimen name="marginL">10dp</dimen>
-    <dimen name="marginM">30dp</dimen>
-    <dimen name="marginH">50dp</dimen>
+    <dimen name="logoH">80dp</dimen>
+    <dimen name="logoM">40dp</dimen>
+    <dimen name="logoL">15dp</dimen>
+    <dimen name="textH">25dp</dimen>
+    <dimen name="textM">20dp</dimen>
+    <dimen name="textL">15dp</dimen>
+    <dimen name="marginL">5dp</dimen>
+    <dimen name="marginM">15dp</dimen>
+    <dimen name="marginH">30dp</dimen>
+    <dimen name="animSalida">300</dimen>
 </resources>
