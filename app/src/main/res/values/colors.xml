@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="colorPrimary">#519657</color>
-    <color name="colorPrimaryDark">#338A3E</color>
-    <color name="colorAccent">#4DB6AC</color>
-    <color name="agregar">#519657</color>
-    <color name="aceptar">#29B6F6</color>
-    <color name="blanco">#FFFFFF</color>
-</resources>
