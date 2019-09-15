@@ -20,4 +20,6 @@
     <string name="mantenerIniciado">Mantener sesion abierta</string>
     <string name="errorEliminarUsuario">No se pudo eliminar el usuario</string>
     <string name="usuarioEliminado">Se elimino correctamente</string>
+    <string name="navigation_drawer_close">CLOSE</string>
+    <string name="navigation_drawer_open">OPEN</string>
 </resources>

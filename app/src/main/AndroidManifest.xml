@@ -18,7 +18,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="org.moviles.activity.MenuActivity">
+        <activity android:name="org.moviles.activity.MenuActivity"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
         <activity android:name=".RegistrarUsuarioActivity"
