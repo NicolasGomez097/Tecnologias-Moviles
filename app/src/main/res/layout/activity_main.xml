@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/logoH"
             android:src="@drawable/logo"
+            android:layout_marginTop="@dimen/marginM"
             />
 
         <TextView
@@ -23,7 +24,7 @@
             android:textAlignment="center"
             android:text="@string/usuario"
             android:textSize="@dimen/textL"
-            android:layout_marginTop="@dimen/marginH"
+            android:layout_marginTop="@dimen/marginM"
 
             />
 
@@ -48,6 +49,8 @@
             style="@style/inputText"
             android:textSize="@dimen/textL"
             android:tooltipText="@string/toolPassword"
+
+            android:color="@android:color/holo_blue_bright"
             />
 
         <Button

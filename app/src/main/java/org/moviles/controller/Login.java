@@ -52,11 +52,13 @@ public class Login extends AppCompatActivity {
     }
 
     private void ingresar(){
-        Toast.makeText(
+        Toast t = Toast.makeText(
                 getApplicationContext(),
                 getString(R.string.errorLogin),
-                Toast.LENGTH_SHORT)
-                    .show();
+                Toast.LENGTH_SHORT);
+        View v = t.getView();
+        v.setBackgroundColor(getColor(android.R.color.background_dark));
+        t.show();
     }
 
     private void crearUsuario(){
