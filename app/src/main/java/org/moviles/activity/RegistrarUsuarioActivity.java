@@ -1,5 +1,6 @@
 package org.moviles.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -37,20 +38,27 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
                 registrarUsuario(v);
             }
         });
-
-
     }
 
     private void registrarUsuario(View v){
-        File dir = new File(getApplicationContext().getFilesDir(),nuevoUsuario.getText().toString());
-        if(!dir.exists())
+        File dir = new File(getApplicationContext().getDataDir(),nuevoUsuario.getText().toString());
+        if(!dir.exists()) {
             dir.mkdir();
-        else{
+            try {
+                File lista = new File(getApplicationContext().getDataDir(),"ListaUsuarios.txt");
+                FileWriter fr = new FileWriter(lista,true);
+                fr.append(nuevoUsuario.getText().toString()+"\n");
+                fr.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+        }else{
             Toast.makeText(v.getContext(),"El usuario ya existe", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        File file = new File(dir,"password.txt");
+        File file = new File(dir,"datos.txt");
 
         try{
             FileWriter fw = new FileWriter(file);
@@ -69,6 +77,13 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
 
         Toast.makeText(v.getContext(),"Se creo correctamente", Toast.LENGTH_SHORT).show();
 
+        onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(this,LoginActivity.class);
+        startActivity(i);
         finish();
     }
 }

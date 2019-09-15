@@ -32,7 +32,6 @@ public class MenuActivity extends AppCompatActivity {
 
     private void cerrarSesion(){
         File fl = new File(getApplicationContext().getDataDir(),"loggedSession.txt");
-        File logged = new File(getApplicationContext().getDataDir(),"loggedSession.txt");
         fl.delete();
         Intent i = new Intent(this,LoginActivity.class);
         startActivity(i);

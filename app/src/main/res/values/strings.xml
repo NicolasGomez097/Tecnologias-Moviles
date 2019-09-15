@@ -15,4 +15,9 @@
     <string name="ingreseCorreo">Ingresar Correo</string>
     <string name="crear">Crear</string>
     <string name="registrar">Registrar</string>
+    <string name="crearUSuario">Crear usuario</string>
+    <string name="ingresoNoValido">Usuario o contraseña no valido</string>
+    <string name="mantenerIniciado">Mantener sesion abierta</string>
+    <string name="errorEliminarUsuario">No se pudo eliminar el usuario</string>
+    <string name="usuarioEliminado">Se elimino correctamente</string>
 </resources>

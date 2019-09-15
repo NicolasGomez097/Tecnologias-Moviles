@@ -1,4 +1,4 @@
-package org.moviles.activity;
+package org.moviles.activity.Adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.moviles.activity.R;
 import org.moviles.data.Clima;
 
 import java.util.ArrayList;

@@ -29,7 +29,7 @@ public class LoginActivityBackup extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+        /*setContentView(R.layout.activity_main);
 
         userInput = findViewById(R.id.userInput);
         passInput = findViewById(R.id.passInput);
@@ -48,7 +48,7 @@ public class LoginActivityBackup extends AppCompatActivity {
             public void onClick(View v) {
                 crearUsuario();
             }
-        });
+        });*/
     }
 
     private void ingresar(){
