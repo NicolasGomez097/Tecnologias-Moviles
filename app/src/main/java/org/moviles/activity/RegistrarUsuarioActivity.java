@@ -74,8 +74,9 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),R.string.emailIncorrecto,Toast.LENGTH_LONG).show();
             return;
         }
-        if(!Util.isAlphaNumeric(partes[0]) || !Util.isAlphaNumeric(partes[1])){
-            Toast.makeText(getApplicationContext(),R.string.contrasenaNoValido,Toast.LENGTH_LONG).show();
+        if(!Util.isAlphaNumeric(partes[0].replaceAll(".",""))
+                || !Util.isAlphaNumeric(partes[1].replaceAll(".",""))){
+            Toast.makeText(getApplicationContext(),R.string.correoNoValido,Toast.LENGTH_LONG).show();
             return;
         }
 

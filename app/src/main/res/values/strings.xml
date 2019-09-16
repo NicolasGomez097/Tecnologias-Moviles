@@ -28,4 +28,5 @@
     <string name="contrasenaMayor20Letras">La contraseña no puede ser mayor de 20 letras</string>
     <string name="nombreNoValido">El nombre solo puede tener letras, números y \"_\"</string>
     <string name="contrasenaNoValido">La contraseña solo puede tener letras, números y \"_\"</string>
+    <string name="correoNoValido">El correo solo puede tener letras, números y \"_\"</string>
 </resources>

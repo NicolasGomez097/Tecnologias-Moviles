@@ -7,5 +7,6 @@
     <color name="agregar">#66BB6A</color>
     <color name="aceptar">#29B6F6</color>
     <color name="blanco">#FFFFFF</color>
+    <color name="oscuro">#303030</color>
     <color name="rojo">#FF6969</color>
 </resources>
