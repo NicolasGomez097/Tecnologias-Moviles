@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +25,7 @@ import java.util.List;
 public class FragmentIngresarContraseña extends Fragment{
 
     private String user;
+    private TextView nombreUsuario;
     private ListaUsuarioRecyclerViewOnItemClickListener onClick;
     private EditText inputPassword;
     private CheckBox mantenerSesion;
@@ -43,6 +45,9 @@ public class FragmentIngresarContraseña extends Fragment{
         inputPassword = contenedor.findViewById(R.id.ingresoContrasena);
         btnIngresar = contenedor.findViewById(R.id.btnIngresar);
         mantenerSesion = contenedor.findViewById(R.id.mantenerSesion);
+        nombreUsuario = contenedor.findViewById(R.id.nombreUsuario);
+
+        nombreUsuario.setText(nombreUsuario.getText() + " " + user);
 
         btnIngresar.setOnClickListener(new View.OnClickListener() {
             @Override

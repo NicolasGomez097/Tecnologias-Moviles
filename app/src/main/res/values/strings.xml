@@ -7,8 +7,8 @@
     <string name="toolPassword">Ingresar contraseña</string>
     <string name="ingresar">Ingresar</string>
     <string name="errorLogin">Usuario o contraseña incorrecto/a</string>
-    <string name="dia">DíA</string>
-    <string name="noche">NOCHE</string>
+    <string name="dia">Día</string>
+    <string name="noche">Noche</string>
     <string name="correo">Correo</string>
     <string name="ingreseUsuario">Ingresar Usuario</string>
     <string name="ingreseContrasena">Ingresar Contraseña</string>
@@ -17,7 +17,15 @@
     <string name="registrar">Registrar</string>
     <string name="crearUSuario">Crear usuario</string>
     <string name="ingresoNoValido">Usuario o contraseña no valido</string>
-    <string name="mantenerIniciado">Mantener sesion abierta</string>
+    <string name="mantenerIniciado">Mantener sesión abierta</string>
     <string name="errorEliminarUsuario">No se pudo eliminar el usuario</string>
     <string name="usuarioEliminado">Se elimino correctamente</string>
+    <string name="nombreMenor5Letras">El nombre de usuario debe tener al menos 5 letras</string>
+    <string name="contrasenaMenor6Letras">La contraseña no debe tener mínimo 6 caracteres</string>
+    <string name="emailIncorrecto">El correo no tiene un formato valido</string>
+    <string name="ingresarContrasenaDe">Ingrese contraseña de</string>
+    <string name="nombreMayor15Letras">El nombre no puede tener mas de 15 letras</string>
+    <string name="contrasenaMayor20Letras">La contraseña no puede ser mayor de 20 letras</string>
+    <string name="nombreNoValido">El nombre solo puede tener letras, números y \"_\"</string>
+    <string name="contrasenaNoValido">La contraseña solo puede tener letras, números y \"_\"</string>
 </resources>
