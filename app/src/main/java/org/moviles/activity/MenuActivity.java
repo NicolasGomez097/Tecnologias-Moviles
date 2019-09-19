@@ -6,6 +6,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 
 import androidx.annotation.NonNull;
@@ -15,14 +16,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
+
+import org.moviles.activity.Fragments.FragmentHome;
 
 import java.io.File;
 
 public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawer;
+    private FrameLayout fragmentContainer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,6 +36,8 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_menu);
 
         setTitle("Menu");
+
+        fragmentContainer = findViewById(R.id.fragment_container);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -41,6 +49,12 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        FragmentHome  fh = new FragmentHome();
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.fragment_container,fh);
+        ft.commit();
+
         toggle.syncState();
     }
 
@@ -51,7 +65,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         } else {
             super.onBackPressed();
         }
-
     }
 
     private void cerrarSesion(){
@@ -69,6 +82,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 cerrarSesion();
         }
 
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 }

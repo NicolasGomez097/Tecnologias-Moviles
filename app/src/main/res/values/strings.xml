@@ -24,4 +24,7 @@
     <string name="navigation_drawer_open">OPEN</string>
     <string name="configuracion">Configuración</string>
     <string name="cerrarSesion">Cerrar sesión</string>
+    <string name="home">Home</string>
+    <string name="masDetalles">Más detalles</string>
+    <string name="mapa">Mapa</string>
 </resources>
