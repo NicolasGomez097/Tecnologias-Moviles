@@ -18,12 +18,17 @@
             android:title="Profile" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="@string/configuracion">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_share"
-                android:title="Share" />
+                android:id="@+id/nav_config"
+                android:icon="@drawable/ic_setting"
+                android:title="@string/configuracion" />
+
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_logout"
+                android:title="@string/cerrarSesion" />
         </menu>
     </item>
 </menu>

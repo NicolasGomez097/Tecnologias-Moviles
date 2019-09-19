@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
@@ -36,13 +36,7 @@
         android:layout_height="match_parent"
         android:id="@+id/nav_view"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/drawer_menu"/>
-
-    <Button
-        android:id="@+id/btnCerrarSesion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cerrar sesion"
-        style="@style/BotonAceptar"/>
+        app:menu="@menu/drawer_menu"
+        android:layout_gravity="start"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>
