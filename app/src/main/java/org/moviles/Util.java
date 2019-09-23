@@ -1,8 +1,11 @@
 package org.moviles;
 
 import java.io.File;
+import java.util.regex.Pattern;
 
 public class Util {
+
+    private static Pattern p = Pattern.compile("^[a-zA-Z0-9_]*$");
 
     public static boolean deleteFileOnPath(File root,String file){
         File dir = new File(root,file);
@@ -15,5 +18,9 @@ public class Util {
         }
 
         return dir.delete();
+    }
+
+    public static boolean isAlphaNumeric(String s) {
+        return p.matcher(s).find();
     }
 }

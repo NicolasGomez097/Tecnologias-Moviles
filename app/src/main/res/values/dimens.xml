@@ -9,5 +9,4 @@
     <dimen name="marginL">5dp</dimen>
     <dimen name="marginM">15dp</dimen>
     <dimen name="marginH">30dp</dimen>
-    <dimen name="animSalida">300</dimen>
 </resources>

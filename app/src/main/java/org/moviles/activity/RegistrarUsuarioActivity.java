@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONObject;
+import org.moviles.Util;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -41,6 +42,44 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
     }
 
     private void registrarUsuario(View v){
+
+        if(nuevoUsuario.getText().length() < 5){
+            Toast.makeText(getApplicationContext(),R.string.nombreMenor5Letras,Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(nuevoUsuario.getText().length() > 15){
+            Toast.makeText(getApplicationContext(),R.string.nombreMayor15Letras,Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(!Util.isAlphaNumeric(nuevoUsuario.getText().toString())){
+            Toast.makeText(getApplicationContext(),R.string.nombreNoValido,Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if(nuevaPassword.getText().length() < 6){
+            Toast.makeText(getApplicationContext(),R.string.contrasenaMenor6Letras,Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(nuevaPassword.getText().length() > 20){
+            Toast.makeText(getApplicationContext(),R.string.contrasenaMayor20Letras,Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(!Util.isAlphaNumeric(nuevaPassword.getText().toString())){
+            Toast.makeText(getApplicationContext(),R.string.contrasenaNoValido,Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        String[] partes = nuevoCorreo.getText().toString().split("@");
+        if(partes.length != 2){
+            Toast.makeText(getApplicationContext(),R.string.emailIncorrecto,Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(!Util.isAlphaNumeric(partes[0].replaceAll(".",""))
+                || !Util.isAlphaNumeric(partes[1].replaceAll(".",""))){
+            Toast.makeText(getApplicationContext(),R.string.correoNoValido,Toast.LENGTH_LONG).show();
+            return;
+        }
+
         File dir = new File(getApplicationContext().getDataDir(),nuevoUsuario.getText().toString());
         if(!dir.exists()) {
             dir.mkdir();

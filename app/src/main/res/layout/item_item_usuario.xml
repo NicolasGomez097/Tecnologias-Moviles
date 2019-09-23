@@ -2,17 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="10dp"
+    android:elevation="5dp"
     android:background="@android:color/white"
     android:padding="@dimen/marginL"
     android:layout_marginStart="@dimen/marginM"
     android:layout_marginEnd="@dimen/marginM"
-    android:layout_marginBottom="@dimen/marginL"
+    android:layout_marginBottom="@dimen/marginM"
     >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/marginL">
         <ImageView
             android:id="@+id/avatar"
             android:layout_width="@dimen/logoM"
