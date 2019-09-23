@@ -3,7 +3,7 @@
     <dimen name="logoH">80dp</dimen>
     <dimen name="logoM">40dp</dimen>
     <dimen name="logoL">15dp</dimen>
-    <dimen name="textH">25dp</dimen>
+    <dimen name="textH">35dp</dimen>
     <dimen name="textM">20dp</dimen>
     <dimen name="textL">15dp</dimen>
     <dimen name="marginL">5dp</dimen>

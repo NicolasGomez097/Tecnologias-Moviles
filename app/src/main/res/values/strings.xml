@@ -29,4 +29,15 @@
     <string name="nombreNoValido">El nombre solo puede tener letras, números y \"_\"</string>
     <string name="contrasenaNoValido">La contraseña solo puede tener letras, números y \"_\"</string>
     <string name="correoNoValido">El correo solo puede tener letras, números y \"_\"</string>
+    <string name="navigation_drawer_close">CLOSE</string>
+    <string name="navigation_drawer_open">OPEN</string>
+    <string name="configuracion">Configuración</string>
+    <string name="cerrarSesion">Cerrar sesión</string>
+    <string name="home">Home</string>
+    <string name="masDetalles">Más detalles</string>
+    <string name="mapa">Mapa</string>
+    <string name="cerrarSesionMensaje">¿Esta seguro de cerrar sesión?</string>
+    <string name="eliminarUsuarioMensaje">¿Esta seguro de eliminar el usuario?</string>
+    <string name="ACEPTAR">ACEPTAR</string>
+    <string name="CANCELAR">CANCELAR</string>
 </resources>

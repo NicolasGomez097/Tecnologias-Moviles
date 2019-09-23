@@ -1,15 +1,19 @@
 package org.moviles.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONObject;
 import org.moviles.Util;
@@ -27,7 +31,6 @@ import java.util.List;
 public class LoginActivity extends AppCompatActivity implements ListaUsuarioRecyclerViewOnItemClickListener {
 
     private List<JSONObject> usersList;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,13 +143,32 @@ public class LoginActivity extends AppCompatActivity implements ListaUsuarioRecy
             i = new Intent(this, RegistrarUsuarioActivity.class);
             startActivity(i);
             finish();
+
         }else {
             cargarFragmentoContraseña(position);
         }
     }
 
     @Override
-    public void onClickDelete(int position) {
+    public void onClickDelete(final int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.eliminarUsuarioMensaje)
+                .setPositiveButton(R.string.ACEPTAR, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        borrarUsuario(position);
+                    }
+                })
+                .setNegativeButton(R.string.CANCELAR, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+        // Create the AlertDialog object and return it
+        builder.create();
+        builder.show();
+    }
+
+    public void borrarUsuario(int position){
         File file = new File(getApplicationContext().getDataDir(), "/ListaUsuarios.txt");
 
         try {
