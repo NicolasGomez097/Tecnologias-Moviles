@@ -20,4 +20,15 @@
     <string name="mantenerIniciado">Mantener sesion abierta</string>
     <string name="errorEliminarUsuario">No se pudo eliminar el usuario</string>
     <string name="usuarioEliminado">Se elimino correctamente</string>
+    <string name="navigation_drawer_close">CLOSE</string>
+    <string name="navigation_drawer_open">OPEN</string>
+    <string name="configuracion">Configuración</string>
+    <string name="cerrarSesion">Cerrar sesión</string>
+    <string name="home">Home</string>
+    <string name="masDetalles">Más detalles</string>
+    <string name="mapa">Mapa</string>
+    <string name="cerrarSesionMensaje">¿Esta seguro de cerrar sesión?</string>
+    <string name="eliminarUsuarioMensaje">¿Esta seguro de eliminar el usuario?</string>
+    <string name="ACEPTAR">ACEPTAR</string>
+    <string name="CANCELAR">CANCELAR</string>
 </resources>
