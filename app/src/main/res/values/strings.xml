@@ -27,4 +27,8 @@
     <string name="home">Home</string>
     <string name="masDetalles">Más detalles</string>
     <string name="mapa">Mapa</string>
+    <string name="cerrarSesionMensaje">¿Esta seguro de cerrar sesión?</string>
+    <string name="eliminarUsuarioMensaje">¿Esta seguro de eliminar el usuario?</string>
+    <string name="ACEPTAR">ACEPTAR</string>
+    <string name="CANCELAR">CANCELAR</string>
 </resources>
