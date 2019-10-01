@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -38,6 +39,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     private FrameLayout fragmentContainer;
     private TextView nombreUsuarioMenu;
     private TextView emailUsuarioMenu;
+    private ImageButton btnEdit;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,9 +72,19 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         ft.replace(R.id.fragment_container,fh);
         ft.commit();
 
-
-
         toggle.syncState();
+
+        btnEdit = findViewById(R.id.btnEdit);
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickEdit();
+            }
+        });
+    }
+
+    private void onClickEdit() {
+        
     }
 
     @Override
