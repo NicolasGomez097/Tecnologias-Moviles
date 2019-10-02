@@ -25,6 +25,7 @@ import com.google.android.material.navigation.NavigationView;
 import org.json.JSONObject;
 import org.moviles.activity.Fragments.FragmentClimaExtendido;
 import org.moviles.activity.Fragments.FragmentConfiguracion;
+import org.moviles.activity.Fragments.FragmentEditarUsuario;
 import org.moviles.activity.Fragments.FragmentHome;
 import org.moviles.activity.Fragments.FragmentMap;
 import org.w3c.dom.Text;
@@ -74,18 +75,8 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
         toggle.syncState();
 
-        btnEdit = findViewById(R.id.btnEdit);
-        btnEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onClickEdit();
-            }
-        });
     }
 
-    private void onClickEdit() {
-        
-    }
 
     @Override
     public void onBackPressed() {
@@ -157,6 +148,14 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         ft.commit();
     }
 
+    private void cargarEditar(){
+        FragmentEditarUsuario  fEdit = new FragmentEditarUsuario();
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.fragment_container,fEdit);
+        ft.commit();
+    }
+
     private void cargarDetalle(){
         FragmentClimaExtendido fce = new FragmentClimaExtendido();
         FragmentManager fm = getSupportFragmentManager();
@@ -198,6 +197,9 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_config:
                 cargarConfig();
+                break;
+            case R.id.nav_edit_profile:
+                cargarEditar();
 
 
         }
