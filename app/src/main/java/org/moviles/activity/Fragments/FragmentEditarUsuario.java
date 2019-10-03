@@ -10,7 +10,9 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,6 +39,8 @@ public class FragmentEditarUsuario extends Fragment {
     private CircleImageView imgPerfil;
     private EditText nombre;
     private EditText correo;
+    private  File fl;
+    private Bitmap bmp;
 
     @Nullable
     @Override
@@ -54,6 +58,14 @@ public class FragmentEditarUsuario extends Fragment {
                  }
         );
 
+        Button btnGuardar = contenedor.findViewById(R.id.btnModificarUsuario);
+
+        btnGuardar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                guardarImagen();
+            }
+        });
         nombre = contenedor.findViewById(R.id.nombrePerfil);
         correo = contenedor.findViewById(R.id.correoPerfil);
 
@@ -69,6 +81,14 @@ public class FragmentEditarUsuario extends Fragment {
         }
 
         return contenedor;
+    }
+
+    private void guardarImagen(){
+
+        Util.saveImage(fl,bmp);
+        Toast toast = Toast.makeText(getActivity().getApplicationContext(),"Guardado", Toast.LENGTH_SHORT);
+        toast.show();
+
     }
 
     private void selectImage(){
@@ -107,10 +127,10 @@ public class FragmentEditarUsuario extends Fragment {
             if(requestCode==REQUEST_CAMERA){
 
                 Bundle bundle = data.getExtras();
-                final Bitmap bmp = (Bitmap) bundle.get("data");
+                bmp = (Bitmap) bundle.get("data");
 
                 Usuario u = Context.getUsuarioBusiness().getCurrentUser();
-                File fl = new File(Context.getDataDir(),
+                fl = new File(Context.getDataDir(),
                         u.getUsuario()+"/"+ Constants.USER_AVATAR);
                 Util.saveImage(fl,bmp);
                 imgPerfil.setImageBitmap(bmp);
@@ -121,10 +141,10 @@ public class FragmentEditarUsuario extends Fragment {
 
                 Usuario u = Context.getUsuarioBusiness().getCurrentUser();
 
-                Bitmap bmp = Util.getImageFromGallery(
+                bmp = Util.getImageFromGallery(
                         getActivity().getContentResolver(),selectedImageUri);
 
-                File fl = new File(Context.getDataDir(),
+                fl = new File(Context.getDataDir(),
                         u.getUsuario()+"/"+ Constants.USER_AVATAR);
                 Util.saveImage(fl,bmp);
                 imgPerfil.setImageBitmap(bmp);
