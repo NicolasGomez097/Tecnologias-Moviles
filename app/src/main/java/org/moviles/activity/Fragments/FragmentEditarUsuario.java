@@ -24,7 +24,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.moviles.Constants;
 import org.moviles.Context;
 import org.moviles.Util;
+import org.moviles.activity.Interfaces.IFragmentEditarUsuarioListener;
 import org.moviles.activity.R;
+import org.moviles.business.UsuarioBusiness;
 import org.moviles.model.Usuario;
 
 import java.io.File;
@@ -39,8 +41,13 @@ public class FragmentEditarUsuario extends Fragment {
     private CircleImageView imgPerfil;
     private EditText nombre;
     private EditText correo;
-    private  File fl;
-    private Bitmap bmp;
+    private EditText password;
+    private Bitmap bmp = null;
+    private IFragmentEditarUsuarioListener onclick;
+
+    public FragmentEditarUsuario(IFragmentEditarUsuarioListener onclick){
+        this.onclick = onclick;
+    }
 
     @Nullable
     @Override
@@ -63,15 +70,17 @@ public class FragmentEditarUsuario extends Fragment {
         btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                guardarImagen();
+                guardar();
             }
         });
         nombre = contenedor.findViewById(R.id.nombrePerfil);
         correo = contenedor.findViewById(R.id.correoPerfil);
+        password = contenedor.findViewById(R.id.contrasenaPerfil);
 
         Usuario u = Context.getUsuarioBusiness().getCurrentUser();
         nombre.setText(u.getUsuario());
         correo.setText(u.getEmail());
+        password.setText(u.getPassword());
 
         File fl = new File(Context.getDataDir(),
                 u.getUsuario()+"/"+ Constants.USER_AVATAR);
@@ -83,11 +92,44 @@ public class FragmentEditarUsuario extends Fragment {
         return contenedor;
     }
 
-    private void guardarImagen(){
+    private void guardar(){
+        UsuarioBusiness userBO = Context.getUsuarioBusiness();
+        Usuario currentUser = userBO.getCurrentUser();
 
-        Util.saveImage(fl,bmp);
+        if(bmp != null) {
+            File fl = new File(Context.getDataDir(),
+                    currentUser.getUsuario() + "/" + Constants.USER_AVATAR);
+
+            Util.saveImage(fl, bmp);
+        }
         Toast toast = Toast.makeText(getActivity().getApplicationContext(),"Guardado", Toast.LENGTH_SHORT);
         toast.show();
+
+        Usuario user = new Usuario();
+        user.setUsuario(nombre.getText().toString());
+        user.setPassword(password.getText().toString());
+        user.setEmail(correo.getText().toString());
+        boolean valid = Util.checkUser(getActivity().getApplicationContext(),currentUser);
+
+        if(!valid)
+            return;
+
+        if(!user.getUsuario().equals(currentUser.getUsuario())) {
+
+            if(userBO.getUsuario(user.getUsuario()) != null){
+                Toast.makeText(getActivity().getApplicationContext(),"El usuario ya existe", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Util.renameFile(new File(Context.getDataDir(), currentUser.getUsuario()), user.getUsuario());
+            userBO.changeUserNameList(currentUser.getUsuario(),user.getUsuario());
+
+        }
+
+        currentUser = user;
+        userBO.update(currentUser);
+
+        onclick.cerrarFramgemntEditarUsuario();
 
     }
 
@@ -129,24 +171,16 @@ public class FragmentEditarUsuario extends Fragment {
                 Bundle bundle = data.getExtras();
                 bmp = (Bitmap) bundle.get("data");
 
-                Usuario u = Context.getUsuarioBusiness().getCurrentUser();
-                fl = new File(Context.getDataDir(),
-                        u.getUsuario()+"/"+ Constants.USER_AVATAR);
-                Util.saveImage(fl,bmp);
                 imgPerfil.setImageBitmap(bmp);
 
             }else if(requestCode==SELECT_FILE){
 
                 Uri selectedImageUri = data.getData();
 
-                Usuario u = Context.getUsuarioBusiness().getCurrentUser();
-
                 bmp = Util.getImageFromGallery(
                         getActivity().getContentResolver(),selectedImageUri);
 
-                fl = new File(Context.getDataDir(),
-                        u.getUsuario()+"/"+ Constants.USER_AVATAR);
-                Util.saveImage(fl,bmp);
+
                 imgPerfil.setImageBitmap(bmp);
             }
 

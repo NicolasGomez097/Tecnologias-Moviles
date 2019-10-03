@@ -1,10 +1,16 @@
 package org.moviles;
 
 import android.content.ContentResolver;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.widget.Toast;
+
+import org.moviles.activity.R;
+import org.moviles.business.UsuarioBusiness;
+import org.moviles.model.Usuario;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -28,6 +34,11 @@ public class Util {
         }
 
         return dir.delete();
+    }
+
+    public static boolean renameFile(File old,String newName){
+        File newFile = new File(old.getParentFile(),newName);
+        return old.renameTo(newFile);
     }
 
     public static boolean isAlphaNumeric(String s) {
@@ -101,4 +112,46 @@ public class Util {
 
         return bmp;
     }
+
+    public static boolean checkUser(Context context, Usuario u){
+        if(u.getUsuario().length() < 5){
+            Toast.makeText(context, R.string.nombreMenor5Letras,Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if(u.getUsuario().length() > 15){
+            Toast.makeText(context,R.string.nombreMayor15Letras,Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if(!Util.isAlphaNumeric(u.getUsuario().toString())){
+            Toast.makeText(context,R.string.nombreNoValido,Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if(u.getPassword().length() < 6){
+            Toast.makeText(context,R.string.contrasenaMenor6Letras,Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if(u.getPassword().length() > 20){
+            Toast.makeText(context,R.string.contrasenaMayor20Letras,Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if(!Util.isAlphaNumeric(u.getPassword().toString())){
+            Toast.makeText(context,R.string.contrasenaNoValido,Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        String[] partes = u.getEmail().split("@");
+        if(partes.length != 2){
+            Toast.makeText(context,R.string.emailIncorrecto,Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if(!Util.isAlphaNumeric(partes[0].replaceAll(".",""))
+                || !Util.isAlphaNumeric(partes[1].replaceAll(".",""))){
+            Toast.makeText(context,R.string.correoNoValido,Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        return true;
+    }
+
 }
