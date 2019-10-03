@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.moviles.activity.R;
-import org.moviles.data.Clima;
+import org.moviles.model.Clima;
 
 import java.util.ArrayList;
 import java.util.List;

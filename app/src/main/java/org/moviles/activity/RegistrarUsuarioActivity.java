@@ -11,10 +11,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONObject;
+import org.moviles.Context;
 import org.moviles.Util;
+import org.moviles.business.UsuarioBusiness;
+import org.moviles.model.Usuario;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.util.List;
 
 public class RegistrarUsuarioActivity extends AppCompatActivity {
 
@@ -42,6 +46,8 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
     }
 
     private void registrarUsuario(View v){
+
+        boolean valid;
 
         if(nuevoUsuario.getText().length() < 5){
             Toast.makeText(getApplicationContext(),R.string.nombreMenor5Letras,Toast.LENGTH_LONG).show();
@@ -80,41 +86,29 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
             return;
         }
 
-        File dir = new File(getApplicationContext().getDataDir(),nuevoUsuario.getText().toString());
-        if(!dir.exists()) {
-            dir.mkdir();
-            try {
-                File lista = new File(getApplicationContext().getDataDir(),"ListaUsuarios.txt");
-                FileWriter fr = new FileWriter(lista,true);
-                fr.append(nuevoUsuario.getText().toString()+"\n");
-                fr.close();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+        UsuarioBusiness userBO = Context.getUsuarioBusiness();
+        Usuario u = userBO.getUsuario(nuevoUsuario.getText().toString());
+        if(u == null) {
+            u = new Usuario();
+
+            u.setUsuario(nuevoUsuario.getText().toString());
+            u.setPassword(nuevaPassword.getText().toString());
+            u.setEmail(nuevoCorreo.getText().toString());
+
+            valid = userBO.save(u);
+
 
         }else{
             Toast.makeText(v.getContext(),"El usuario ya existe", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        File file = new File(dir,"datos.txt");
+        if(valid)
+            Toast.makeText(v.getContext(),"Se creo correctamente", Toast.LENGTH_SHORT).show();
 
-        try{
-            FileWriter fw = new FileWriter(file);
-            JSONObject json = new JSONObject();
-            json.put("usuario",nuevoUsuario.getText());
-            json.put("contrasena",nuevaPassword.getText());
-            json.put("email",nuevoCorreo.getText());
-            fw.write(json.toString());
-            fw.close();
-
-        }catch (Exception e){
-            e.printStackTrace();
+        else
             Toast.makeText(v.getContext(),"No se creo correctamente", Toast.LENGTH_SHORT).show();
-            return;
-        }
 
-        Toast.makeText(v.getContext(),"Se creo correctamente", Toast.LENGTH_SHORT).show();
 
         onBackPressed();
     }

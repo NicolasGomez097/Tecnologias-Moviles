@@ -1,4 +1,4 @@
-package org.moviles.data;
+package org.moviles.model;
 
 public class Clima {
     private String dia;
