@@ -1,6 +1,9 @@
 package org.moviles;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.regex.Pattern;
 
 public class Util {
@@ -22,5 +25,39 @@ public class Util {
 
     public static boolean isAlphaNumeric(String s) {
         return p.matcher(s).find();
+    }
+
+    public static String readFile(File file){
+        String out = "";
+        String line;
+        try {
+            BufferedReader bf = new BufferedReader(new FileReader(file));
+            while ((line=bf.readLine())!= null){
+                out += line + "\n";
+            }
+            out = out.substring(0,out.length()-1);
+            bf.close();
+        }catch (Exception e){
+            e.printStackTrace();
+            return "";
+        }
+
+        return out;
+    }
+
+    public static boolean writeFile(File file, String text){
+        try {
+            if(!file.exists())
+                file.getParentFile().mkdirs();
+
+            FileWriter fl = new FileWriter(file);
+            fl.append(text);
+            fl.close();
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
     }
 }

@@ -17,15 +17,16 @@ import org.moviles.activity.LoginActivity;
 import org.moviles.activity.LoginActivityBackup;
 import org.moviles.activity.R;
 import org.moviles.activity.RegistrarUsuarioActivity;
+import org.moviles.model.Usuario;
 
 import java.util.List;
 
 public class ListUserAdapter extends RecyclerView.Adapter<ListUserAdapter.ListUsuarioViewHolder> {
 
-    private List<JSONObject> lista;
+    private List<Usuario> lista;
     private ListaUsuarioRecyclerViewOnItemClickListener onClick;
 
-    public ListUserAdapter(List<JSONObject> usersList,@NonNull ListaUsuarioRecyclerViewOnItemClickListener onClick) {
+    public ListUserAdapter(List<Usuario> usersList,@NonNull ListaUsuarioRecyclerViewOnItemClickListener onClick) {
         this.lista = usersList;
         this.onClick = onClick;
     }
@@ -38,7 +39,7 @@ public class ListUserAdapter extends RecyclerView.Adapter<ListUserAdapter.ListUs
 
     @Override
     public void onBindViewHolder(ListUserAdapter.ListUsuarioViewHolder holder, int position) {
-        JSONObject user = lista.get(position);
+        Usuario user = lista.get(position);
 
         try{
             if(position == 0)
@@ -47,8 +48,8 @@ public class ListUserAdapter extends RecyclerView.Adapter<ListUserAdapter.ListUs
             if(position == 0)
                 holder.getBtnBorrar().setVisibility(View.GONE);
 
-            holder.getNombreUsuario().setText(user.get("usuario").toString());
-            holder.getUsuarioEmail().setText(user.get("email").toString());
+            holder.getNombreUsuario().setText(user.getUsuario());
+            holder.getUsuarioEmail().setText(user.getEmail());
         }catch (Exception e){
             e.printStackTrace();
         }

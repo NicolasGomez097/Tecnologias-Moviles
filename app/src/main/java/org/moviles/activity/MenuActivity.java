@@ -21,16 +21,12 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
 
-import org.json.JSONObject;
+import org.moviles.Context;
 import org.moviles.activity.Fragments.FragmentClimaExtendido;
 import org.moviles.activity.Fragments.FragmentConfiguracion;
 import org.moviles.activity.Fragments.FragmentHome;
 import org.moviles.activity.Fragments.FragmentMap;
-import org.w3c.dom.Text;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import org.moviles.model.Usuario;
 
 public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -80,39 +76,16 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         if(drawer.isDrawerOpen(GravityCompat.START)){
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            if(!Context.getUsuarioBusiness().isMantenerSesion())
+                Context.getUsuarioBusiness().setCurrentUser(null);
             super.onBackPressed();
         }
     }
 
     private void cargarUsuario(){
-        File fl = new File(getApplicationContext().getDataDir(),"loggedSession.txt");
-        String line = "";
-        String user = "";
-
-        try{
-            BufferedReader bf = new BufferedReader(new FileReader(fl));
-            while((line = bf.readLine()) != null){
-                user = line;
-            }
-            bf.close();
-
-            fl = new File(getApplicationContext().getDataDir(),user+"/datos.txt");
-
-            user = "";
-
-            bf = new BufferedReader(new FileReader(fl));
-            while((line = bf.readLine()) != null){
-                user += line;
-            }
-            bf.close();
-            JSONObject json = new JSONObject(user);
-
-            nombreUsuarioMenu.setText(json.getString("usuario"));
-            emailUsuarioMenu.setText(json.getString("email"));
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        Usuario user = Context.getUsuarioBusiness().getCurrentUser();
+        nombreUsuarioMenu.setText(user.getUsuario());
+        emailUsuarioMenu.setText(user.getEmail());
     }
 
     private void cerrarSesion(){
@@ -120,8 +93,8 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         builder.setMessage(R.string.cerrarSesionMensaje)
                 .setPositiveButton(R.string.ACEPTAR, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        File fl = new File(getApplicationContext().getDataDir(),"loggedSession.txt");
-                        fl.delete();
+                        if(!Context.getUsuarioBusiness().setCurrentUser(null))
+                            return;
                         Intent i = new Intent(MenuActivity.this,LoginActivity.class);
                         startActivity(i);
                         finish();

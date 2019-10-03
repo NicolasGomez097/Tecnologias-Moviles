@@ -11,19 +11,19 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.json.JSONObject;
 import org.moviles.activity.Adapters.ListUserAdapter;
 import org.moviles.activity.Interfaces.ListaUsuarioRecyclerViewOnItemClickListener;
 import org.moviles.activity.R;
+import org.moviles.model.Usuario;
 
 import java.util.List;
 
 public class FragmentListaUsuarios extends Fragment{
 
-    private List<JSONObject> usersList;
+    private List<Usuario> usersList;
     private ListaUsuarioRecyclerViewOnItemClickListener onClick;
 
-    public FragmentListaUsuarios(ListaUsuarioRecyclerViewOnItemClickListener onClick, List<JSONObject> lista){
+    public FragmentListaUsuarios(ListaUsuarioRecyclerViewOnItemClickListener onClick, List<Usuario> lista){
         this.onClick = onClick;
         this.usersList = lista;
     }
