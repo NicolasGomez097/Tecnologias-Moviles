@@ -1,15 +1,21 @@
 package org.moviles.activity;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,21 +25,28 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.moviles.Context;
 import org.moviles.activity.Fragments.FragmentClimaExtendido;
 import org.moviles.activity.Fragments.FragmentConfiguracion;
+import org.moviles.activity.Fragments.FragmentEditarUsuario;
 import org.moviles.activity.Fragments.FragmentHome;
 import org.moviles.activity.Fragments.FragmentMap;
 import org.moviles.model.Usuario;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
 
     private DrawerLayout drawer;
     private FrameLayout fragmentContainer;
     private TextView nombreUsuarioMenu;
     private TextView emailUsuarioMenu;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,6 +56,10 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         setTitle("Menu");
 
         fragmentContainer = findViewById(R.id.fragment_container);
+
+
+
+
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
@@ -66,10 +83,16 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         ft.replace(R.id.fragment_container,fh);
         ft.commit();
 
-
-
         toggle.syncState();
+
+
+
+
+
+
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -125,6 +148,16 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         ft.commit();
     }
 
+    private void cargarEditar(){
+        FragmentEditarUsuario  fEdit = new FragmentEditarUsuario();
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.fragment_container,fEdit);
+        ft.commit();
+
+
+    }
+
     private void cargarDetalle(){
         FragmentClimaExtendido fce = new FragmentClimaExtendido();
         FragmentManager fm = getSupportFragmentManager();
@@ -166,6 +199,9 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_config:
                 cargarConfig();
+                break;
+            case R.id.nav_edit_profile:
+                cargarEditar();
 
 
         }

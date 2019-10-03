@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.moviles.activity">
 
+    <uses-permission android:name="android.permision.CAMERA"></uses-permission>
+    <uses-permission android:name="android.permision.READ_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permision.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permision.MEDIA_CONTENT_CONTROL"></uses-permission>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

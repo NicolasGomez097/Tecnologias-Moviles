@@ -40,4 +40,10 @@
     <string name="eliminarUsuarioMensaje">¿Esta seguro de eliminar el usuario?</string>
     <string name="ACEPTAR">ACEPTAR</string>
     <string name="CANCELAR">CANCELAR</string>
+    <string name="editarPerfil">Editar Perfil</string>
+    <string name="nombre">Nombre</string>
+    <string name="ingreseNombre">Nombre</string>
+    <string name="apellido">Apellido</string>
+    <string name="ingreseApllido">Apellido</string>
+    <string name="guardar">Guardar Cambios</string>
 </resources>
