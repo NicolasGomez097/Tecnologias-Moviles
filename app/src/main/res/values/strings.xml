@@ -42,8 +42,8 @@
     <string name="CANCELAR">CANCELAR</string>
     <string name="editarPerfil">Editar Perfil</string>
     <string name="nombre">Nombre</string>
-    <string name="ingreseNombre">Ingrese su Nombre</string>
+    <string name="ingreseNombre">Nombre</string>
     <string name="apellido">Apellido</string>
-    <string name="ingreseApllido">Ingrese su Apellido</string>
+    <string name="ingreseApllido">Apellido</string>
     <string name="guardar">Guardar Cambios</string>
 </resources>
