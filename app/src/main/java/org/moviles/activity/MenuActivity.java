@@ -54,7 +54,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     private FrameLayout fragmentContainer;
     private TextView nombreUsuarioMenu;
     private TextView emailUsuarioMenu;
-    private ImageView avatar;
+    private CircleImageView avatar;
 
 
     @Override
