@@ -14,12 +14,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="@dimen/marginL">
-        <ImageView
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/avatar"
+            android:layout_gravity="center"
             android:layout_width="@dimen/logoM"
             android:layout_height="@dimen/logoM"
             android:src="@drawable/avatar"
-            android:layout_marginEnd="@dimen/marginL"/>
+            android:layout_margin="@dimen/marginL"
+            app:civ_border_width="1dp"
+            app:civ_border_color="@color/blanco"
+            />
         <TextView
             android:id="@+id/nombreUsuario"
             android:layout_width="wrap_content"

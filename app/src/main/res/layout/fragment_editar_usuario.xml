@@ -57,6 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/ingreseApllido"
+        android:inputType="textPassword"
         style="@style/inputText"/>
 
     <TextView
@@ -66,7 +67,7 @@
         style="@style/textoCentradoM"/>
 
     <EditText
-        android:id="@+id/nuevoCorreo"
+        android:id="@+id/correoPerfil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"

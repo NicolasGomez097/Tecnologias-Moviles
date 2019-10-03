@@ -1,7 +1,14 @@
 package org.moviles;
 
+import android.content.ContentResolver;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
+
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.regex.Pattern;
@@ -59,5 +66,39 @@ public class Util {
         }
 
         return true;
+    }
+
+    public static boolean saveImage(File file, Bitmap img){
+        try{
+            if(!file.exists())
+                file.getParentFile().mkdirs();
+
+            FileOutputStream fos = new FileOutputStream(file);
+            img.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            fos.close();
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static Bitmap getImage(File file){
+        if(file.exists()){
+            Bitmap bmp = BitmapFactory.decodeFile(file.getAbsolutePath());
+            return bmp;
+        }else
+            return null;
+    }
+
+    public static  Bitmap getImageFromGallery(ContentResolver c, Uri uri){
+        Bitmap bmp = null;
+        try{
+           bmp = MediaStore.Images.Media.getBitmap(c,uri);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return bmp;
     }
 }
