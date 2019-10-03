@@ -16,23 +16,23 @@
             android:id="@+id/nav_map"
             android:icon="@drawable/ic_map"
             android:title="@string/mapa" />
+        <item
+            android:id="@+id/nav_edit_profile"
+            android:icon="@drawable/ic_edit"
+            android:title="@string/editarPerfil" />
     </group>
 
     <item android:title="@string/configuracion">
-        <menu>
+    <menu android:checkableBehavior="single">
             <item
                 android:id="@+id/nav_config"
                 android:icon="@drawable/ic_setting"
                 android:title="@string/configuracion" />
-            <item
-                android:id="@+id/nav_edit_profile"
-                android:icon="@drawable/ic_edit"
-                android:title="@string/editarPerfil" />
 
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_logout"
                 android:title="@string/cerrarSesion" />
-        </menu>
+    </menu>
     </item>
 </menu>

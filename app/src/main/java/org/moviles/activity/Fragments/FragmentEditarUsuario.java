@@ -10,6 +10,9 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,8 +21,13 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-
+import org.moviles.Constants;
+import org.moviles.Context;
+import org.moviles.Util;
 import org.moviles.activity.R;
+import org.moviles.model.Usuario;
+
+import java.io.File;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -29,22 +37,58 @@ public class FragmentEditarUsuario extends Fragment {
     private static final int REQUEST_CAMERA = 1;
     private static final int SELECT_FILE = 2 ;
     private CircleImageView imgPerfil;
+    private EditText nombre;
+    private EditText correo;
+    private  File fl;
+    private Bitmap bmp;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View editarUsuarioView = inflater.inflate(R.layout.fragment_editar_usuario, container, false);
-        imgPerfil = editarUsuarioView.findViewById(R.id.profile_image);
-        FloatingActionButton fabCamera = editarUsuarioView.findViewById(R.id.floatingButtonCamera);
+        View contenedor = inflater.inflate(R.layout.fragment_editar_usuario, container, false);
+        imgPerfil = contenedor.findViewById(R.id.profile_image);
+        FloatingActionButton fabCamera = contenedor.findViewById(R.id.floatingButtonCamera);
 
-        fabCamera.setOnClickListener(new View.OnClickListener() {
-                                         @Override
-                                         public void onClick(View view) {
-                                             selectImage();
-                                         }
-                                     }
+        fabCamera.setOnClickListener(
+                new View.OnClickListener() {
+                     @Override
+                     public void onClick(View view) {
+                         selectImage();
+                     }
+                 }
         );
-        return editarUsuarioView;
+
+        Button btnGuardar = contenedor.findViewById(R.id.btnModificarUsuario);
+
+        btnGuardar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                guardarImagen();
+            }
+        });
+        nombre = contenedor.findViewById(R.id.nombrePerfil);
+        correo = contenedor.findViewById(R.id.correoPerfil);
+
+        Usuario u = Context.getUsuarioBusiness().getCurrentUser();
+        nombre.setText(u.getUsuario());
+        correo.setText(u.getEmail());
+
+        File fl = new File(Context.getDataDir(),
+                u.getUsuario()+"/"+ Constants.USER_AVATAR);
+        if(fl.exists()){
+            Bitmap bmp = Util.getImage(fl);
+            imgPerfil.setImageBitmap(bmp);
+        }
+
+        return contenedor;
+    }
+
+    private void guardarImagen(){
+
+        Util.saveImage(fl,bmp);
+        Toast toast = Toast.makeText(getActivity().getApplicationContext(),"Guardado", Toast.LENGTH_SHORT);
+        toast.show();
+
     }
 
     private void selectImage(){
@@ -83,14 +127,27 @@ public class FragmentEditarUsuario extends Fragment {
             if(requestCode==REQUEST_CAMERA){
 
                 Bundle bundle = data.getExtras();
-                final Bitmap bmp = (Bitmap) bundle.get("data");
+                bmp = (Bitmap) bundle.get("data");
+
+                Usuario u = Context.getUsuarioBusiness().getCurrentUser();
+                fl = new File(Context.getDataDir(),
+                        u.getUsuario()+"/"+ Constants.USER_AVATAR);
+                Util.saveImage(fl,bmp);
                 imgPerfil.setImageBitmap(bmp);
 
             }else if(requestCode==SELECT_FILE){
 
                 Uri selectedImageUri = data.getData();
-                imgPerfil.setImageURI(selectedImageUri);
 
+                Usuario u = Context.getUsuarioBusiness().getCurrentUser();
+
+                bmp = Util.getImageFromGallery(
+                        getActivity().getContentResolver(),selectedImageUri);
+
+                fl = new File(Context.getDataDir(),
+                        u.getUsuario()+"/"+ Constants.USER_AVATAR);
+                Util.saveImage(fl,bmp);
+                imgPerfil.setImageBitmap(bmp);
             }
 
         }

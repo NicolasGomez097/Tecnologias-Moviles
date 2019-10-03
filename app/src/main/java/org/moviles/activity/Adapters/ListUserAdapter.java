@@ -1,6 +1,7 @@
 package org.moviles.activity.Adapters;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONObject;
+import org.moviles.Constants;
+import org.moviles.Context;
+import org.moviles.Util;
 import org.moviles.activity.Interfaces.ListaUsuarioRecyclerViewOnItemClickListener;
 import org.moviles.activity.LoginActivity;
 import org.moviles.activity.LoginActivityBackup;
@@ -19,7 +23,10 @@ import org.moviles.activity.R;
 import org.moviles.activity.RegistrarUsuarioActivity;
 import org.moviles.model.Usuario;
 
+import java.io.File;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ListUserAdapter extends RecyclerView.Adapter<ListUserAdapter.ListUsuarioViewHolder> {
 
@@ -50,6 +57,16 @@ public class ListUserAdapter extends RecyclerView.Adapter<ListUserAdapter.ListUs
 
             holder.getNombreUsuario().setText(user.getUsuario());
             holder.getUsuarioEmail().setText(user.getEmail());
+
+            //Cargar imagen de perfil
+            String username = lista.get(position).getUsuario();
+            File fl = new File(Context.getDataDir(),
+                    username+"/"+ Constants.USER_AVATAR);
+            if(fl.exists()){
+                Bitmap bmp = Util.getImage(fl);
+                holder.getAvatar().setImageBitmap(bmp);
+            }
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -64,7 +81,7 @@ public class ListUserAdapter extends RecyclerView.Adapter<ListUserAdapter.ListUs
 
     public class ListUsuarioViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView avatar;
+        private CircleImageView avatar;
         private TextView nombreUsuario;
         private TextView usuarioEmail;
         private Button btnBorrar;
@@ -94,11 +111,11 @@ public class ListUserAdapter extends RecyclerView.Adapter<ListUserAdapter.ListUs
 
         }
 
-        public ImageView getAvatar() {
+        public CircleImageView getAvatar() {
             return avatar;
         }
 
-        public void setAvatar(ImageView avatar) {
+        public void setAvatar(CircleImageView avatar) {
             this.avatar = avatar;
         }
 
