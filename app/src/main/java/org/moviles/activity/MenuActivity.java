@@ -82,6 +82,13 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        if(!Context.getUsuarioBusiness().isMantenerSesion())
+            Context.getUsuarioBusiness().setCurrentUser(null);
+        super.onDestroy();
+    }
+
     private void cargarUsuario(){
         Usuario user = Context.getUsuarioBusiness().getCurrentUser();
         nombreUsuarioMenu.setText(user.getUsuario());
