@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -29,23 +31,30 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.moviles.Constants;
 import org.moviles.Context;
+import org.moviles.Util;
 import org.moviles.activity.Fragments.FragmentClimaExtendido;
 import org.moviles.activity.Fragments.FragmentConfiguracion;
 import org.moviles.activity.Fragments.FragmentEditarUsuario;
 import org.moviles.activity.Fragments.FragmentHome;
+import org.moviles.activity.Fragments.FragmentListaUsuarios;
 import org.moviles.activity.Fragments.FragmentMap;
+import org.moviles.activity.Interfaces.IFragmentEditarUsuarioListener;
 import org.moviles.model.Usuario;
+
+import java.io.File;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, IFragmentEditarUsuarioListener {
 
 
     private DrawerLayout drawer;
     private FrameLayout fragmentContainer;
     private TextView nombreUsuarioMenu;
     private TextView emailUsuarioMenu;
+    private CircleImageView avatar;
 
 
     @Override
@@ -57,14 +66,11 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
         fragmentContainer = findViewById(R.id.fragment_container);
 
-
-
-
-
         NavigationView navigationView = findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
         nombreUsuarioMenu = headerView.findViewById(R.id.nombreUsuarioMenu);
         emailUsuarioMenu = headerView.findViewById(R.id.emailUsuarioMenu);
+        avatar = headerView.findViewById(R.id.avatar);
 
         cargarUsuario();
 
@@ -85,11 +91,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
         toggle.syncState();
 
-
-
-
-
-
     }
 
 
@@ -99,6 +100,13 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         if(drawer.isDrawerOpen(GravityCompat.START)){
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            Fragment f = fragmentManager.findFragmentById(R.id.fragment_container);
+            if(!(f instanceof FragmentHome)) {
+                cargarHome();
+                return;
+            }
+
             if(!Context.getUsuarioBusiness().isMantenerSesion())
                 Context.getUsuarioBusiness().setCurrentUser(null);
             super.onBackPressed();
@@ -116,6 +124,10 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         Usuario user = Context.getUsuarioBusiness().getCurrentUser();
         nombreUsuarioMenu.setText(user.getUsuario());
         emailUsuarioMenu.setText(user.getEmail());
+
+        File img = new File(Context.getDataDir(),user.getUsuario()+"/"+ Constants.USER_AVATAR);
+        Bitmap bmp = Util.getImage(img);
+        avatar.setImageBitmap(bmp);
     }
 
     private void cerrarSesion(){
@@ -149,7 +161,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void cargarEditar(){
-        FragmentEditarUsuario  fEdit = new FragmentEditarUsuario();
+        FragmentEditarUsuario  fEdit = new FragmentEditarUsuario(this);
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.fragment_container,fEdit);
@@ -208,5 +220,10 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void cerrarFramgemntEditarUsuario() {
+        cargarHome();
     }
 }

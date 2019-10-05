@@ -22,10 +22,15 @@ public class UsuarioBusiness {
         if(!usuarioDAO.save(u))
             return false;
 
+        getListaUsuarios();
         listaUsuarios.add(u);
         setListaUsuarios(listaUsuarios);
 
         return true;
+    }
+
+    public boolean update(Usuario u){
+        return usuarioDAO.save(u);
     }
 
     public Usuario getUsuario(String username) {
@@ -73,6 +78,19 @@ public class UsuarioBusiness {
             return true;
         }
         return false;
+    }
+
+    public void changeUserNameList(String oldName,String newName){
+        boolean found = false;
+        for(Usuario u :listaUsuarios){
+            if(u.getUsuario().equals(oldName)) {
+                u.setUsuario(newName);
+                found = true;
+            }
+        }
+        if(found){
+            setListaUsuarios(listaUsuarios);
+        }
     }
 
     public boolean isMantenerSesion() {
