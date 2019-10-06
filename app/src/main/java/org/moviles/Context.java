@@ -1,11 +1,13 @@
 package org.moviles;
 
+import org.moviles.business.ConfiguracionBusiness;
 import org.moviles.business.UsuarioBusiness;
 
 import java.io.File;
 
 public class Context {
     private static UsuarioBusiness usuarioBusiness;
+    private static ConfiguracionBusiness configuracionBusiness;
     private static File dataDir;
 
     public static void setDataDir(File dir){
@@ -21,6 +23,13 @@ public class Context {
             usuarioBusiness = new UsuarioBusiness();
 
         return usuarioBusiness;
+    }
+
+    public static ConfiguracionBusiness getConfiguracionBusiness(){
+        if (configuracionBusiness == null)
+            configuracionBusiness = new ConfiguracionBusiness();
+
+        return configuracionBusiness;
     }
 
 }

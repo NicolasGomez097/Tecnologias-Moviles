@@ -11,22 +11,17 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import org.json.JSONObject;
 import org.moviles.Context;
 import org.moviles.Util;
-import org.moviles.activity.Fragments.FragmentIngresarContraseña;
+import org.moviles.activity.Fragments.FragmentIngresar;
 import org.moviles.activity.Fragments.FragmentListaUsuarios;
-import org.moviles.activity.Interfaces.ListaUsuarioRecyclerViewOnItemClickListener;
 import org.moviles.business.UsuarioBusiness;
 import org.moviles.model.Usuario;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.util.List;
 
-public class LoginActivity extends AppCompatActivity implements ListaUsuarioRecyclerViewOnItemClickListener {
+public class LoginActivity extends AppCompatActivity implements FragmentListaUsuarios.IFragmentListaUsuariosListener,
+        FragmentIngresar.IFragmentIngresarListener {
 
     private List<Usuario> usersList;
 
@@ -63,7 +58,7 @@ public class LoginActivity extends AppCompatActivity implements ListaUsuarioRecy
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         try {
-            FragmentIngresarContraseña fragmentIngresarContraseña = new FragmentIngresarContraseña(this,
+            FragmentIngresar fragmentIngresarContraseña = new FragmentIngresar(this,
                     usersList.get(position).getUsuario());
 
             fragmentTransaction.setCustomAnimations(R.anim.entrar_por_derecha,R.anim.salir_por_izquierda,R.anim.entrar_por_izquierda,R.anim.salir_por_derecha);

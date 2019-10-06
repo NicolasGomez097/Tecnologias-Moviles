@@ -11,7 +11,7 @@
         <item
             android:id="@+id/nav_extend"
             android:icon="@drawable/ic_more_details"
-            android:title="@string/masDetalles" />
+            android:title="@string/climaPorDia" />
         <item
             android:id="@+id/nav_map"
             android:icon="@drawable/ic_map"
@@ -24,6 +24,10 @@
 
     <item android:title="@string/configuracion">
     <menu android:checkableBehavior="single">
+            <item
+                android:id="@+id/nav_email"
+                android:icon="@drawable/ic_email"
+                android:title="@string/consulta" />
             <item
                 android:id="@+id/nav_config"
                 android:icon="@drawable/ic_setting"

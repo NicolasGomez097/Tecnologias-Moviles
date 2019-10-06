@@ -20,6 +20,7 @@ public class SplashActivity extends AppCompatActivity {
         Usuario aux = Context.getUsuarioBusiness().getCurrentUser();
         if(aux != null){
             Context.getUsuarioBusiness().setMantenerSesion(true);
+
             Intent i = new Intent(this, MenuActivity.class);
             startActivity(i);
             finish();

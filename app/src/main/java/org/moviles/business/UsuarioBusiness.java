@@ -1,5 +1,10 @@
 package org.moviles.business;
 
+import android.content.Context;
+
+import org.moviles.Exception.ExepcionUsuario;
+import org.moviles.Util;
+import org.moviles.activity.R;
 import org.moviles.model.Usuario;
 import org.moviles.persistance.IUsuarioDAO;
 import org.moviles.persistance.UsuarioDAO;
@@ -82,6 +87,7 @@ public class UsuarioBusiness {
 
     public void changeUserNameList(String oldName,String newName){
         boolean found = false;
+        getListaUsuarios();
         for(Usuario u :listaUsuarios){
             if(u.getUsuario().equals(oldName)) {
                 u.setUsuario(newName);
@@ -99,5 +105,36 @@ public class UsuarioBusiness {
 
     public void setMantenerSesion(boolean mantenerSesion) {
         this.mantenerSesion = mantenerSesion;
+    }
+
+    public static void checkUser(Context context, Usuario u) throws ExepcionUsuario {
+        if(u.getUsuario().length() < 5)
+            throw new ExepcionUsuario(context.getString(R.string.nombreMenor5Letras));
+
+        if(u.getUsuario().length() > 15)
+            throw new ExepcionUsuario(context.getString(R.string.nombreMayor15Letras));
+
+        if(!Util.isAlphaNumeric(u.getUsuario().toString()))
+            throw new ExepcionUsuario(context.getString(R.string.nombreNoValido));
+
+
+        if(u.getPassword().length() < 6)
+            throw new ExepcionUsuario(context.getString(R.string.contrasenaMenor6Letras));
+
+
+        if(u.getPassword().length() > 20)
+            throw new ExepcionUsuario(context.getString(R.string.contrasenaMayor20Letras));
+
+        if(!Util.isAlphaNumeric(u.getPassword().toString()))
+            throw new ExepcionUsuario(context.getString(R.string.contrasenaNoValido));
+
+
+        String[] partes = u.getEmail().split("@");
+        if(partes.length != 2)
+            throw new ExepcionUsuario(context.getString(R.string.emailIncorrecto));
+
+        if(!Util.isAlphaNumeric(partes[0].replaceAll(".",""))
+                || !Util.isAlphaNumeric(partes[1].replaceAll(".","")))
+            throw new ExepcionUsuario(context.getString(R.string.correoNoValido));
     }
 }

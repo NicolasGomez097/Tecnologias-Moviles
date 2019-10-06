@@ -23,8 +23,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.moviles.Constants;
 import org.moviles.Context;
+import org.moviles.Exception.ExepcionUsuario;
 import org.moviles.Util;
-import org.moviles.activity.Interfaces.IFragmentEditarUsuarioListener;
 import org.moviles.activity.R;
 import org.moviles.business.UsuarioBusiness;
 import org.moviles.model.Usuario;
@@ -44,6 +44,11 @@ public class FragmentEditarUsuario extends Fragment {
     private EditText password;
     private Bitmap bmp = null;
     private IFragmentEditarUsuarioListener onclick;
+
+    public interface IFragmentEditarUsuarioListener {
+        public void cerrarFramgemntEditarUsuario();
+        public void actualizarUsuario();
+    }
 
     public FragmentEditarUsuario(IFragmentEditarUsuarioListener onclick){
         this.onclick = onclick;
@@ -93,15 +98,9 @@ public class FragmentEditarUsuario extends Fragment {
     }
 
     private void guardar(){
-        UsuarioBusiness userBO = Context.getUsuarioBusiness();
-        Usuario currentUser = userBO.getCurrentUser();
+        UsuarioBusiness usuarioBO = Context.getUsuarioBusiness();
+        Usuario currentUser = usuarioBO.getCurrentUser();
 
-        if(bmp != null) {
-            File fl = new File(Context.getDataDir(),
-                    currentUser.getUsuario() + "/" + Constants.USER_AVATAR);
-
-            Util.saveImage(fl, bmp);
-        }
         Toast toast = Toast.makeText(getActivity().getApplicationContext(),"Guardado", Toast.LENGTH_SHORT);
         toast.show();
 
@@ -109,26 +108,43 @@ public class FragmentEditarUsuario extends Fragment {
         user.setUsuario(nombre.getText().toString());
         user.setPassword(password.getText().toString());
         user.setEmail(correo.getText().toString());
-        boolean valid = Util.checkUser(getActivity().getApplicationContext(),currentUser);
-
-        if(!valid)
+        try {
+            usuarioBO.checkUser(getActivity().getApplicationContext(),user);
+        }catch (ExepcionUsuario e){
+            Toast.makeText(
+                    getActivity().getApplicationContext(),
+                    e.getMessage(),
+                    Toast.LENGTH_LONG
+            ).show();
             return;
+        }
 
         if(!user.getUsuario().equals(currentUser.getUsuario())) {
 
-            if(userBO.getUsuario(user.getUsuario()) != null){
+            if(usuarioBO.getUsuario(user.getUsuario()) != null){
                 Toast.makeText(getActivity().getApplicationContext(),"El usuario ya existe", Toast.LENGTH_SHORT).show();
                 return;
             }
 
+
+
             Util.renameFile(new File(Context.getDataDir(), currentUser.getUsuario()), user.getUsuario());
-            userBO.changeUserNameList(currentUser.getUsuario(),user.getUsuario());
+            usuarioBO.changeUserNameList(currentUser.getUsuario(),user.getUsuario());
 
         }
 
-        currentUser = user;
-        userBO.update(currentUser);
+        //currentUser = user;
+        usuarioBO.setCurrentUser(user);
 
+        usuarioBO.update(user);
+        if(bmp != null) {
+            File fl = new File(Context.getDataDir(),
+                    currentUser.getUsuario() + "/" + Constants.USER_AVATAR);
+
+            Util.saveImage(fl, bmp);
+        }
+
+        onclick.actualizarUsuario();
         onclick.cerrarFramgemntEditarUsuario();
 
     }

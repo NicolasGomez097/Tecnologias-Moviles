@@ -13,19 +13,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import org.moviles.activity.Interfaces.ListaUsuarioRecyclerViewOnItemClickListener;
 import org.moviles.activity.R;
 
-public class FragmentIngresarContraseña extends Fragment{
+public class FragmentIngresar extends Fragment{
 
     private String user;
     private TextView nombreUsuario;
-    private ListaUsuarioRecyclerViewOnItemClickListener onClick;
+    private IFragmentIngresarListener onClick;
     private EditText inputPassword;
     private CheckBox mantenerSesion;
     private Button btnIngresar;
 
-    public FragmentIngresarContraseña(ListaUsuarioRecyclerViewOnItemClickListener onClick, String user){
+    public interface IFragmentIngresarListener {
+        public void onClickIngresar(String user,String password, boolean mantenerSesion);
+    }
+
+    public FragmentIngresar(IFragmentIngresarListener onClick, String user){
         this.onClick = onClick;
         this.user = user;
     }
@@ -52,6 +55,4 @@ public class FragmentIngresarContraseña extends Fragment{
 
         return contenedor;
     }
-
-
 }

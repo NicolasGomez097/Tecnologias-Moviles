@@ -1,49 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Última actualización: 04/09/2019 "
+        android:textSize="@dimen/textL"
+        android:textAlignment="center"/>
 
     <TextView
         android:id="@+id/ciudad"
+        style="@style/textoCentradoM"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/textM"
-        style="@style/textoCentradoM"
-        android:text="Córdoba"/>
-
-    <TextView
-        android:id="@+id/textoTemperatura"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/textH"
-        android:text="20 °C"
-        android:layout_margin="@dimen/marginM"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/logoL"
-        android:textSize="@dimen/textM"
-        android:text="Desejado"/>
-
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"/>
+        android:text="Córdoba"
+        android:textSize="@dimen/textM" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="@dimen/marginM">
-        
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_marginTop="@dimen/marginM">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="0.6">
+
+            <TextView
+                android:id="@+id/textoTemperatura"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/marginM"
+                android:text="20 °C"
+                android:textSize="@dimen/textH" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/logoL"
+                android:text="@string/despejado"
+                android:textSize="@dimen/textM" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/imageH"
+            android:layout_weight="0.4"
+            android:src="@drawable/soleado"/>
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        style="@style/separador"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/marginM"
+        android:orientation="vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/textM"
+            android:layout_margin="@dimen/marginL"
             android:text="Detalles"
-            android:layout_margin="@dimen/marginL"/>
-        
+            android:textSize="@dimen/textM" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,68 +95,68 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/textM"
-                    android:text="Viento"
                     android:layout_margin="@dimen/marginL"
-                    />
+                    android:text="Viento"
+                    android:textSize="@dimen/textM" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/textM"
-                    android:text="9.3 Km/h"
                     android:layout_margin="@dimen/marginL"
-                    />
+                    android:text="9.3 Km/h"
+                    android:textSize="@dimen/textM" />
 
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/marginL"
+                    android:text="Humedad"
+                    android:textSize="@dimen/textM" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/marginL"
+                    android:text="60%"
+                    android:textSize="@dimen/textM" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/textM"
-                android:text="Humedad"
-                android:layout_margin="@dimen/marginL"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/textM"
-                android:text="60%"
-                android:layout_margin="@dimen/marginL"
-                />
-
-        </LinearLayout>
-
-        </LinearLayout>
-
+            android:layout_height="1dp"
+            style="@style/separador"
+            android:layout_marginTop="@dimen/marginM"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="@dimen/marginM">
+            android:layout_marginTop="@dimen/marginM"
+            android:orientation="vertical">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/textM"
-                android:text="Descripcion"
                 android:layout_margin="@dimen/marginL"
+                android:text="Descripcion"
                 android:textAlignment="center"
-                />
+                android:textSize="@dimen/textM" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/textM"
-                android:text="Todo traqui"
                 android:layout_margin="@dimen/marginL"
-                />
+                android:text="Todo traqui"
+                android:textSize="@dimen/textM" />
 
         </LinearLayout>
 

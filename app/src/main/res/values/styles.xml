@@ -69,11 +69,22 @@
         <item name="android:layout_marginTop">@dimen/marginH</item>
     </style>
 
+    <style name="separador">
+        <item name ="android:layout_width">match_parent</item>
+        <item name ="android:layout_height">1dp</item>
+        <item name="android:background">@color/gris</item>
+    </style>
+
     <style name="textoCentradoH">
         <item name ="android:layout_width">match_parent</item>
         <item name ="android:layout_height">wrap_content</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textSize">@dimen/textH</item>
+    </style>
+
+    <style name="border">
+        <item name ="android:background">@drawable/border</item>
+        <item name="android:padding">@dimen/marginL</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

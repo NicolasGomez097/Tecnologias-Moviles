@@ -10,15 +10,12 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.json.JSONObject;
 import org.moviles.Context;
-import org.moviles.Util;
+import org.moviles.Exception.ExepcionUsuario;
+import org.moviles.business.ConfiguracionBusiness;
 import org.moviles.business.UsuarioBusiness;
+import org.moviles.model.Configuracion;
 import org.moviles.model.Usuario;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.util.List;
 
 public class RegistrarUsuarioActivity extends AppCompatActivity {
 
@@ -51,10 +48,13 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
         u.setUsuario(nuevoUsuario.getText().toString());
         u.setPassword(nuevaPassword.getText().toString());
         u.setEmail(nuevoCorreo.getText().toString());
-        boolean valid = Util.checkUser(getApplicationContext(),u);
-
-        if(!valid)
+        UsuarioBusiness ususarioBO = Context.getUsuarioBusiness();
+        try {
+            ususarioBO.checkUser(getApplicationContext(),u);
+        }catch (ExepcionUsuario e){
+            Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
             return;
+        }
 
         UsuarioBusiness userBO = Context.getUsuarioBusiness();
         if(userBO.getUsuario(nuevoUsuario.getText().toString()) != null){
@@ -62,7 +62,14 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
             return;
         }
 
-        valid = userBO.save(u);
+        boolean valid = userBO.save(u);
+
+        if(valid){
+            ConfiguracionBusiness cBO = Context.getConfiguracionBusiness();
+            Configuracion conf = new Configuracion();
+            valid = cBO.save(conf,u.getUsuario());
+        }
+
 
         if(valid)
             Toast.makeText(v.getContext(),"Se creo correctamente", Toast.LENGTH_SHORT).show();

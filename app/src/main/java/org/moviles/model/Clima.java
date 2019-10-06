@@ -7,6 +7,8 @@ public class Clima {
     private Integer anio;
     private String descripcion;
     private Double temperatura;
+    private Double tempMaxima;
+    private Double tempMinima;
     private Integer humedad;
     private String condicion;
     private String viento;
@@ -81,5 +83,21 @@ public class Clima {
 
     public void setDiaNumero(Integer diaNumero) {
         this.diaNumero = diaNumero;
+    }
+
+    public Double getTempMaxima() {
+        return tempMaxima;
+    }
+
+    public void setTempMaxima(Double tempMaxima) {
+        this.tempMaxima = tempMaxima;
+    }
+
+    public Double getTempMinima() {
+        return tempMinima;
+    }
+
+    public void setTempMinima(Double tempMinima) {
+        this.tempMinima = tempMinima;
     }
 }

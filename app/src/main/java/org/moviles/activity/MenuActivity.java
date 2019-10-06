@@ -1,22 +1,17 @@
 package org.moviles.activity;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,9 +22,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
 import org.moviles.Constants;
 import org.moviles.Context;
@@ -38,16 +31,18 @@ import org.moviles.activity.Fragments.FragmentClimaExtendido;
 import org.moviles.activity.Fragments.FragmentConfiguracion;
 import org.moviles.activity.Fragments.FragmentEditarUsuario;
 import org.moviles.activity.Fragments.FragmentHome;
-import org.moviles.activity.Fragments.FragmentListaUsuarios;
 import org.moviles.activity.Fragments.FragmentMap;
-import org.moviles.activity.Interfaces.IFragmentEditarUsuarioListener;
+import org.moviles.business.ConfiguracionBusiness;
+import org.moviles.model.Configuracion;
 import org.moviles.model.Usuario;
 
 import java.io.File;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, IFragmentEditarUsuarioListener {
+public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
+        FragmentEditarUsuario.IFragmentEditarUsuarioListener,
+        FragmentConfiguracion.IFragmentConfiguracionListener{
 
 
     private DrawerLayout drawer;
@@ -187,11 +182,24 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void cargarConfig(){
-        FragmentConfiguracion fconf = new FragmentConfiguracion();
+        FragmentConfiguracion fconf = new FragmentConfiguracion(this);
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.fragment_container,fconf);
         ft.commit();
+    }
+
+    private void mandarEmail() {
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("message/rfc822");
+        i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"ngomez057@alumnos.iua.edu.ar"});
+        i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.consulta));
+        i.putExtra(Intent.EXTRA_TEXT   , getString(R.string.ingreseConsulta));
+        try {
+            startActivity(Intent.createChooser(i, getString(R.string.enviando)));
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(getApplicationContext(), getString(R.string.noClienteEmail), Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -209,6 +217,9 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_extend:
                 cargarDetalle();
                 break;
+            case R.id.nav_email:
+                mandarEmail();
+                break;
             case R.id.nav_config:
                 cargarConfig();
                 break;
@@ -225,5 +236,25 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void cerrarFramgemntEditarUsuario() {
         cargarHome();
+    }
+
+    @Override
+    public void guardarConfiguracionClick(Configuracion conf) {
+        ConfiguracionBusiness cBO = Context.getConfiguracionBusiness();
+        String username = Context.getUsuarioBusiness().getCurrentUser().getUsuario();
+        boolean valid = cBO.save(conf,username);
+        cargarHome();
+        String msg;
+        if(valid)
+            msg = getString(R.string.confGuardada);
+        else
+            msg = getString(R.string.confErroGuardado);
+
+        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void actualizarUsuario() {
+        cargarUsuario();
     }
 }

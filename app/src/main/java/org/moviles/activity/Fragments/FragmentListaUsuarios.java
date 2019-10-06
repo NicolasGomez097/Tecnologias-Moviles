@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.moviles.activity.Adapters.ListUserAdapter;
-import org.moviles.activity.Interfaces.ListaUsuarioRecyclerViewOnItemClickListener;
 import org.moviles.activity.R;
 import org.moviles.model.Usuario;
 
@@ -21,11 +20,16 @@ import java.util.List;
 public class FragmentListaUsuarios extends Fragment{
 
     private List<Usuario> usersList;
-    private ListaUsuarioRecyclerViewOnItemClickListener onClick;
+    private IFragmentListaUsuariosListener onClick;
 
-    public FragmentListaUsuarios(ListaUsuarioRecyclerViewOnItemClickListener onClick, List<Usuario> lista){
+    public FragmentListaUsuarios(IFragmentListaUsuariosListener onClick, List<Usuario> lista){
         this.onClick = onClick;
         this.usersList = lista;
+    }
+
+    public interface IFragmentListaUsuariosListener {
+        public void onClickItem(int position);
+        public void onClickDelete(int position);
     }
 
 

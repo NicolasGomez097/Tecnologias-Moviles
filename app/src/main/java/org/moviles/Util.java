@@ -113,45 +113,6 @@ public class Util {
         return bmp;
     }
 
-    public static boolean checkUser(Context context, Usuario u){
-        if(u.getUsuario().length() < 5){
-            Toast.makeText(context, R.string.nombreMenor5Letras,Toast.LENGTH_LONG).show();
-            return false;
-        }
-        if(u.getUsuario().length() > 15){
-            Toast.makeText(context,R.string.nombreMayor15Letras,Toast.LENGTH_LONG).show();
-            return false;
-        }
-        if(!Util.isAlphaNumeric(u.getUsuario().toString())){
-            Toast.makeText(context,R.string.nombreNoValido,Toast.LENGTH_LONG).show();
-            return false;
-        }
 
-        if(u.getPassword().length() < 6){
-            Toast.makeText(context,R.string.contrasenaMenor6Letras,Toast.LENGTH_LONG).show();
-            return false;
-        }
-        if(u.getPassword().length() > 20){
-            Toast.makeText(context,R.string.contrasenaMayor20Letras,Toast.LENGTH_LONG).show();
-            return false;
-        }
-        if(!Util.isAlphaNumeric(u.getPassword().toString())){
-            Toast.makeText(context,R.string.contrasenaNoValido,Toast.LENGTH_LONG).show();
-            return false;
-        }
-
-        String[] partes = u.getEmail().split("@");
-        if(partes.length != 2){
-            Toast.makeText(context,R.string.emailIncorrecto,Toast.LENGTH_LONG).show();
-            return false;
-        }
-        if(!Util.isAlphaNumeric(partes[0].replaceAll(".",""))
-                || !Util.isAlphaNumeric(partes[1].replaceAll(".",""))){
-            Toast.makeText(context,R.string.correoNoValido,Toast.LENGTH_LONG).show();
-            return false;
-        }
-
-        return true;
-    }
 
 }

@@ -13,4 +13,7 @@ Carpeta de usuario
 
 Datos de usuario
 /{nombre de usuario}/datos.txt
-{usuario,contrasena,email}
+
+Configuración del usuario
+/{nombre de usuario}/config.txt
+
