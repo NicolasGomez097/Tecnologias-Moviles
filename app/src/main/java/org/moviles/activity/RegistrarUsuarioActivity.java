@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.moviles.Context;
-import org.moviles.Exception.ExepcionUsuario;
+import org.moviles.exception.ExepcionUsuario;
 import org.moviles.business.ConfiguracionBusiness;
 import org.moviles.business.UsuarioBusiness;
 import org.moviles.model.Configuracion;

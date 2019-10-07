@@ -23,7 +23,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.moviles.Constants;
 import org.moviles.Context;
-import org.moviles.Exception.ExepcionUsuario;
+import org.moviles.exception.ExepcionUsuario;
 import org.moviles.Util;
 import org.moviles.activity.R;
 import org.moviles.business.UsuarioBusiness;
@@ -195,7 +195,6 @@ public class FragmentEditarUsuario extends Fragment {
 
                 bmp = Util.getImageFromGallery(
                         getActivity().getContentResolver(),selectedImageUri);
-
 
                 imgPerfil.setImageBitmap(bmp);
             }
