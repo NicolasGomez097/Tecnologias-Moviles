@@ -135,7 +135,7 @@ public class FragmentConfiguracion extends Fragment {
             contenedorNotificacion.setScaleY(0);
 
             contenedorNotificacion.animate().scaleY(1);
-            contenedorNotificacion.animate().setDuration(500);
+            contenedorNotificacion.animate().setDuration(250);
 
             /*
             Animation slide_up = AnimationUtils.loadAnimation(getActivity().getApplicationContext(),
@@ -146,7 +146,7 @@ public class FragmentConfiguracion extends Fragment {
             contenedorNotificacion.setScaleY(1);
 
             contenedorNotificacion.animate().scaleY(0);
-            contenedorNotificacion.animate().setDuration(500);
+            contenedorNotificacion.animate().setDuration(250);
 
             contenedorNotificacion.setVisibility(View.GONE);
             /*Animation slide_down = AnimationUtils.loadAnimation(getActivity().getApplicationContext(),

@@ -1,4 +1,4 @@
-package org.moviles.Exception;
+package org.moviles.exception;
 
 public class ExepcionUsuario extends Exception {
 
