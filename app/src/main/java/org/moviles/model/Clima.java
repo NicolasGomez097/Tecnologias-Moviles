@@ -1,17 +1,53 @@
 package org.moviles.model;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "clima")
 public class Clima {
+
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    private Integer id;
+
+    @NonNull
     private String dia;
+
+    @NonNull
     private Integer diaNumero;
+
+    @NonNull
     private String mes;
+
+    @NonNull
     private Integer anio;
+
+    @NonNull
     private String descripcion;
+
     private Double temperatura;
+
     private Double tempMaxima;
+
     private Double tempMinima;
+
+    @NonNull
     private Integer humedad;
+
+    @NonNull
     private String condicion;
+
+    @NonNull
     private String viento;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(@NonNull Integer id) {
+        this.id = id;
+    }
 
     public String getDia() {
         return dia;

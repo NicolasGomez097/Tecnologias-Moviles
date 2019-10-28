@@ -18,6 +18,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginM"
+                android:text="@string/UnidadTemp"
+                android:textAlignment="center"
+                android:textSize="@dimen/textM" />
+
+            <RadioGroup
+                android:id="@+id/grupoRadioUnidadTemp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/marginM"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <RadioButton
+                    android:id="@+id/radioTempC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="@string/gradoC" />
+
+                <RadioButton
+                    android:id="@+id/radioTempF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/gradoF" />
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/marginM"
                 android:text="@string/unidades"
                 android:textAlignment="center"
                 android:textSize="@dimen/textM" />

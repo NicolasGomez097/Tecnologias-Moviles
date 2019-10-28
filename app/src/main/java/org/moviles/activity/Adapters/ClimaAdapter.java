@@ -9,16 +9,19 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.moviles.Constants;
 import org.moviles.activity.R;
 import org.moviles.model.Clima;
+import org.moviles.model.Configuracion;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ClimaAdapter extends RecyclerView.Adapter<ClimaAdapter.ClimaViewHolder>{
 
     private List<Clima> climaList;
     private Context contexto;
+    private String unidadTemp;
+    private String unidadViento;
 
     public ClimaAdapter(List<Clima> climas) {
         climaList = climas;
@@ -28,19 +31,38 @@ public class ClimaAdapter extends RecyclerView.Adapter<ClimaAdapter.ClimaViewHol
     public ClimaViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View row = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_clima_dia, parent, false);
         contexto = parent.getContext();
+
+        Configuracion conf = org.moviles.Context.getConfiguracionBusiness().getConfiguracion(
+                org.moviles.Context.getUsuarioBusiness().getCurrentUser().getUsuario());
+
+        if(conf.getUnidadTemp().equals(Constants.UNIDAD_C))
+            unidadTemp = Constants.UNIDAD_C;
+        else
+            unidadTemp = Constants.UNIDAD_F;
+
+        if(conf.getUnidad().equals(Constants.UNIDAD_IMPERIAL))
+            unidadViento = Constants.VELOCIDAD_MILLA;
+        else
+            unidadViento = Constants.VELOCIDAD_KM;
+
         return new ClimaViewHolder(row);
     }
 
     @Override
     public void onBindViewHolder(ClimaViewHolder holder, int position) {
+
+
+
+
+
         Clima aux = climaList.get(position);
         holder.getDia().setText(aux.getDia());
         holder.getFecha().setText(aux.getDiaNumero()+" de "+aux.getMes() + " de " + aux.getAnio());
         holder.getDiaCondicion().setText(aux.getCondicion());
         holder.getDiaHumedad().setText(aux.getHumedad().toString() + "%");
-        holder.getDiaTempMax().setText(aux.getTempMaxima().toString()+" ºC");
-        holder.getDiaTempMin().setText(aux.getTempMinima().toString()+" ºC");
-        holder.getDiaViento().setText(aux.getViento());
+        holder.getDiaTempMax().setText(aux.getTempMaxima().toString()+" "+unidadTemp);
+        holder.getDiaTempMin().setText(aux.getTempMinima().toString()+" "+unidadTemp);
+        holder.getDiaViento().setText(aux.getViento() + " " + unidadViento);
         holder.getDiaDescripcion().setText(aux.getDescripcion());
 
         if(aux.getCondicion().equals(contexto.getString(R.string.despejado)))

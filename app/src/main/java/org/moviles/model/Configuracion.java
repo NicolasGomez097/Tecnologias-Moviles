@@ -4,11 +4,13 @@ import org.moviles.Constants;
 
 public class Configuracion {
     private String unidad;
+    private String unidadTemp;
     private boolean notificaciones;
     private String dias;
     private String hora;
 
     public Configuracion(){
+        unidadTemp = Constants.UNIDAD_C;
         unidad = Constants.UNIDAD_METRICA;
         notificaciones = false;
     }
@@ -43,5 +45,13 @@ public class Configuracion {
 
     public void setHora(String hora) {
         this.hora = hora;
+    }
+
+    public String getUnidadTemp() {
+        return unidadTemp;
+    }
+
+    public void setUnidadTemp(String unidadTemp) {
+        this.unidadTemp = unidadTemp;
     }
 }

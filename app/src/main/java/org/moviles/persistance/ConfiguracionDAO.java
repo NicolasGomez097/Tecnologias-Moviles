@@ -39,6 +39,7 @@ public class ConfiguracionDAO implements IConfiguracionDAO {
             conf = new Configuracion();
             conf.setUnidad(json.getString("unidad"));
             conf.setNotificaciones(json.getBoolean("notificacacion"));
+            conf.setUnidadTemp(json.getString("unidadTemp"));
             if(conf.isNotificaciones()){
                 conf.setDias(json.getString("dias"));
                 conf.setHora(json.getString("hora"));
@@ -55,6 +56,7 @@ public class ConfiguracionDAO implements IConfiguracionDAO {
             JSONObject json = new JSONObject();
             json.put("unidad",conf.getUnidad());
             json.put("notificacacion",conf.isNotificaciones());
+            json.put("unidadTemp",conf.getUnidadTemp());
             if(conf.isNotificaciones()){
                 json.put("dias",conf.getDias());
                 json.put("hora",conf.getHora());

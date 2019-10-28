@@ -25,6 +25,8 @@ public class FragmentConfiguracion extends Fragment {
 
     private RadioButton radioMetrica;
     private RadioButton radioImperial;
+    private RadioButton radioTempC;
+    private RadioButton radioTempF;
     private Switch switch_notificaicon;
     private LinearLayout contenedorNotificacion;
     private CheckBox ckLunes;
@@ -54,6 +56,8 @@ public class FragmentConfiguracion extends Fragment {
 
         radioMetrica = contenedor.findViewById(R.id.radioMetrica);
         radioImperial = contenedor.findViewById(R.id.radioImperial);
+        radioTempC = contenedor.findViewById(R.id.radioTempC);
+        radioTempF = contenedor.findViewById(R.id.radioTempF);
         switch_notificaicon = contenedor.findViewById(R.id.switch_notificaicon);
         contenedorNotificacion = contenedor.findViewById(R.id.contenedorNotificacion);
 
@@ -92,6 +96,11 @@ public class FragmentConfiguracion extends Fragment {
         String username = Context.getUsuarioBusiness().getCurrentUser().getUsuario();
 
         Configuracion conf = cBO.getConfiguracion(username);
+
+        if(conf.getUnidadTemp().equals(Constants.UNIDAD_C))
+            radioTempC.setChecked(true);
+        else
+            radioTempF.setChecked(true);
 
         if(conf.getUnidad().equals(Constants.UNIDAD_METRICA))
             radioMetrica.setChecked(true);
@@ -159,6 +168,11 @@ public class FragmentConfiguracion extends Fragment {
     private void guardarConfiguracion(){
         Configuracion conf = new Configuracion();
 
+        if(radioTempC.isChecked())
+            conf.setUnidadTemp(Constants.UNIDAD_C);
+        else
+            conf.setUnidadTemp(Constants.UNIDAD_F);
+
         if(radioMetrica.isChecked())
             conf.setUnidad(Constants.UNIDAD_METRICA);
         else
@@ -182,9 +196,9 @@ public class FragmentConfiguracion extends Fragment {
             if(ckSabado.isChecked())
                 aux += "Sab,";
             if(ckDomingo.isChecked())
-                aux += "Dom,";
+                aux += "Dom";
 
-            if(aux.length() > 1)
+            if(aux.endsWith(","))
                 aux = aux.substring(0, aux.length()-1);
 
             conf.setDias(aux);
