@@ -74,4 +74,5 @@
     <string name="UnidadTemp">Unidad Temperatura</string>
     <string name="gradoC">°C</string>
     <string name="gradoF">°F</string>
+    <string name="Ciudad">Ciudad</string>
 </resources>

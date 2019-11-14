@@ -1,14 +1,17 @@
 package org.moviles.activity.Fragments;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
@@ -17,9 +20,13 @@ import androidx.fragment.app.Fragment;
 
 import org.moviles.Constants;
 import org.moviles.Context;
+import org.moviles.Util;
 import org.moviles.activity.R;
 import org.moviles.business.ConfiguracionBusiness;
+import org.moviles.model.Ciudad;
 import org.moviles.model.Configuracion;
+
+import java.util.List;
 
 public class FragmentConfiguracion extends Fragment {
 
@@ -38,6 +45,12 @@ public class FragmentConfiguracion extends Fragment {
     private CheckBox ckDomingo;
     private TimePicker hora;
     private Button btnGuardar;
+
+
+    private Button btnTest;
+    private EditText ciudadText;
+    private TextView showResponse;
+
     private IFragmentConfiguracionListener onClick;
 
 
@@ -72,10 +85,20 @@ public class FragmentConfiguracion extends Fragment {
         hora = contenedor.findViewById(R.id.horaNotificacion);
         btnGuardar = contenedor.findViewById(R.id.btnGuardar);
 
+        btnTest = contenedor.findViewById(R.id.btnGetRequest);
+        ciudadText = contenedor.findViewById(R.id.ciudadInput);
+        showResponse = contenedor.findViewById(R.id.textPrueba);
+
         btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 guardarConfiguracion();
+            }
+        });
+        btnTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getHttp();
             }
         });
 
@@ -136,6 +159,10 @@ public class FragmentConfiguracion extends Fragment {
             contenedorNotificacion.setVisibility(View.GONE);
         }
 
+    }
+
+    private void getHttp(){
+        new getHttp().execute(ciudadText.getText().toString());
     }
 
     private void cambiarEstadoContenedorNotificacion(){
@@ -207,5 +234,23 @@ public class FragmentConfiguracion extends Fragment {
         }
 
         onClick.guardarConfiguracionClick(conf);
+    }
+
+    private class getHttp extends AsyncTask<String,Void,List<Ciudad>>{
+        @Override
+        protected List<Ciudad> doInBackground(String... strings) {
+            String ciudad = strings[0];
+            List<Ciudad> list = Context.getCiudadBusiness().getCiudadLike(getActivity().getApplicationContext(),ciudad);
+            return list;
+        }
+
+        @Override
+        protected void onPostExecute(List<Ciudad> ciudades) {
+            if(ciudades == null)
+                return;
+            for(Ciudad c:ciudades){
+                showResponse.setText(showResponse.getText()+c.getName()+",");
+            }
+        }
     }
 }

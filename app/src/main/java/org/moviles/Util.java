@@ -4,19 +4,28 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.widget.Toast;
 
-import org.moviles.activity.R;
-import org.moviles.business.UsuarioBusiness;
-import org.moviles.model.Usuario;
+import androidx.core.content.ContextCompat;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.regex.Pattern;
 
 public class Util {
@@ -49,12 +58,8 @@ public class Util {
         String out = "";
         String line;
         try {
-            BufferedReader bf = new BufferedReader(new FileReader(file));
-            while ((line=bf.readLine())!= null){
-                out += line + "\n";
-            }
+            out = convertStreamToString(new FileInputStream(file));
             out = out.substring(0,out.length()-1);
-            bf.close();
         }catch (Exception e){
             e.printStackTrace();
             return "";
@@ -111,6 +116,39 @@ public class Util {
         }
 
         return bmp;
+    }
+
+    private static String convertStreamToString(InputStream inputStream) {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        StringBuilder stringBuilder = new StringBuilder();
+        String line;
+        try {
+            while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line).append('\n');
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return stringBuilder.toString();
+    }
+
+    public static String GetHttp(Context context,String urlGet) throws NotConnectedExeption{
+        ConnectivityManager connectivityManager = (ConnectivityManager)
+                context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo(); //2
+        if(networkInfo == null || !networkInfo.isConnected())
+            throw new NotConnectedExeption();
+        try{
+            URL url = new URL(urlGet);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            InputStream inputStream = new BufferedInputStream(connection.getInputStream());
+            String res = convertStreamToString(inputStream);
+            return res;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
 
