@@ -15,6 +15,7 @@ public class Context {
     private static ClimaBusiness climaBusiness;
     private static CiudadBusiness ciudadBusiness;
     private static File dataDir;
+    private static android.content.Context context;
 
 
     public static void setDataDir(File dir){
@@ -51,6 +52,14 @@ public class Context {
             ciudadBusiness = new CiudadBusiness();
 
         return ciudadBusiness;
+    }
+
+    public static void setContext(android.content.Context c){
+        context = c;
+    }
+
+    public static android.content.Context getStringContext(){
+        return context;
     }
 
 }

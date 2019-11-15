@@ -51,19 +51,15 @@ public class ClimaAdapter extends RecyclerView.Adapter<ClimaAdapter.ClimaViewHol
     @Override
     public void onBindViewHolder(ClimaViewHolder holder, int position) {
 
-
-
-
-
         Clima aux = climaList.get(position);
-        //holder.getDia().setText(aux.getDia());
-        //holder.getFecha().setText(aux.getDiaNumero()+" de "+aux.getMes() + " de " + aux.getAnio());
+        holder.getDia().setText(aux.getDia());
+        holder.getFecha().setText(aux.getDia()+" de "+aux.getMes() + " de " + aux.getAnio());
         holder.getDiaCondicion().setText(aux.getCondicion());
         holder.getDiaHumedad().setText(aux.getHumedad().toString() + "%");
         holder.getDiaTempMax().setText(aux.getTempMaxima().toString()+" "+unidadTemp);
         holder.getDiaTempMin().setText(aux.getTempMinima().toString()+" "+unidadTemp);
         holder.getDiaViento().setText(aux.getViento() + " " + unidadViento);
-        holder.getDiaDescripcion().setText(aux.getDescription());
+        holder.getDiaDescripcion().setText(aux.getDescripcion());
 
         if(aux.getCondicion().equals(contexto.getString(R.string.despejado)))
             holder.getImg().setImageResource(R.drawable.soleado);

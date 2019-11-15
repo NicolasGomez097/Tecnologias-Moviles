@@ -11,6 +11,7 @@ import org.moviles.NotConnectedExeption;
 import org.moviles.Util;
 import org.moviles.model.Ciudad;
 import org.moviles.model.Clima;
+import org.moviles.model.dto.ClimaDTO;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -18,7 +19,11 @@ import java.util.concurrent.ExecutionException;
 
 public class ClimaRepository {
     private ClimaDAO climaDAO;
-    private final String apiKey = "b4398f533661e8496cc708daa69e3ac8";
+    private final String apiKey = "&APPID=b4398f533661e8496cc708daa69e3ac8";
+    private final String webURL = "http://api.openweathermap.org/data/2.5";
+    private final String URLConf = "&units=metric&lang=es";
+    private final String URLEnd = apiKey + URLConf;
+
 
     public ClimaRepository(Application application) {
         Database database = Database.getDatabase(application.getApplicationContext());
@@ -26,12 +31,12 @@ public class ClimaRepository {
     }
 
     public Clima getClimaAcual(Context context, Ciudad c){
-        String url = "http://api.openweathermap.org/data/2.5/weather?units=metric&lang=es&id="+c.getId()+ getApiKeyURL();
+        String url = webURL+"/weather?id="+c.getId()+ URLEnd;
         try{
             String res = Util.GetHttp(context,url);
             Gson gson = new Gson();
-            Clima clima = gson.fromJson(res,Clima.class);
-            return clima;
+            ClimaDTO clima = gson.fromJson(res,ClimaDTO.class);
+            return clima.getClima();
         }catch (NotConnectedExeption e){
             List<Clima> list = ObtenerListaClima();
             if(list != null && list.size() >= 1)
@@ -111,7 +116,4 @@ public class ClimaRepository {
         }
     }
 
-    private String getApiKeyURL(){
-        return "&APPID="+apiKey;
-    }
 }

@@ -16,11 +16,17 @@ import org.moviles.activity.R;
 import org.moviles.model.Ciudad;
 import org.moviles.model.Clima;
 import org.moviles.model.Configuracion;
+import org.w3c.dom.Text;
 
 public class FragmentHome extends Fragment {
 
     private TextView txt_ciudad;
     private TextView txt_temp;
+    private TextView txt_condicion;
+    private TextView txt_humedad;
+    private TextView txt_descripcion;
+    private TextView txt_viento;
+    private TextView txt_actualizacion;
 
     @Nullable
     @Override
@@ -28,7 +34,12 @@ public class FragmentHome extends Fragment {
         View contenedor = inflater.inflate(R.layout.fragment_home,container,false);
 
         txt_ciudad = contenedor.findViewById(R.id.txt_ciudad);
-
+        txt_temp = contenedor.findViewById(R.id.txt_temperatura);
+        txt_condicion = contenedor.findViewById(R.id.txt_condicion);
+        txt_humedad = contenedor.findViewById(R.id.txt_humedad);
+        txt_descripcion = contenedor.findViewById(R.id.txt_descripcion);
+        txt_viento = contenedor.findViewById(R.id.txt_viento);
+        txt_actualizacion = contenedor.findViewById(R.id.txt_actualizacion);
         cargarHome();
 
         return contenedor;
@@ -58,7 +69,12 @@ public class FragmentHome extends Fragment {
 
         @Override
         protected void onPostExecute(Clima clima) {
-            super.onPostExecute(clima);
+            txt_temp.setText(clima.getTemperatura()+"ºC");
+            txt_condicion.setText(clima.getCondicion());
+            txt_humedad.setText(clima.getHumedad()+"%");
+            txt_descripcion.setText(clima.getDescripcion());
+            txt_viento.setText(clima.getViento());
+            txt_actualizacion.setText(clima.getFechaNumeros());
         }
     }
 }

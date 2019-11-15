@@ -3,19 +3,28 @@ package org.moviles.model;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverter;
-
-import java.util.Date;
 
 @Entity(tableName = "clima")
 public class Clima {
 
     @PrimaryKey(autoGenerate = true)
     @NonNull
-    private Integer clave;
+    private Integer id;
 
     @NonNull
-    private String description;
+    private Integer dia;
+
+    @NonNull
+    private String mes;
+
+    @NonNull
+    private Integer anio;
+
+    @NonNull
+    private String fechaNumeros;
+
+    @NonNull
+    private String descripcion;
 
     private Double temperatura;
 
@@ -23,10 +32,8 @@ public class Clima {
 
     private Double tempMinima;
 
-    private Long dt;
-
     @NonNull
-    private Integer humedad;
+    private Double humedad;
 
     @NonNull
     private String condicion;
@@ -34,29 +41,44 @@ public class Clima {
     @NonNull
     private String viento;
 
-    @NonNull
-    public Integer getClave() {
-        return clave;
+    public Integer getId() {
+        return id;
     }
 
-    public void setClave(@NonNull Integer clave) {
-        this.clave = clave;
+    public void setId(@NonNull Integer id) {
+        this.id = id;
     }
 
-    public Long getDt() {
-        return dt;
+    public Integer getDia() {
+        return dia;
     }
 
-    public void setDt(Long dt) {
-        this.dt = dt;
+    public void setDia(Integer dia) {
+        this.dia = dia;
     }
 
-    public String getDescription() {
-        return description;
+    public String getMes() {
+        return mes;
     }
 
-    public void setDescription(String descripcion) {
-        this.description = descripcion;
+    public void setMes(String mes) {
+        this.mes = mes;
+    }
+
+    public Integer getAnio() {
+        return anio;
+    }
+
+    public void setAnio(Integer anio) {
+        this.anio = anio;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public Double getTemperatura() {
@@ -67,11 +89,11 @@ public class Clima {
         this.temperatura = temperatura;
     }
 
-    public Integer getHumedad() {
+    public Double getHumedad() {
         return humedad;
     }
 
-    public void setHumedad(Integer humedad) {
+    public void setHumedad(Double humedad) {
         this.humedad = humedad;
     }
 
@@ -105,5 +127,14 @@ public class Clima {
 
     public void setTempMinima(Double tempMinima) {
         this.tempMinima = tempMinima;
+    }
+
+    @NonNull
+    public String getFechaNumeros() {
+        return fechaNumeros;
+    }
+
+    public void setFechaNumeros(@NonNull String fechaNumeros) {
+        this.fechaNumeros = fechaNumeros;
     }
 }

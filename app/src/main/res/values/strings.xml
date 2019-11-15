@@ -79,4 +79,16 @@
     <string name="Buscar">Buscar</string>
     <string name="SinUbicacion">Sin ubicación</string>
     <string name="SinDatos">Sin datos</string>
+    <string name="Enero">Enero</string>
+    <string name="Febrero">Febrero</string>
+    <string name="Marzo">Marzo</string>
+    <string name="Abril">Abril</string>
+    <string name="Mayo">Mayo</string>
+    <string name="Junio">Junio</string>
+    <string name="Julio">Julio</string>
+    <string name="Agosto">Agosto</string>
+    <string name="Septiembre">Septiembre</string>
+    <string name="Octubre">Octubre</string>
+    <string name="Noviembre">Noviembre</string>
+    <string name="Diciembre">Diciembre</string>
 </resources>
