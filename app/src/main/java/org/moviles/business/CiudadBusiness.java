@@ -30,6 +30,5 @@ public class CiudadBusiness {
             e.printStackTrace();
             return null;
         }
-
     }
 }

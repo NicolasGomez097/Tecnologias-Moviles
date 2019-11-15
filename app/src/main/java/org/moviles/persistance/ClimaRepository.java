@@ -1,19 +1,43 @@
 package org.moviles.persistance;
 
 import android.app.Application;
+import android.content.Context;
 import android.os.AsyncTask;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.moviles.NotConnectedExeption;
+import org.moviles.Util;
+import org.moviles.model.Ciudad;
 import org.moviles.model.Clima;
 
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class ClimaRepository {
     private ClimaDAO climaDAO;
+    private final String apiKey = "b4398f533661e8496cc708daa69e3ac8";
 
     public ClimaRepository(Application application) {
         Database database = Database.getDatabase(application.getApplicationContext());
         climaDAO = database.climaDAO();
+    }
+
+    public Clima getClimaAcual(Context context, Ciudad c){
+        String url = "http://api.openweathermap.org/data/2.5/weather?units=metric&lang=es&id="+c.getId()+ getApiKeyURL();
+        try{
+            String res = Util.GetHttp(context,url);
+            Gson gson = new Gson();
+            Clima clima = gson.fromJson(res,Clima.class);
+            return clima;
+        }catch (NotConnectedExeption e){
+            List<Clima> list = ObtenerListaClima();
+            if(list != null && list.size() >= 1)
+                return list.get(0);
+            return ObtenerListaClima().get(0);
+        }
     }
 
     public List<Clima> ObtenerListaClima() {
@@ -85,5 +109,9 @@ public class ClimaRepository {
             asyncTaskClimaDao.limpiarDB();
             return null;
         }
+    }
+
+    private String getApiKeyURL(){
+        return "&APPID="+apiKey;
     }
 }

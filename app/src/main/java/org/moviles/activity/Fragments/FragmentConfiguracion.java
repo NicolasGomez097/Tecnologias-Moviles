@@ -46,11 +46,6 @@ public class FragmentConfiguracion extends Fragment {
     private TimePicker hora;
     private Button btnGuardar;
 
-
-    private Button btnTest;
-    private EditText ciudadText;
-    private TextView showResponse;
-
     private IFragmentConfiguracionListener onClick;
 
 
@@ -85,20 +80,12 @@ public class FragmentConfiguracion extends Fragment {
         hora = contenedor.findViewById(R.id.horaNotificacion);
         btnGuardar = contenedor.findViewById(R.id.btnGuardar);
 
-        btnTest = contenedor.findViewById(R.id.btnGetRequest);
-        ciudadText = contenedor.findViewById(R.id.ciudadInput);
-        showResponse = contenedor.findViewById(R.id.textPrueba);
+
 
         btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 guardarConfiguracion();
-            }
-        });
-        btnTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getHttp();
             }
         });
 
@@ -161,10 +148,6 @@ public class FragmentConfiguracion extends Fragment {
 
     }
 
-    private void getHttp(){
-        new getHttp().execute(ciudadText.getText().toString());
-    }
-
     private void cambiarEstadoContenedorNotificacion(){
         if(switch_notificaicon.isChecked()){
             contenedorNotificacion.setVisibility(View.VISIBLE);
@@ -172,12 +155,6 @@ public class FragmentConfiguracion extends Fragment {
 
             contenedorNotificacion.animate().scaleY(1);
             contenedorNotificacion.animate().setDuration(250);
-
-            /*
-            Animation slide_up = AnimationUtils.loadAnimation(getActivity().getApplicationContext(),
-                    R.anim.slide_down);
-            contenedorNotificacion.setVisibility(View.VISIBLE);
-            contenedorNotificacion.startAnimation(slide_up);*/
         }else{
             contenedorNotificacion.setScaleY(1);
 
@@ -185,72 +162,50 @@ public class FragmentConfiguracion extends Fragment {
             contenedorNotificacion.animate().setDuration(250);
 
             contenedorNotificacion.setVisibility(View.GONE);
-            /*Animation slide_down = AnimationUtils.loadAnimation(getActivity().getApplicationContext(),
-                    R.anim.slide_up);
-            contenedorNotificacion.startAnimation(slide_down);
-            contenedorNotificacion.setVisibility(View.GONE);*/
         }
     }
 
-    private void guardarConfiguracion(){
+    private void guardarConfiguracion() {
         Configuracion conf = new Configuracion();
 
-        if(radioTempC.isChecked())
+        if (radioTempC.isChecked())
             conf.setUnidadTemp(Constants.UNIDAD_C);
         else
             conf.setUnidadTemp(Constants.UNIDAD_F);
 
-        if(radioMetrica.isChecked())
+        if (radioMetrica.isChecked())
             conf.setUnidad(Constants.UNIDAD_METRICA);
         else
             conf.setUnidad(Constants.UNIDAD_IMPERIAL);
 
         conf.setNotificaciones(switch_notificaicon.isChecked());
 
-        if(switch_notificaicon.isChecked()){
+        if (switch_notificaicon.isChecked()) {
             String aux = "";
 
-            if(ckLunes.isChecked())
+            if (ckLunes.isChecked())
                 aux += "Lun,";
-            if(ckMartes.isChecked())
+            if (ckMartes.isChecked())
                 aux += "Mar,";
-            if(ckMiercoles.isChecked())
+            if (ckMiercoles.isChecked())
                 aux += "Mie,";
-            if(ckJueves.isChecked())
+            if (ckJueves.isChecked())
                 aux += "Jue,";
-            if(ckViernes.isChecked())
+            if (ckViernes.isChecked())
                 aux += "Vie,";
-            if(ckSabado.isChecked())
+            if (ckSabado.isChecked())
                 aux += "Sab,";
-            if(ckDomingo.isChecked())
+            if (ckDomingo.isChecked())
                 aux += "Dom";
 
-            if(aux.endsWith(","))
-                aux = aux.substring(0, aux.length()-1);
+            if (aux.endsWith(","))
+                aux = aux.substring(0, aux.length() - 1);
 
             conf.setDias(aux);
 
-            conf.setHora(hora.getHour()+":"+hora.getMinute());
+            conf.setHora(hora.getHour() + ":" + hora.getMinute());
         }
 
         onClick.guardarConfiguracionClick(conf);
-    }
-
-    private class getHttp extends AsyncTask<String,Void,List<Ciudad>>{
-        @Override
-        protected List<Ciudad> doInBackground(String... strings) {
-            String ciudad = strings[0];
-            List<Ciudad> list = Context.getCiudadBusiness().getCiudadLike(getActivity().getApplicationContext(),ciudad);
-            return list;
-        }
-
-        @Override
-        protected void onPostExecute(List<Ciudad> ciudades) {
-            if(ciudades == null)
-                return;
-            for(Ciudad c:ciudades){
-                showResponse.setText(showResponse.getText()+c.getName()+",");
-            }
-        }
     }
 }

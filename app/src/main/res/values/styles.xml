@@ -32,7 +32,6 @@
         <item name="android:layout_marginStart">@dimen/marginM</item>
         <item name="android:layout_marginEnd">@dimen/marginM</item>
         <item name="android:layout_marginTop">@dimen/marginH</item>
-
     </style>
 
     <style name="BotonBorrar" parent="TextAppearance.AppCompat.Widget.Button.Colored">

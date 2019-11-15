@@ -1,5 +1,7 @@
 package org.moviles.persistance;
 
+import com.google.gson.Gson;
+
 import org.json.JSONObject;
 import org.moviles.Constants;
 import org.moviles.Context;
@@ -34,38 +36,12 @@ public class ConfiguracionDAO implements IConfiguracionDAO {
 
     public Configuracion getFromJSON(String jsonConf){
         Configuracion conf;
-        try {
-            JSONObject json = new JSONObject(jsonConf);
-            conf = new Configuracion();
-            conf.setUnidad(json.getString("unidad"));
-            conf.setNotificaciones(json.getBoolean("notificacacion"));
-            conf.setUnidadTemp(json.getString("unidadTemp"));
-            if(conf.isNotificaciones()){
-                conf.setDias(json.getString("dias"));
-                conf.setHora(json.getString("hora"));
-            }
-            return conf;
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
+        conf = new Gson().fromJson(jsonConf,Configuracion.class);
+        return conf;
     }
 
     public String getJSON(Configuracion conf){
-        try{
-            JSONObject json = new JSONObject();
-            json.put("unidad",conf.getUnidad());
-            json.put("notificacacion",conf.isNotificaciones());
-            json.put("unidadTemp",conf.getUnidadTemp());
-            if(conf.isNotificaciones()){
-                json.put("dias",conf.getDias());
-                json.put("hora",conf.getHora());
-            }
-            return json.toString();
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
-
+        String json = new Gson().toJson(conf);
+        return json;
     }
 }

@@ -27,12 +27,14 @@ import com.google.android.material.navigation.NavigationView;
 import org.moviles.Constants;
 import org.moviles.Context;
 import org.moviles.Util;
+import org.moviles.activity.Fragments.FragmentCiudad;
 import org.moviles.activity.Fragments.FragmentClimaExtendido;
 import org.moviles.activity.Fragments.FragmentConfiguracion;
 import org.moviles.activity.Fragments.FragmentEditarUsuario;
 import org.moviles.activity.Fragments.FragmentHome;
 import org.moviles.activity.Fragments.FragmentMap;
 import org.moviles.business.ConfiguracionBusiness;
+import org.moviles.model.Ciudad;
 import org.moviles.model.Configuracion;
 import org.moviles.model.Usuario;
 
@@ -42,11 +44,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         FragmentEditarUsuario.IFragmentEditarUsuarioListener,
-        FragmentConfiguracion.IFragmentConfiguracionListener{
+        FragmentConfiguracion.IFragmentConfiguracionListener,
+        FragmentCiudad.IFragmentCiudadListener{
 
 
     private DrawerLayout drawer;
-    private FrameLayout fragmentContainer;
     private TextView nombreUsuarioMenu;
     private TextView emailUsuarioMenu;
     private CircleImageView avatar;
@@ -58,8 +60,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_menu);
 
         setTitle("Menu");
-
-        fragmentContainer = findViewById(R.id.fragment_container);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
@@ -79,16 +79,10 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         FragmentHome  fh = new FragmentHome();
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragment_container,fh);
-        ft.commit();
+        loadFragment(fh);
 
         toggle.syncState();
-
     }
-
-
 
     @Override
     public void onBackPressed() {
@@ -139,53 +133,46 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 })
                 .setNegativeButton(R.string.CANCELAR, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
                     }
                 });
-        // Create the AlertDialog object and return it
         builder.create();
         builder.show();
     }
 
     private void cargarHome(){
         FragmentHome  fhome = new FragmentHome();
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragment_container,fhome);
-        ft.commit();
+        loadFragment(fhome);
     }
 
     private void cargarEditar(){
         FragmentEditarUsuario  fEdit = new FragmentEditarUsuario(this);
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragment_container,fEdit);
-        ft.commit();
-
-
+        loadFragment(fEdit);
     }
 
     private void cargarDetalle(){
         FragmentClimaExtendido fce = new FragmentClimaExtendido();
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragment_container,fce);
-        ft.commit();
+        loadFragment(fce);
     }
 
     private void cargarMapa(){
         FragmentMap fmap = new FragmentMap();
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragment_container,fmap);
-        ft.commit();
+        loadFragment(fmap);
+    }
+
+    private void cargarCiudad(){
+        FragmentCiudad floc = new FragmentCiudad(this);
+        loadFragment(floc);
     }
 
     private void cargarConfig(){
         FragmentConfiguracion fconf = new FragmentConfiguracion(this);
+        loadFragment(fconf);
+    }
+
+    private void loadFragment(Fragment fragment){
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragment_container,fconf);
+        ft.replace(R.id.fragment_container,fragment);
         ft.commit();
     }
 
@@ -216,6 +203,9 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_extend:
                 cargarDetalle();
+                break;
+            case R.id.nav_ciudad:
+                cargarCiudad();
                 break;
             case R.id.nav_email:
                 mandarEmail();
@@ -256,5 +246,15 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void actualizarUsuario() {
         cargarUsuario();
+    }
+
+    @Override
+    public void guardarCiudadClick(Ciudad ciudad) {
+        ConfiguracionBusiness cBO = Context.getConfiguracionBusiness();
+        String username = Context.getUsuarioBusiness().getCurrentUser().getUsuario();
+
+        Configuracion conf = cBO.getConfiguracion(username);
+        conf.setCiudad(ciudad);
+        guardarConfiguracionClick(conf);
     }
 }

@@ -15,10 +15,10 @@ public interface ClimaDAO{
     @Insert(onConflict = OnConflictStrategy.ABORT)
     void insertar(Clima clima);
 
-    @Query("SELECT * FROM clima")
+    @Query("SELECT * FROM clima ORDER BY dt ASC")
     List<Clima> getAll();
 
-    @Query("DELETE FROM clima WHERE id == :idClima")
+    @Query("DELETE FROM clima WHERE clave == :idClima")
     void eliminar(Integer idClima);
 
     @Query("DELETE FROM clima")

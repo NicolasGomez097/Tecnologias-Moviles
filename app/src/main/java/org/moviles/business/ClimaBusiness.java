@@ -1,9 +1,11 @@
 package org.moviles.business;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.res.Resources;
 
 import org.moviles.activity.R;
+import org.moviles.model.Ciudad;
 import org.moviles.model.Clima;
 import org.moviles.persistance.ClimaRepository;
 
@@ -19,6 +21,10 @@ public class ClimaBusiness {
         repo = new ClimaRepository(app);
         repo.LimpiarDB();
         cargarClimaIncial();
+    }
+
+    public Clima getClimaActual(Context context,Ciudad ciudad){
+        return repo.getClimaAcual(context,ciudad);
     }
 
     public void insertarClima(Clima clima){
@@ -38,7 +44,7 @@ public class ClimaBusiness {
     }
 
     private void cargarClimaIncial(){
-        Clima aux = new Clima();
+        /*Clima aux = new Clima();
         aux.setDia("Lunes");
         aux.setDiaNumero(28);
         aux.setMes("Octubre");
@@ -91,6 +97,6 @@ public class ClimaBusiness {
         aux.setViento("SE 2");
         aux.setDescripcion("Esta lindo el día para el asado.");
 
-        repo.InsertarClima(aux);
+        repo.InsertarClima(aux);*/
     }
 }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginM"
+        android:text="@string/Ciudad"
+        android:textAlignment="center"
+        android:textSize="@dimen/textM" />
+
+    <EditText
+        android:id="@+id/txt_ciudad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/IngresarCiudad"
+        style="@style/inputText"
+        android:layout_marginTop="@dimen/marginM"/>
+
+    <Button
+        android:id="@+id/btnBuscar"
+        style="@style/BotonAceptar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/marginM"
+        android:text="@string/Buscar" />
+
+    <Spinner
+        android:id="@+id/spCiudades"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginM"
+        android:visibility="gone"/>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+
+    <Button
+        android:id="@+id/btnGuardar"
+        style="@style/BotonAgregar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/marginM"
+        android:text="@string/guardar" />
+
+</LinearLayout>

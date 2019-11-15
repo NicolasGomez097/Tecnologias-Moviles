@@ -3,34 +3,27 @@ package org.moviles.model;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
+
+import java.util.Date;
 
 @Entity(tableName = "clima")
 public class Clima {
 
     @PrimaryKey(autoGenerate = true)
     @NonNull
-    private Integer id;
+    private Integer clave;
 
     @NonNull
-    private String dia;
-
-    @NonNull
-    private Integer diaNumero;
-
-    @NonNull
-    private String mes;
-
-    @NonNull
-    private Integer anio;
-
-    @NonNull
-    private String descripcion;
+    private String description;
 
     private Double temperatura;
 
     private Double tempMaxima;
 
     private Double tempMinima;
+
+    private Long dt;
 
     @NonNull
     private Integer humedad;
@@ -41,44 +34,29 @@ public class Clima {
     @NonNull
     private String viento;
 
-    public Integer getId() {
-        return id;
+    @NonNull
+    public Integer getClave() {
+        return clave;
     }
 
-    public void setId(@NonNull Integer id) {
-        this.id = id;
+    public void setClave(@NonNull Integer clave) {
+        this.clave = clave;
     }
 
-    public String getDia() {
-        return dia;
+    public Long getDt() {
+        return dt;
     }
 
-    public void setDia(String dia) {
-        this.dia = dia;
+    public void setDt(Long dt) {
+        this.dt = dt;
     }
 
-    public String getMes() {
-        return mes;
+    public String getDescription() {
+        return description;
     }
 
-    public void setMes(String mes) {
-        this.mes = mes;
-    }
-
-    public Integer getAnio() {
-        return anio;
-    }
-
-    public void setAnio(Integer anio) {
-        this.anio = anio;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setDescription(String descripcion) {
+        this.description = descripcion;
     }
 
     public Double getTemperatura() {
@@ -111,14 +89,6 @@ public class Clima {
 
     public void setViento(String viento) {
         this.viento = viento;
-    }
-
-    public Integer getDiaNumero() {
-        return diaNumero;
-    }
-
-    public void setDiaNumero(Integer diaNumero) {
-        this.diaNumero = diaNumero;
     }
 
     public Double getTempMaxima() {

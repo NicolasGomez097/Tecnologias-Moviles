@@ -8,6 +8,7 @@ public class Configuracion {
     private boolean notificaciones;
     private String dias;
     private String hora;
+    private Ciudad ciudad;
 
     public Configuracion(){
         unidadTemp = Constants.UNIDAD_C;
@@ -53,5 +54,13 @@ public class Configuracion {
 
     public void setUnidadTemp(String unidadTemp) {
         this.unidadTemp = unidadTemp;
+    }
+
+    public Ciudad getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(Ciudad ciudad) {
+        this.ciudad = ciudad;
     }
 }
