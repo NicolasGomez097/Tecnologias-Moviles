@@ -52,8 +52,12 @@ public class ClimaAdapter extends RecyclerView.Adapter<ClimaAdapter.ClimaViewHol
     public void onBindViewHolder(ClimaViewHolder holder, int position) {
 
         Clima aux = climaList.get(position);
-        holder.getDia().setText(aux.getDia());
-        holder.getFecha().setText(aux.getDia()+" de "+aux.getMes() + " de " + aux.getAnio());
+        holder.getFecha().setText(
+                aux.getDia()+" de "+
+                aux.getMes() + " de " +
+                aux.getAnio()+ " " +
+                aux.getHora() + ":" + aux.getMinuto()
+        );
         holder.getDiaCondicion().setText(aux.getCondicion());
         holder.getDiaHumedad().setText(aux.getHumedad().toString() + "%");
         holder.getDiaTempMax().setText(aux.getTempMaxima().toString()+" "+unidadTemp);
@@ -90,7 +94,6 @@ public class ClimaAdapter extends RecyclerView.Adapter<ClimaAdapter.ClimaViewHol
 
     public class ClimaViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView dia;
         private TextView fecha;
         private TextView diaCondicion;
         private TextView diaTempMax;
@@ -104,7 +107,6 @@ public class ClimaAdapter extends RecyclerView.Adapter<ClimaAdapter.ClimaViewHol
         public ClimaViewHolder(View itemView) {
             super(itemView);
 
-            dia = itemView.findViewById(R.id.dia);
             fecha = itemView.findViewById(R.id.fecha);
             diaCondicion = itemView.findViewById(R.id.diaCondicion);
             diaTempMax = itemView.findViewById(R.id.diaTempMax);
@@ -113,10 +115,6 @@ public class ClimaAdapter extends RecyclerView.Adapter<ClimaAdapter.ClimaViewHol
             diaHumedad = itemView.findViewById(R.id.diaHumedad);
             diaDescripcion = itemView.findViewById(R.id.diaDesc);
             img = itemView.findViewById(R.id.diaImg);
-        }
-
-        public TextView getDia() {
-            return dia;
         }
 
         public TextView getFecha() {

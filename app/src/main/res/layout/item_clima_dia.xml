@@ -9,12 +9,6 @@
     android:elevation="5dp">
 
     <TextView
-        android:id="@+id/dia"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/border"/>
-
-    <TextView
         android:id="@+id/fecha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

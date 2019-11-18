@@ -32,6 +32,10 @@ public class Clima {
 
     private Double tempMinima;
 
+    private String hora;
+
+    private String minuto;
+
     @NonNull
     private Double humedad;
 
@@ -40,6 +44,13 @@ public class Clima {
 
     @NonNull
     private String viento;
+
+    @NonNull
+    private Boolean esExtendido;
+
+    public Clima(){
+        esExtendido = true;
+    }
 
     public Integer getId() {
         return id;
@@ -136,5 +147,46 @@ public class Clima {
 
     public void setFechaNumeros(@NonNull String fechaNumeros) {
         this.fechaNumeros = fechaNumeros;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(Integer hora) {
+        if(hora < 10)
+            this.hora = "0"+hora;
+        else{
+            this.hora = hora.toString();
+        }
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
+    }
+
+    public String getMinuto() {
+        return minuto;
+    }
+
+    public void setMinuto(Integer minuto) {
+        if(minuto < 10)
+            this.minuto = "0"+minuto;
+        else{
+            this.minuto = minuto.toString();
+        }
+    }
+
+    public void setMinuto(String minuto) {
+        this.minuto = minuto;
+    }
+
+    @NonNull
+    public Boolean getEsExtendido() {
+        return esExtendido;
+    }
+
+    public void setEsExtendido(@NonNull Boolean esExtendido) {
+        this.esExtendido = esExtendido;
     }
 }

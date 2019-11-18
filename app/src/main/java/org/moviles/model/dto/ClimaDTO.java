@@ -52,6 +52,8 @@ public class ClimaDTO {
         clima.setMes(mes);
         clima.setDia(dia);
         clima.setFechaNumeros(dia+"/"+calendar.get(Calendar.MONTH)+"/"+anio);
+        clima.setHora(calendar.get(Calendar.HOUR_OF_DAY));
+        clima.setMinuto(calendar.get(Calendar.MINUTE));
 
         return clima;
     }
