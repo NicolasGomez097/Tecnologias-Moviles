@@ -1,5 +1,6 @@
 package org.moviles.activity.Fragments;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import org.moviles.Constants;
 import org.moviles.Context;
 import org.moviles.activity.R;
 import org.moviles.business.ClimaBusiness;
+import org.moviles.config.NotificationService;
 import org.moviles.model.Ciudad;
 import org.moviles.model.Clima;
 import org.moviles.model.Configuracion;
@@ -66,12 +68,14 @@ public class FragmentHome extends Fragment {
         if(c != null){
             if(!refreshLayout.isRefreshing())
                 refreshLayout.setRefreshing(true);
-
             txt_ciudad.setText(c.getName()+","+c.getCountry());
             new getCliamActualAsyncTask(c).execute();
         }else{
+            if(refreshLayout.isRefreshing())
+                refreshLayout.setRefreshing(false);
             Toast.makeText(getContext(),"Seleccionar una ciudad",Toast.LENGTH_LONG).show();
         }
+
     }
 
     private class getCliamActualAsyncTask extends AsyncTask<Void,Void, Clima>{

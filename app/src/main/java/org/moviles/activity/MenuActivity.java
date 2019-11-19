@@ -231,7 +231,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void guardarConfiguracionClick(Configuracion conf) {
         ConfiguracionBusiness cBO = Context.getConfiguracionBusiness();
-        String username = Context.getUsuarioBusiness().getCurrentUser().getUsuario();
         boolean valid = cBO.save(conf);
         cargarHome();
         String msg;
@@ -251,8 +250,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void guardarCiudadClick(Ciudad ciudad) {
         ConfiguracionBusiness cBO = Context.getConfiguracionBusiness();
-        String username = Context.getUsuarioBusiness().getCurrentUser().getUsuario();
-
         Configuracion conf = cBO.getConfiguracion();
         conf.setCiudad(ciudad);
         guardarConfiguracionClick(conf);

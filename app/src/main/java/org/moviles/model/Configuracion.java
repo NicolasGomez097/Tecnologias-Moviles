@@ -4,14 +4,11 @@ import org.moviles.Constants;
 
 public class Configuracion {
     private String unidad;
-    private String unidadTemp;
     private boolean notificaciones;
-    private String dias;
     private String hora;
     private Ciudad ciudad;
 
     public Configuracion(){
-        unidadTemp = Constants.SIMBOLO_UNIDAD_C;
         unidad = Constants.UNIDAD_METRICA;
         notificaciones = false;
     }
@@ -32,28 +29,12 @@ public class Configuracion {
         this.notificaciones = notificaciones;
     }
 
-    public String getDias() {
-        return dias;
-    }
-
-    public void setDias(String dias) {
-        this.dias = dias;
-    }
-
     public String getHora() {
         return hora;
     }
 
     public void setHora(String hora) {
         this.hora = hora;
-    }
-
-    public String getUnidadTemp() {
-        return unidadTemp;
-    }
-
-    public void setUnidadTemp(String unidadTemp) {
-        this.unidadTemp = unidadTemp;
     }
 
     public Ciudad getCiudad() {

@@ -18,38 +18,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginM"
-                android:text="@string/UnidadTemp"
-                android:textAlignment="center"
-                android:textSize="@dimen/textM" />
-
-            <RadioGroup
-                android:id="@+id/grupoRadioUnidadTemp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/marginM"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <RadioButton
-                    android:id="@+id/radioTempC"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:checked="true"
-                    android:text="@string/gradoC" />
-
-                <RadioButton
-                    android:id="@+id/radioTempF"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/gradoF" />
-            </RadioGroup>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/marginM"
                 android:text="@string/unidades"
                 android:textAlignment="center"
                 android:textSize="@dimen/textM" />
@@ -110,73 +78,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/marginL"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
-
-
-
-                    <CheckBox
-                        android:id="@+id/ckLunes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.25"
-                        android:text="@string/lunes" />
-
-                    <CheckBox
-                        android:id="@+id/ckMartes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.25"
-                        android:text="@string/martes" />
-
-                    <CheckBox
-                        android:id="@+id/ckMiercoles"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.25"
-                        android:text="@string/miercoles" />
-
-                    <CheckBox
-                        android:id="@+id/ckJueves"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.25"
-                        android:text="@string/jueves" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/marginL"
-                    android:orientation="horizontal"
-                    android:weightSum="2.75">
-
-                    <CheckBox
-                        android:id="@+id/ckViernes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.25"
-                        android:text="@string/viernes" />
-
-                    <CheckBox
-                        android:id="@+id/ckSabado"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.25"
-                        android:text="@string/sabado" />
-
-                    <CheckBox
-                        android:id="@+id/ckDomingo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.25"
-                        android:text="@string/domingo" />
-                </LinearLayout>
 
                 <TimePicker
                     android:id="@+id/horaNotificacion"

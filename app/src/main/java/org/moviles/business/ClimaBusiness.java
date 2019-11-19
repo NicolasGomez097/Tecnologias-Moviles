@@ -1,6 +1,5 @@
 package org.moviles.business;
 
-import android.app.Application;
 import android.content.Context;
 
 import org.moviles.model.Ciudad;
@@ -12,11 +11,11 @@ import java.util.List;
 public class ClimaBusiness {
 
     private ClimaRepository repo;
-    private Application app;
+    private Context context;
 
-    public ClimaBusiness(Application app){
-        this.app = app;
-        repo = new ClimaRepository(app);
+    public ClimaBusiness(Context context){
+        this.context = context;
+        repo = new ClimaRepository(context);
     }
 
     public Clima getClimaActual(Context context,Ciudad ciudad){

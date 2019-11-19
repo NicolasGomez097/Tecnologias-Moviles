@@ -28,7 +28,7 @@ public class ClimaRepository {
     private String URLUnit = "&units=";
 
 
-    public ClimaRepository(Application application) {
+    public ClimaRepository(Context application) {
         Database database = Database.getDatabase(application.getApplicationContext());
         climaDAO = database.climaDAO();
     }

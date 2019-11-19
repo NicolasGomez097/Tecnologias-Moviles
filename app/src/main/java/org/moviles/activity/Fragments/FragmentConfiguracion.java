@@ -1,11 +1,11 @@
 package org.moviles.activity.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Switch;
@@ -19,23 +19,18 @@ import org.moviles.Constants;
 import org.moviles.Context;
 import org.moviles.activity.R;
 import org.moviles.business.ConfiguracionBusiness;
+import org.moviles.config.AlarmService;
+import org.moviles.config.NotificationService;
 import org.moviles.model.Configuracion;
+
+import java.util.Calendar;
 
 public class FragmentConfiguracion extends Fragment {
 
     private RadioButton radioMetrica;
     private RadioButton radioImperial;
-    private RadioButton radioTempC;
-    private RadioButton radioTempF;
     private Switch switch_notificaicon;
     private LinearLayout contenedorNotificacion;
-    private CheckBox ckLunes;
-    private CheckBox ckMartes;
-    private CheckBox ckMiercoles;
-    private CheckBox ckJueves;
-    private CheckBox ckViernes;
-    private CheckBox ckSabado;
-    private CheckBox ckDomingo;
     private TimePicker hora;
     private Button btnGuardar;
 
@@ -57,18 +52,8 @@ public class FragmentConfiguracion extends Fragment {
 
         radioMetrica = contenedor.findViewById(R.id.radioMetrica);
         radioImperial = contenedor.findViewById(R.id.radioImperial);
-        radioTempC = contenedor.findViewById(R.id.radioTempC);
-        radioTempF = contenedor.findViewById(R.id.radioTempF);
         switch_notificaicon = contenedor.findViewById(R.id.switch_notificaicon);
         contenedorNotificacion = contenedor.findViewById(R.id.contenedorNotificacion);
-
-        ckLunes = contenedor.findViewById(R.id.ckLunes);
-        ckMartes = contenedor.findViewById(R.id.ckMartes);
-        ckMiercoles = contenedor.findViewById(R.id.ckMiercoles);
-        ckJueves = contenedor.findViewById(R.id.ckJueves);
-        ckViernes = contenedor.findViewById(R.id.ckViernes);
-        ckSabado = contenedor.findViewById(R.id.ckSabado);
-        ckDomingo = contenedor.findViewById(R.id.ckDomingo);
 
         hora = contenedor.findViewById(R.id.horaNotificacion);
         btnGuardar = contenedor.findViewById(R.id.btnGuardar);
@@ -98,11 +83,6 @@ public class FragmentConfiguracion extends Fragment {
         ConfiguracionBusiness cBO = Context.getConfiguracionBusiness();
         Configuracion conf = cBO.getConfiguracion();
 
-        if(conf.getUnidadTemp().equals(Constants.SIMBOLO_UNIDAD_C))
-            radioTempC.setChecked(true);
-        else
-            radioTempF.setChecked(true);
-
         if(conf.getUnidad().equals(Constants.UNIDAD_METRICA))
             radioMetrica.setChecked(true);
         else
@@ -111,26 +91,7 @@ public class FragmentConfiguracion extends Fragment {
         switch_notificaicon.setChecked(conf.isNotificaciones());
 
         if(conf.isNotificaciones()){
-            String[] aux = conf.getDias().split(",");
-
-            for(String dia:aux){
-                if(dia.equals("Lun"))
-                    ckLunes.setChecked(true);
-                if(dia.equals("Mar"))
-                    ckMartes.setChecked(true);
-                if(dia.equals("Mie"))
-                    ckMiercoles.setChecked(true);
-                if(dia.equals("Jue"))
-                    ckJueves.setChecked(true);
-                if(dia.equals("Vie"))
-                    ckViernes.setChecked(true);
-                if(dia.equals("Sab"))
-                    ckSabado.setChecked(true);
-                if(dia.equals("Dom"))
-                    ckDomingo.setChecked(true);
-            }
-
-            aux = conf.getHora().split(":");
+            String[] aux = conf.getHora().split(":");
             hora.setHour(Integer.parseInt(aux[0]));
             hora.setMinute(Integer.parseInt(aux[1]));
         }else{
@@ -159,11 +120,6 @@ public class FragmentConfiguracion extends Fragment {
     private void guardarConfiguracion() {
         Configuracion conf = Context.getConfiguracionBusiness().getConfiguracion();
 
-        if (radioTempC.isChecked())
-            conf.setUnidadTemp(Constants.SIMBOLO_UNIDAD_C);
-        else
-            conf.setUnidadTemp(Constants.SIMBOLO_UNIDAD_F);
-
         if (radioMetrica.isChecked())
             conf.setUnidad(Constants.UNIDAD_METRICA);
         else
@@ -172,29 +128,24 @@ public class FragmentConfiguracion extends Fragment {
         conf.setNotificaciones(switch_notificaicon.isChecked());
 
         if (switch_notificaicon.isChecked()) {
-            String aux = "";
+            Intent intent = new Intent(getContext(), NotificationService.class);
+            AlarmService alarmService = new AlarmService(getContext(),intent);
 
-            if (ckLunes.isChecked())
-                aux += "Lun,";
-            if (ckMartes.isChecked())
-                aux += "Mar,";
-            if (ckMiercoles.isChecked())
-                aux += "Mie,";
-            if (ckJueves.isChecked())
-                aux += "Jue,";
-            if (ckViernes.isChecked())
-                aux += "Vie,";
-            if (ckSabado.isChecked())
-                aux += "Sab,";
-            if (ckDomingo.isChecked())
-                aux += "Dom";
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            if(calendar.before(Calendar.getInstance()))
+                calendar.add(Calendar.DATE,1);
 
-            if (aux.endsWith(","))
-                aux = aux.substring(0, aux.length() - 1);
+            calendar.set(Calendar.HOUR_OF_DAY,hora.getHour());
+            calendar.set(Calendar.MINUTE,hora.getMinute());
+            calendar.set(Calendar.SECOND,0);
+            alarmService.SetRepitingDayAlarm(calendar);
 
-            conf.setDias(aux);
-
-            conf.setHora(hora.getHour() + ":" + hora.getMinute());
+            conf.setHora(hora.getHour()+":"+hora.getMinute());
+        }else{
+            Intent intent = new Intent(getContext(), NotificationService.class);
+            AlarmService alarmService = new AlarmService(getContext(),intent);
+            alarmService.cancelAlarm();
         }
 
         onClick.guardarConfiguracionClick(conf);

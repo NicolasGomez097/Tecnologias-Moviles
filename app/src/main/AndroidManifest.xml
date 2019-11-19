@@ -41,6 +41,8 @@
         <activity
             android:name=".RegistrarUsuarioActivity"
             android:parentActivityName=".LoginActivity" />
+
+        <receiver android:name="org.moviles.config.NotificationService"/>
     </application>
 
 </manifest>

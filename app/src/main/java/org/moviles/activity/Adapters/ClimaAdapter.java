@@ -21,8 +21,6 @@ public class ClimaAdapter extends RecyclerView.Adapter<ClimaAdapter.ClimaViewHol
 
     private List<Clima> climaList;
     private Context contexto;
-    private String unidadTemp;
-    private String unidadViento;
     private String ciudad;
 
     public ClimaAdapter(List<Clima> climas) {
@@ -33,18 +31,6 @@ public class ClimaAdapter extends RecyclerView.Adapter<ClimaAdapter.ClimaViewHol
     public ClimaViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View row = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_clima_dia, parent, false);
         contexto = parent.getContext();
-
-        Configuracion conf = org.moviles.Context.getConfiguracionBusiness().getConfiguracion();
-
-        if(conf.getUnidadTemp().equals(Constants.SIMBOLO_UNIDAD_C))
-            unidadTemp = Constants.SIMBOLO_UNIDAD_C;
-        else
-            unidadTemp = Constants.SIMBOLO_UNIDAD_F;
-
-        if(conf.getUnidad().equals(Constants.UNIDAD_IMPERIAL))
-            unidadViento = Constants.VELOCIDAD_MILLA;
-        else
-            unidadViento = Constants.VELOCIDAD_KM;
 
         return new ClimaViewHolder(row);
     }
@@ -66,9 +52,9 @@ public class ClimaAdapter extends RecyclerView.Adapter<ClimaAdapter.ClimaViewHol
         );
         holder.getDiaCondicion().setText(aux.getCondicion());
         holder.getDiaHumedad().setText(aux.getHumedad().toString() + "%");
-        holder.getDiaTempMax().setText(aux.getTempMaxima().toString()+" "+unidadTemp);
-        holder.getDiaTempMin().setText(aux.getTempMinima().toString()+" "+unidadTemp);
-        holder.getDiaViento().setText(aux.getViento() + " " + unidadViento);
+        holder.getDiaTempMax().setText(aux.getTempMaxima());
+        holder.getDiaTempMin().setText(aux.getTempMinima());
+        holder.getDiaViento().setText(aux.getViento());
         holder.getDiaDescripcion().setText(aux.getDescripcion());
 
         if(aux.getCondicion().equals(contexto.getString(R.string.despejado)))

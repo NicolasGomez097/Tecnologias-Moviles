@@ -92,4 +92,6 @@
     <string name="Noviembre">Noviembre</string>
     <string name="Diciembre">Diciembre</string>
     <string name="UtlimaActualizacion">Última actualizacón:</string>
+    <string name="channel_description">Canal principal de la aplicacion</string>
+    <string name="msgNotificacion">Buen día %s, En %s hoy actual:%s, Max: %s, Min: %s.</string>
 </resources>

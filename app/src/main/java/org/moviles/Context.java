@@ -17,10 +17,20 @@ public class Context {
     private static File dataDir;
     private static android.content.Context context;
 
-
+    /**
+     * Este metodo debe ser ejecutado si o si para el correcto funcionamiento de la aplicacion.
+    * */
     public static void setDataDir(File dir){
         dataDir = dir;
     }
+
+    /**
+     * Este metodo debe ser ejecutado si o si para el correcto funcionamiento de la aplicacion.
+     * */
+    public static void setContext(android.content.Context c){
+        context = c;
+    }
+
 
     public static File getDataDir(){
         return dataDir;
@@ -40,9 +50,9 @@ public class Context {
         return configuracionBusiness;
     }
 
-    public static ClimaBusiness getClimaBusiness(Application app){
+    public static ClimaBusiness getClimaBusiness(android.content.Context context){
         if (climaBusiness == null)
-            climaBusiness = new ClimaBusiness(app);
+            climaBusiness = new ClimaBusiness(context);
 
         return climaBusiness;
     }
@@ -54,9 +64,6 @@ public class Context {
         return ciudadBusiness;
     }
 
-    public static void setContext(android.content.Context c){
-        context = c;
-    }
 
     public static android.content.Context getStringContext(){
         return context;
