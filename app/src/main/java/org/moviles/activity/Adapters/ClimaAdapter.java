@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.moviles.Constants;
 import org.moviles.activity.R;
+import org.moviles.model.Ciudad;
 import org.moviles.model.Clima;
 import org.moviles.model.Configuracion;
 
@@ -22,6 +23,7 @@ public class ClimaAdapter extends RecyclerView.Adapter<ClimaAdapter.ClimaViewHol
     private Context contexto;
     private String unidadTemp;
     private String unidadViento;
+    private String ciudad;
 
     public ClimaAdapter(List<Clima> climas) {
         climaList = climas;
@@ -32,13 +34,12 @@ public class ClimaAdapter extends RecyclerView.Adapter<ClimaAdapter.ClimaViewHol
         View row = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_clima_dia, parent, false);
         contexto = parent.getContext();
 
-        Configuracion conf = org.moviles.Context.getConfiguracionBusiness().getConfiguracion(
-                org.moviles.Context.getUsuarioBusiness().getCurrentUser().getUsuario());
+        Configuracion conf = org.moviles.Context.getConfiguracionBusiness().getConfiguracion();
 
-        if(conf.getUnidadTemp().equals(Constants.UNIDAD_C))
-            unidadTemp = Constants.UNIDAD_C;
+        if(conf.getUnidadTemp().equals(Constants.SIMBOLO_UNIDAD_C))
+            unidadTemp = Constants.SIMBOLO_UNIDAD_C;
         else
-            unidadTemp = Constants.UNIDAD_F;
+            unidadTemp = Constants.SIMBOLO_UNIDAD_F;
 
         if(conf.getUnidad().equals(Constants.UNIDAD_IMPERIAL))
             unidadViento = Constants.VELOCIDAD_MILLA;
@@ -50,13 +51,18 @@ public class ClimaAdapter extends RecyclerView.Adapter<ClimaAdapter.ClimaViewHol
 
     @Override
     public void onBindViewHolder(ClimaViewHolder holder, int position) {
+        if(ciudad == null){
+            Ciudad aux = org.moviles.Context.getConfiguracionBusiness().getConfiguracion().getCiudad();
+            ciudad = aux.getName()+","+aux.getCountry();
+        }
 
         Clima aux = climaList.get(position);
         holder.getFecha().setText(
                 aux.getDia()+" de "+
                 aux.getMes() + " de " +
                 aux.getAnio()+ " " +
-                aux.getHora() + ":" + aux.getMinuto()
+                aux.getHora() + ":" + aux.getMinuto() +
+                "," + ciudad
         );
         holder.getDiaCondicion().setText(aux.getCondicion());
         holder.getDiaHumedad().setText(aux.getHumedad().toString() + "%");

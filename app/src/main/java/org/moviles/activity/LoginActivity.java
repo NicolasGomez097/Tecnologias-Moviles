@@ -118,9 +118,9 @@ public class LoginActivity extends AppCompatActivity implements FragmentListaUsu
     }
 
     public void borrarUsuario(int position){
-
-        boolean valid = Util.deleteFileOnPath(Context.getDataDir(),
-                usersList.get(position).getUsuario());
+        String username = usersList.get(position).getUsuario();
+        boolean valid = Context.getUsuarioBusiness().
+                deleteUsuario(username);
 
         if(!valid){
             Toast.makeText(getApplicationContext(),getString(R.string.errorEliminarUsuario),Toast.LENGTH_SHORT).show();

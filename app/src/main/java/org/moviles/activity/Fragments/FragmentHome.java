@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import org.moviles.Constants;
 import org.moviles.Context;
 import org.moviles.activity.R;
 import org.moviles.business.ClimaBusiness;
@@ -60,8 +61,7 @@ public class FragmentHome extends Fragment {
     }
 
     private void cargarHome(){
-        String username = Context.getUsuarioBusiness().getCurrentUser().getUsuario();
-        Configuracion conf = Context.getConfiguracionBusiness().getConfiguracion(username);
+        Configuracion conf = Context.getConfiguracionBusiness().getConfiguracion();
         Ciudad c = conf.getCiudad();
         if(c != null){
             if(!refreshLayout.isRefreshing())
@@ -97,7 +97,7 @@ public class FragmentHome extends Fragment {
 
         @Override
         protected void onPostExecute(Clima clima) {
-            txt_temp.setText(clima.getTemperatura()+"ºC");
+            txt_temp.setText(clima.getTemperatura());
             txt_condicion.setText(clima.getCondicion());
             txt_humedad.setText(clima.getHumedad()+"%");
             txt_descripcion.setText(clima.getDescripcion());

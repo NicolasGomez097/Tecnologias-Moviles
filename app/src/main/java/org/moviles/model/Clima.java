@@ -26,11 +26,11 @@ public class Clima {
     @NonNull
     private String descripcion;
 
-    private Double temperatura;
+    private String temperatura;
 
-    private Double tempMaxima;
+    private String tempMaxima;
 
-    private Double tempMinima;
+    private String tempMinima;
 
     private String hora;
 
@@ -92,11 +92,11 @@ public class Clima {
         this.descripcion = descripcion;
     }
 
-    public Double getTemperatura() {
+    public String getTemperatura() {
         return temperatura;
     }
 
-    public void setTemperatura(Double temperatura) {
+    public void setTemperatura(String temperatura) {
         this.temperatura = temperatura;
     }
 
@@ -124,19 +124,19 @@ public class Clima {
         this.viento = viento;
     }
 
-    public Double getTempMaxima() {
+    public String getTempMaxima() {
         return tempMaxima;
     }
 
-    public void setTempMaxima(Double tempMaxima) {
+    public void setTempMaxima(String tempMaxima) {
         this.tempMaxima = tempMaxima;
     }
 
-    public Double getTempMinima() {
+    public String getTempMinima() {
         return tempMinima;
     }
 
-    public void setTempMinima(Double tempMinima) {
+    public void setTempMinima(String tempMinima) {
         this.tempMinima = tempMinima;
     }
 

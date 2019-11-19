@@ -11,4 +11,5 @@ public interface IUsuarioDAO {
     public boolean setListaUsuarios(List<Usuario> list);
     public Usuario getCurrentUser();
     public boolean setCurrentUser(String username);
+    public boolean deleteUser(String username);
 }

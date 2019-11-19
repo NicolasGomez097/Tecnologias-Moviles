@@ -232,7 +232,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     public void guardarConfiguracionClick(Configuracion conf) {
         ConfiguracionBusiness cBO = Context.getConfiguracionBusiness();
         String username = Context.getUsuarioBusiness().getCurrentUser().getUsuario();
-        boolean valid = cBO.save(conf,username);
+        boolean valid = cBO.save(conf);
         cargarHome();
         String msg;
         if(valid)
@@ -253,7 +253,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         ConfiguracionBusiness cBO = Context.getConfiguracionBusiness();
         String username = Context.getUsuarioBusiness().getCurrentUser().getUsuario();
 
-        Configuracion conf = cBO.getConfiguracion(username);
+        Configuracion conf = cBO.getConfiguracion();
         conf.setCiudad(ciudad);
         guardarConfiguracionClick(conf);
     }

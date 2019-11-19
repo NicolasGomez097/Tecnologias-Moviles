@@ -38,11 +38,11 @@ public class FragmentClimaExtendido extends Fragment {
 
         refreshLayout = contenedor.findViewById(R.id.refresh);
 
-        climaList = new ArrayList<>();
+        //climaList = new ArrayList<>();
 
         recyclerView = contenedor.findViewById(R.id.contenedorClimaPorDia);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new ClimaAdapter(climaList));
+        //recyclerView.setAdapter(new ClimaAdapter(climaList));
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -58,7 +58,7 @@ public class FragmentClimaExtendido extends Fragment {
 
     private void actualizarLista(){
         String username = Context.getUsuarioBusiness().getCurrentUser().getUsuario();
-        Configuracion conf = Context.getConfiguracionBusiness().getConfiguracion(username);
+        Configuracion conf = Context.getConfiguracionBusiness().getConfiguracion();
         Ciudad c = conf.getCiudad();
         if(c != null){
             if(!refreshLayout.isRefreshing())

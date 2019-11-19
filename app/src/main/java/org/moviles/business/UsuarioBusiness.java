@@ -99,6 +99,10 @@ public class UsuarioBusiness {
         }
     }
 
+    public boolean deleteUsuario(String username){
+        return usuarioDAO.deleteUser(username);
+    }
+
     public boolean isMantenerSesion() {
         return mantenerSesion;
     }

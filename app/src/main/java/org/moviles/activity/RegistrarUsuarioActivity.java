@@ -67,16 +67,17 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
         if(valid){
             ConfiguracionBusiness cBO = Context.getConfiguracionBusiness();
             Configuracion conf = new Configuracion();
-            valid = cBO.save(conf,u.getUsuario());
+            valid = cBO.createConf(conf,u.getUsuario());
         }
 
 
         if(valid)
             Toast.makeText(v.getContext(),"Se creo correctamente", Toast.LENGTH_SHORT).show();
 
-        else
-            Toast.makeText(v.getContext(),"No se creo correctamente", Toast.LENGTH_SHORT).show();
-
+        else {
+            Toast.makeText(v.getContext(), "No se creo correctamente", Toast.LENGTH_SHORT).show();
+            userBO.deleteUsuario(u.getUsuario());
+        }
 
         onBackPressed();
     }

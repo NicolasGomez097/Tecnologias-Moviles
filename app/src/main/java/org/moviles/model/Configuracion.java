@@ -11,7 +11,7 @@ public class Configuracion {
     private Ciudad ciudad;
 
     public Configuracion(){
-        unidadTemp = Constants.UNIDAD_C;
+        unidadTemp = Constants.SIMBOLO_UNIDAD_C;
         unidad = Constants.UNIDAD_METRICA;
         notificaciones = false;
     }

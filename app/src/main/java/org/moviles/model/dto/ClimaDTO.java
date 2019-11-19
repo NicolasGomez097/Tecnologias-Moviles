@@ -24,15 +24,20 @@ public class ClimaDTO {
     private class Wind{ Double speed; Double deg;}
 
     public Clima getClima(){
+        Configuracion conf = Context.getConfiguracionBusiness().getConfiguracion();
+        String unidad;
+        if(conf.getUnidad().equals(Constants.UNIDAD_METRICA))
+            unidad = Constants.SIMBOLO_UNIDAD_C;
+        else
+            unidad = Constants.SIMBOLO_UNIDAD_F;
+
         Clima clima = new Clima();
-        clima.setTemperatura(main.temp);
-        clima.setTempMaxima(main.temp_max);
-        clima.setTempMinima(main.temp_min);
+        clima.setTemperatura(main.temp+unidad);
+        clima.setTempMaxima(main.temp_max+unidad);
+        clima.setTempMinima(main.temp_min+unidad);
         clima.setCondicion(weather.get(0).main);
         clima.setDescripcion(weather.get(0).description);
 
-        String username = Context.getUsuarioBusiness().getCurrentUser().getUsuario();
-        Configuracion conf = Context.getConfiguracionBusiness().getConfiguracion(username);
         String unidadViento;
         if(conf.getUnidad().equals(Constants.UNIDAD_METRICA))
             unidadViento = Constants.VELOCIDAD_KM;

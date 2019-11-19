@@ -73,6 +73,11 @@ public class UsuarioDAO implements IUsuarioDAO {
         return Util.writeFile(loged,username);
     }
 
+    @Override
+    public boolean deleteUser(String username) {
+        return Util.deleteFileOnPath(Context.getDataDir(),username);
+    }
+
     public Usuario getFromJSON(String jsonUser){
         Usuario user;
         try {

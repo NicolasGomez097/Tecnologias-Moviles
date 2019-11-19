@@ -1,17 +1,14 @@
 package org.moviles.activity.Fragments;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
@@ -20,13 +17,9 @@ import androidx.fragment.app.Fragment;
 
 import org.moviles.Constants;
 import org.moviles.Context;
-import org.moviles.Util;
 import org.moviles.activity.R;
 import org.moviles.business.ConfiguracionBusiness;
-import org.moviles.model.Ciudad;
 import org.moviles.model.Configuracion;
-
-import java.util.List;
 
 public class FragmentConfiguracion extends Fragment {
 
@@ -103,11 +96,9 @@ public class FragmentConfiguracion extends Fragment {
 
     private void cargarConfiguracion(){
         ConfiguracionBusiness cBO = Context.getConfiguracionBusiness();
-        String username = Context.getUsuarioBusiness().getCurrentUser().getUsuario();
+        Configuracion conf = cBO.getConfiguracion();
 
-        Configuracion conf = cBO.getConfiguracion(username);
-
-        if(conf.getUnidadTemp().equals(Constants.UNIDAD_C))
+        if(conf.getUnidadTemp().equals(Constants.SIMBOLO_UNIDAD_C))
             radioTempC.setChecked(true);
         else
             radioTempF.setChecked(true);
@@ -166,12 +157,12 @@ public class FragmentConfiguracion extends Fragment {
     }
 
     private void guardarConfiguracion() {
-        Configuracion conf = new Configuracion();
+        Configuracion conf = Context.getConfiguracionBusiness().getConfiguracion();
 
         if (radioTempC.isChecked())
-            conf.setUnidadTemp(Constants.UNIDAD_C);
+            conf.setUnidadTemp(Constants.SIMBOLO_UNIDAD_C);
         else
-            conf.setUnidadTemp(Constants.UNIDAD_F);
+            conf.setUnidadTemp(Constants.SIMBOLO_UNIDAD_F);
 
         if (radioMetrica.isChecked())
             conf.setUnidad(Constants.UNIDAD_METRICA);

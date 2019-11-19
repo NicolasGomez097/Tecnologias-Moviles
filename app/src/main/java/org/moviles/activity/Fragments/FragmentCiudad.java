@@ -79,7 +79,7 @@ public class FragmentCiudad extends Fragment implements AdapterView.OnItemSelect
         ConfiguracionBusiness cBO = Context.getConfiguracionBusiness();
         String username = Context.getUsuarioBusiness().getCurrentUser().getUsuario();
 
-        Configuracion conf = cBO.getConfiguracion(username);
+        Configuracion conf = cBO.getConfiguracion();
         if(conf.getCiudad()!=null){
             Ciudad c = conf.getCiudad();
             txt_ciudad.setText(c.getName()+","+c.getCountry());
