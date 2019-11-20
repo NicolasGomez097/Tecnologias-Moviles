@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import org.moviles.Constants;
 import org.moviles.Context;
+import org.moviles.Util;
 import org.moviles.activity.R;
 import org.moviles.business.ClimaBusiness;
 import org.moviles.config.NotificationService;
@@ -23,6 +25,7 @@ import org.moviles.model.Ciudad;
 import org.moviles.model.Clima;
 import org.moviles.model.Configuracion;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class FragmentHome extends Fragment {
@@ -34,6 +37,7 @@ public class FragmentHome extends Fragment {
     private TextView txt_descripcion;
     private TextView txt_viento;
     private TextView txt_actualizacion;
+    private ImageView img_condicion;
     private SwipeRefreshLayout refreshLayout;
 
     @Nullable
@@ -49,6 +53,7 @@ public class FragmentHome extends Fragment {
         txt_viento = contenedor.findViewById(R.id.txt_viento);
         txt_actualizacion = contenedor.findViewById(R.id.txt_actualizacion);
         refreshLayout = contenedor.findViewById(R.id.refresh);
+        img_condicion = contenedor.findViewById(R.id.img_clima);
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -56,6 +61,7 @@ public class FragmentHome extends Fragment {
                 cargarHome();
             }
         });
+
 
         cargarHome();
 
@@ -94,6 +100,11 @@ public class FragmentHome extends Fragment {
                 clima = climaBusiness.getUltimoClimaActualGuardado();
             }else {
                 climaBusiness.limpiarActualDB();
+
+                Calendar calendar = Calendar.getInstance();
+
+                clima.setHora(calendar.get(Calendar.HOUR_OF_DAY));
+                clima.setMinuto(calendar.get(Calendar.MINUTE));
                 climaBusiness.insertarClima(clima);
             }
             return clima;
@@ -107,6 +118,7 @@ public class FragmentHome extends Fragment {
             txt_descripcion.setText(clima.getDescripcion());
             txt_viento.setText(clima.getViento());
             txt_actualizacion.setText(clima.getFechaNumeros()+ " " +clima.getHora()+":"+clima.getMinuto());
+            img_condicion.setImageResource(Util.getImagenDeCondicionClima(clima.getCondicion()));
 
             if(refreshLayout.isRefreshing())
                 refreshLayout.setRefreshing(false);

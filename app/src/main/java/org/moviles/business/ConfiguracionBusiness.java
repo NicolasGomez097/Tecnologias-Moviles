@@ -38,6 +38,12 @@ public class ConfiguracionBusiness {
         if(currentConf == null){
             currentUser = Context.getUsuarioBusiness().getCurrentUser();
             currentConf = configuracionDAO.getConfiguracion(currentUser.getUsuario());
+        }else{
+            if(!currentUser.getUsuario().equals(
+                    Context.getUsuarioBusiness().getCurrentUser()
+                ))
+                currentUser = Context.getUsuarioBusiness().getCurrentUser();
+                currentConf = configuracionDAO.getConfiguracion(currentUser.getUsuario());
         }
 
         return currentConf;

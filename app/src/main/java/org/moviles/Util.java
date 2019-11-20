@@ -18,13 +18,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Calendar;
 import java.util.regex.Pattern;
 
 public class Util {
@@ -182,6 +182,29 @@ public class Util {
         }
     }
 
+    public static Integer getImagenDeCondicionClima(String condicion){
+        Context contexto = org.moviles.Context.getStringContext();
+        if(condicion.equals(contexto.getString(R.string.despejado)))
+           return R.drawable.soleado;
 
+        if(condicion.equals(contexto.getString(R.string.lluvia)))
+            return R.drawable.lluvia;
 
+        if(condicion.equals(contexto.getString(R.string.lluvia_leve)))
+            return R.drawable.lluvia_leve;
+
+        if(condicion.equals(contexto.getString(R.string.nublado)))
+            return R.drawable.nublado;
+
+        if(condicion.equals(contexto.getString(R.string.parcialmente_nublado)))
+            return R.drawable.parcialmente_nublado;
+
+        if(condicion.equals(contexto.getString(R.string.tormenta_electrica)))
+            return R.drawable.tormenta_electrica;
+
+        if(condicion.equals(contexto.getString(R.string.tormenta_electrica_granizo)))
+            return R.drawable.tormenta_electrica_granizo;
+
+        return R.drawable.soleado;
+    }
 }

@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,8 @@ import org.moviles.activity.Fragments.FragmentEditarUsuario;
 import org.moviles.activity.Fragments.FragmentHome;
 import org.moviles.activity.Fragments.FragmentMap;
 import org.moviles.business.ConfiguracionBusiness;
+import org.moviles.config.AlarmService;
+import org.moviles.config.NotificationService;
 import org.moviles.model.Ciudad;
 import org.moviles.model.Configuracion;
 import org.moviles.model.Usuario;
@@ -45,7 +48,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         FragmentEditarUsuario.IFragmentEditarUsuarioListener,
         FragmentConfiguracion.IFragmentConfiguracionListener,
-        FragmentCiudad.IFragmentCiudadListener{
+        FragmentCiudad.IFragmentCiudadListener,
+        FragmentClimaExtendido.FragmentClimaExtendidoListener{
 
 
     private DrawerLayout drawer;
@@ -124,6 +128,11 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         builder.setMessage(R.string.cerrarSesionMensaje)
                 .setPositiveButton(R.string.ACEPTAR, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        android.content.Context context = MenuActivity.this.getApplicationContext();
+                        Intent intent = new Intent(context, NotificationService.class);
+                        AlarmService alarmService = new AlarmService(context,intent);
+                        alarmService.cancelAlarm();
+
                         if(!Context.getUsuarioBusiness().setCurrentUser(null))
                             return;
                         Intent i = new Intent(MenuActivity.this,LoginActivity.class);
@@ -150,7 +159,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void cargarDetalle(){
-        FragmentClimaExtendido fce = new FragmentClimaExtendido();
+        FragmentClimaExtendido fce = new FragmentClimaExtendido(this,0,true);
         loadFragment(fce);
     }
 
@@ -174,6 +183,11 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.fragment_container,fragment);
         ft.commit();
+    }
+
+    private void loadFragmentWithAnim(Fragment fragment, FragmentTransaction fragmentTransaction){
+        fragmentTransaction.replace(R.id.fragment_container,fragment);
+        fragmentTransaction.commit();
     }
 
     private void mandarEmail() {
@@ -253,5 +267,28 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         Configuracion conf = cBO.getConfiguracion();
         conf.setCiudad(ciudad);
         guardarConfiguracionClick(conf);
+    }
+
+    @Override
+    public void swipeRigth(Integer index) {
+        FragmentClimaExtendido ce = new FragmentClimaExtendido(this,index,false);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.setCustomAnimations(R.anim.entrar_por_derecha,
+                R.anim.salir_por_izquierda,
+                R.anim.entrar_por_izquierda,
+                R.anim.salir_por_derecha);
+        loadFragmentWithAnim(ce,ft);
+    }
+
+    @Override
+    public void swipeLeft(Integer index) {
+        FragmentClimaExtendido ce = new FragmentClimaExtendido(this,index,false);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.setCustomAnimations(
+                R.anim.entrar_por_izquierda,
+                R.anim.salir_por_derecha,
+                R.anim.entrar_por_derecha,
+                R.anim.salir_por_izquierda);
+        loadFragmentWithAnim(ce,ft);
     }
 }

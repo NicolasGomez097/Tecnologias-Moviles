@@ -130,14 +130,11 @@ public class FragmentEditarUsuario extends Fragment {
                 return;
             }
 
-
-
             Util.renameFile(new File(Context.getDataDir(), currentUser.getUsuario()), user.getUsuario());
             usuarioBO.changeUserNameList(currentUser.getUsuario(),user.getUsuario());
 
         }
 
-        //currentUser = user;
         usuarioBO.setCurrentUser(user);
 
         usuarioBO.update(user);

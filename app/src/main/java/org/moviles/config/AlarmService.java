@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import java.util.Calendar;
 
@@ -23,6 +24,7 @@ public class AlarmService {
     }
 
     public void SetRepitingDayAlarm(Calendar calendar){
+        cancelAlarm();
         alarmIntent = PendingIntent.getBroadcast(context, REQUEST_CODE,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -35,7 +37,9 @@ public class AlarmService {
     public void cancelAlarm(){
         alarmIntent = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, PendingIntent.FLAG_NO_CREATE);
 
-        if(alarmIntent != null)
+        if(alarmIntent != null){
             alarmManager.cancel(alarmIntent);
+            Log.d("Cierre de la alarma",alarmIntent.toString());
+        }
     }
 }

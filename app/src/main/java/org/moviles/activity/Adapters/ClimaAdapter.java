@@ -4,12 +4,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.moviles.Constants;
+import org.moviles.Util;
 import org.moviles.activity.R;
 import org.moviles.model.Ciudad;
 import org.moviles.model.Clima;
@@ -57,26 +60,7 @@ public class ClimaAdapter extends RecyclerView.Adapter<ClimaAdapter.ClimaViewHol
         holder.getDiaViento().setText(aux.getViento());
         holder.getDiaDescripcion().setText(aux.getDescripcion());
 
-        if(aux.getCondicion().equals(contexto.getString(R.string.despejado)))
-            holder.getImg().setImageResource(R.drawable.soleado);
-
-        if(aux.getCondicion().equals(contexto.getString(R.string.lluvia)))
-            holder.getImg().setImageResource(R.drawable.lluvia);
-
-        if(aux.getCondicion().equals(contexto.getString(R.string.lluvia_leve)))
-            holder.getImg().setImageResource(R.drawable.lluvia_leve);
-
-        if(aux.getCondicion().equals(contexto.getString(R.string.nublado)))
-            holder.getImg().setImageResource(R.drawable.nublado);
-
-        if(aux.getCondicion().equals(contexto.getString(R.string.parcialmente_nublado)))
-            holder.getImg().setImageResource(R.drawable.parcialmente_nublado);
-
-        if(aux.getCondicion().equals(contexto.getString(R.string.tormenta_electrica)))
-            holder.getImg().setImageResource(R.drawable.tormenta_electrica);
-
-        if(aux.getCondicion().equals(contexto.getString(R.string.tormenta_electrica_granizo)))
-            holder.getImg().setImageResource(R.drawable.tormenta_electrica_granizo);
+        holder.getImg().setImageResource(Util.getImagenDeCondicionClima(aux.getCondicion()));
     }
 
     @Override

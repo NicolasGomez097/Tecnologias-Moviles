@@ -132,13 +132,15 @@ public class FragmentConfiguracion extends Fragment {
             AlarmService alarmService = new AlarmService(getContext(),intent);
 
             Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(System.currentTimeMillis());
-            if(calendar.before(Calendar.getInstance()))
-                calendar.add(Calendar.DATE,1);
+            //calendar.setTimeInMillis(System.currentTimeMillis());
 
             calendar.set(Calendar.HOUR_OF_DAY,hora.getHour());
             calendar.set(Calendar.MINUTE,hora.getMinute());
             calendar.set(Calendar.SECOND,0);
+
+            if(calendar.before(Calendar.getInstance()))
+                calendar.add(Calendar.DATE,1);
+
             alarmService.SetRepitingDayAlarm(calendar);
 
             conf.setHora(hora.getHour()+":"+hora.getMinute());

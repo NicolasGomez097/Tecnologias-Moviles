@@ -62,10 +62,10 @@
     <string name="domingo">Domingo</string>
     <string name="tempMaxima">Temperatura máxima</string>
     <string name="tempMinima">Temperatura mínima</string>
-    <string name="despejado">Despejado</string>
-    <string name="lluvia">Lluvia</string>
+    <string name="despejado">Clear</string>
+    <string name="lluvia">Rain</string>
     <string name="lluvia_leve">Lluvia leve</string>
-    <string name="nublado">Nublado</string>
+    <string name="nublado">Clouds</string>
     <string name="parcialmente_nublado">Parcialmente nublado</string>
     <string name="tormenta_electrica">Tormenta eléctrica</string>
     <string name="tormenta_electrica_granizo">Tormenta eléctrica con granizo</string>
