@@ -1,13 +1,11 @@
 package org.moviles.persistance.repository;
 
-import android.app.Application;
 import android.content.Context;
-import android.os.AsyncTask;
 
 import com.google.gson.Gson;
 
 import org.moviles.NotConnectedExeption;
-import org.moviles.Util;
+import org.moviles.utils.Util;
 import org.moviles.model.Ciudad;
 import org.moviles.model.Clima;
 import org.moviles.model.Configuracion;
@@ -18,7 +16,6 @@ import org.moviles.persistance.dao.ClimaDAO;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class ClimaRepository {
     private ClimaDAO climaDAO;

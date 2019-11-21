@@ -17,6 +17,8 @@
         android:layout_height="wrap_content"
         android:hint="@string/IngresarCiudad"
         style="@style/inputText"
+        android:inputType="text"
+        android:imeOptions="actionSearch"
         android:layout_marginTop="@dimen/marginM"/>
 
     <Button

@@ -1,4 +1,4 @@
-package org.moviles;
+package org.moviles.utils;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -11,6 +11,7 @@ import android.provider.MediaStore;
 
 import androidx.core.content.ContextCompat;
 
+import org.moviles.NotConnectedExeption;
 import org.moviles.activity.R;
 
 import java.io.BufferedInputStream;
@@ -131,7 +132,7 @@ public class Util {
         return stringBuilder.toString();
     }
 
-    public static String GetHttp(Context context,String urlGet) throws NotConnectedExeption{
+    public static String GetHttp(Context context,String urlGet) throws NotConnectedExeption {
         ConnectivityManager connectivityManager = (ConnectivityManager)
                 context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo(); //2

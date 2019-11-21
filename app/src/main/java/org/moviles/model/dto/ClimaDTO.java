@@ -2,12 +2,11 @@ package org.moviles.model.dto;
 
 import org.moviles.Constants;
 import org.moviles.Context;
-import org.moviles.Util;
+import org.moviles.utils.Util;
 import org.moviles.model.Clima;
 import org.moviles.model.Configuracion;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class ClimaDTO {

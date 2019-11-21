@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.moviles.Constants;
 import org.moviles.Context;
-import org.moviles.Util;
+import org.moviles.utils.Util;
 import org.moviles.activity.Fragments.FragmentListaUsuarios;
 import org.moviles.activity.R;
 import org.moviles.model.Usuario;

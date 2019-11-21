@@ -4,19 +4,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.moviles.Constants;
-import org.moviles.Util;
+import org.moviles.utils.Util;
 import org.moviles.activity.R;
 import org.moviles.model.Ciudad;
 import org.moviles.model.Clima;
-import org.moviles.model.Configuracion;
 
 import java.util.List;
 

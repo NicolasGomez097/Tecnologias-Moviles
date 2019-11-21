@@ -3,7 +3,7 @@ package org.moviles.business;
 import android.content.Context;
 
 import org.moviles.exception.ExepcionUsuario;
-import org.moviles.Util;
+import org.moviles.utils.Util;
 import org.moviles.activity.R;
 import org.moviles.model.Usuario;
 import org.moviles.persistance.IUsuarioDAO;

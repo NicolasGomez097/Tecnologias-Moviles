@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.moviles.NotConnectedExeption;
-import org.moviles.Util;
+import org.moviles.utils.Util;
 import org.moviles.model.Ciudad;
 
 import java.lang.reflect.Type;

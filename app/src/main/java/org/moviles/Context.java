@@ -30,6 +30,7 @@ public class Context {
     public static void setContext(android.content.Context c){
         context = c;
     }
+    public static android.content.Context getContext(){return context;}
 
 
     public static File getDataDir(){

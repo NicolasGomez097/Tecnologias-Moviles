@@ -1,7 +1,9 @@
 package org.moviles.activity.Fragments;
 
+import android.inputmethodservice.Keyboard;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import org.moviles.activity.R;
 import org.moviles.business.ConfiguracionBusiness;
 import org.moviles.model.Ciudad;
 import org.moviles.model.Configuracion;
+import org.moviles.utils.UIUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +68,19 @@ public class FragmentCiudad extends Fragment implements AdapterView.OnItemSelect
             @Override
             public void onClick(View v) {
                 buscarCiudad();
+            }
+        });
+        txt_ciudad.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_ENTER ||
+                    keyCode == KeyEvent.KEYCODE_SEARCH) {
+                    buscarCiudad();
+                    UIUtils.hideKeyboard(getActivity());
+                    txt_ciudad.clearFocus();
+                    return true;
+                }
+                return false;
             }
         });
 

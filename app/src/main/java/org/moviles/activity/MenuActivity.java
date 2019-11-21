@@ -6,8 +6,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +25,8 @@ import com.google.android.material.navigation.NavigationView;
 
 import org.moviles.Constants;
 import org.moviles.Context;
-import org.moviles.Util;
+import org.moviles.utils.UIUtils;
+import org.moviles.utils.Util;
 import org.moviles.activity.Fragments.FragmentCiudad;
 import org.moviles.activity.Fragments.FragmentClimaExtendido;
 import org.moviles.activity.Fragments.FragmentConfiguracion;
@@ -58,6 +57,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     private CircleImageView avatar;
 
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +81,12 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
 
         navigationView.setNavigationItemSelectedListener(this);
+        drawer.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                UIUtils.hideKeyboard(MenuActivity.this);
+            }
+        });
 
         FragmentHome  fh = new FragmentHome();
         loadFragment(fh);
@@ -229,8 +235,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_edit_profile:
                 cargarEditar();
-
-
         }
 
         drawer.closeDrawer(GravityCompat.START);

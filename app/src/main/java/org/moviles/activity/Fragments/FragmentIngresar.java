@@ -1,6 +1,7 @@
 package org.moviles.activity.Fragments;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,13 +47,28 @@ public class FragmentIngresar extends Fragment{
 
         nombreUsuario.setText(nombreUsuario.getText() + " " + user);
 
+        inputPassword.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_ENTER) {
+                    ingresar();
+                    return true;
+                }
+                return false;
+            }
+        });
+
         btnIngresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClick.onClickIngresar(user,inputPassword.getText().toString(),mantenerSesion.isChecked());
+                ingresar();
             }
         });
 
         return contenedor;
+    }
+
+    private void ingresar(){
+        onClick.onClickIngresar(user,inputPassword.getText().toString(),mantenerSesion.isChecked());
     }
 }

@@ -1,6 +1,5 @@
 package org.moviles.activity.Fragments;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,18 +14,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import org.moviles.Constants;
 import org.moviles.Context;
-import org.moviles.Util;
+import org.moviles.utils.Util;
 import org.moviles.activity.R;
 import org.moviles.business.ClimaBusiness;
-import org.moviles.config.NotificationService;
 import org.moviles.model.Ciudad;
 import org.moviles.model.Clima;
 import org.moviles.model.Configuracion;
 
 import java.util.Calendar;
-import java.util.List;
 
 public class FragmentHome extends Fragment {
 

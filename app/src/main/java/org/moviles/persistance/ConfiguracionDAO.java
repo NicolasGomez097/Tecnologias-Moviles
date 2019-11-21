@@ -2,16 +2,12 @@ package org.moviles.persistance;
 
 import com.google.gson.Gson;
 
-import org.json.JSONObject;
 import org.moviles.Constants;
 import org.moviles.Context;
-import org.moviles.Util;
+import org.moviles.utils.Util;
 import org.moviles.model.Configuracion;
-import org.moviles.model.Usuario;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ConfiguracionDAO implements IConfiguracionDAO {
 

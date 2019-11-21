@@ -28,7 +28,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.moviles.Constants;
 import org.moviles.Context;
 import org.moviles.exception.ExepcionUsuario;
-import org.moviles.Util;
+import org.moviles.utils.Util;
 import org.moviles.activity.R;
 import org.moviles.business.UsuarioBusiness;
 import org.moviles.model.Usuario;
