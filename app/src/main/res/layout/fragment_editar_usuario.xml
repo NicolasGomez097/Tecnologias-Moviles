@@ -48,6 +48,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/ingreseUsuario"
             style="@style/inputText"
+            android:inputType="text"
+            android:imeOptions="actionNext"
             />
 
         <TextView
