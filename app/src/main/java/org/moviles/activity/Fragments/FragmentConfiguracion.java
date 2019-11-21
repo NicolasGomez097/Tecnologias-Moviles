@@ -132,7 +132,6 @@ public class FragmentConfiguracion extends Fragment {
             AlarmService alarmService = new AlarmService(getContext(),intent);
 
             Calendar calendar = Calendar.getInstance();
-            //calendar.setTimeInMillis(System.currentTimeMillis());
 
             calendar.set(Calendar.HOUR_OF_DAY,hora.getHour());
             calendar.set(Calendar.MINUTE,hora.getMinute());
