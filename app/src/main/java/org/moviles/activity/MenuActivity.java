@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,13 +25,18 @@ import com.google.android.material.navigation.NavigationView;
 
 import org.moviles.Constants;
 import org.moviles.Context;
-import org.moviles.Util;
+import org.moviles.utils.UIUtils;
+import org.moviles.utils.Util;
+import org.moviles.activity.Fragments.FragmentCiudad;
 import org.moviles.activity.Fragments.FragmentClimaExtendido;
 import org.moviles.activity.Fragments.FragmentConfiguracion;
 import org.moviles.activity.Fragments.FragmentEditarUsuario;
 import org.moviles.activity.Fragments.FragmentHome;
 import org.moviles.activity.Fragments.FragmentMap;
 import org.moviles.business.ConfiguracionBusiness;
+import org.moviles.config.AlarmService;
+import org.moviles.config.NotificationService;
+import org.moviles.model.Ciudad;
 import org.moviles.model.Configuracion;
 import org.moviles.model.Usuario;
 
@@ -42,14 +46,16 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         FragmentEditarUsuario.IFragmentEditarUsuarioListener,
-        FragmentConfiguracion.IFragmentConfiguracionListener{
+        FragmentConfiguracion.IFragmentConfiguracionListener,
+        FragmentCiudad.IFragmentCiudadListener,
+        FragmentClimaExtendido.FragmentClimaExtendidoListener{
 
 
     private DrawerLayout drawer;
-    private FrameLayout fragmentContainer;
     private TextView nombreUsuarioMenu;
     private TextView emailUsuarioMenu;
     private CircleImageView avatar;
+
 
 
     @Override
@@ -58,8 +64,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_menu);
 
         setTitle("Menu");
-
-        fragmentContainer = findViewById(R.id.fragment_container);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
@@ -77,18 +81,18 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
 
         navigationView.setNavigationItemSelectedListener(this);
+        drawer.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                UIUtils.hideKeyboard(MenuActivity.this);
+            }
+        });
 
         FragmentHome  fh = new FragmentHome();
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragment_container,fh);
-        ft.commit();
+        loadFragment(fh);
 
         toggle.syncState();
-
     }
-
-
 
     @Override
     public void onBackPressed() {
@@ -130,6 +134,11 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         builder.setMessage(R.string.cerrarSesionMensaje)
                 .setPositiveButton(R.string.ACEPTAR, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        android.content.Context context = MenuActivity.this.getApplicationContext();
+                        Intent intent = new Intent(context, NotificationService.class);
+                        AlarmService alarmService = new AlarmService(context,intent);
+                        alarmService.cancelAlarm();
+
                         if(!Context.getUsuarioBusiness().setCurrentUser(null))
                             return;
                         Intent i = new Intent(MenuActivity.this,LoginActivity.class);
@@ -139,54 +148,52 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 })
                 .setNegativeButton(R.string.CANCELAR, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
                     }
                 });
-        // Create the AlertDialog object and return it
         builder.create();
         builder.show();
     }
 
     private void cargarHome(){
         FragmentHome  fhome = new FragmentHome();
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragment_container,fhome);
-        ft.commit();
+        loadFragment(fhome);
     }
 
     private void cargarEditar(){
         FragmentEditarUsuario  fEdit = new FragmentEditarUsuario(this);
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragment_container,fEdit);
-        ft.commit();
-
-
+        loadFragment(fEdit);
     }
 
     private void cargarDetalle(){
-        FragmentClimaExtendido fce = new FragmentClimaExtendido();
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragment_container,fce);
-        ft.commit();
+        FragmentClimaExtendido fce = new FragmentClimaExtendido(this,0,true);
+        loadFragment(fce);
     }
 
     private void cargarMapa(){
         FragmentMap fmap = new FragmentMap();
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragment_container,fmap);
-        ft.commit();
+        loadFragment(fmap);
+    }
+
+    private void cargarCiudad(){
+        FragmentCiudad floc = new FragmentCiudad(this);
+        loadFragment(floc);
     }
 
     private void cargarConfig(){
         FragmentConfiguracion fconf = new FragmentConfiguracion(this);
+        loadFragment(fconf);
+    }
+
+    private void loadFragment(Fragment fragment){
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragment_container,fconf);
+        ft.replace(R.id.fragment_container,fragment);
         ft.commit();
+    }
+
+    private void loadFragmentWithAnim(Fragment fragment, FragmentTransaction fragmentTransaction){
+        fragmentTransaction.replace(R.id.fragment_container,fragment);
+        fragmentTransaction.commit();
     }
 
     private void mandarEmail() {
@@ -217,6 +224,9 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_extend:
                 cargarDetalle();
                 break;
+            case R.id.nav_ciudad:
+                cargarCiudad();
+                break;
             case R.id.nav_email:
                 mandarEmail();
                 break;
@@ -225,8 +235,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_edit_profile:
                 cargarEditar();
-
-
         }
 
         drawer.closeDrawer(GravityCompat.START);
@@ -241,8 +249,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void guardarConfiguracionClick(Configuracion conf) {
         ConfiguracionBusiness cBO = Context.getConfiguracionBusiness();
-        String username = Context.getUsuarioBusiness().getCurrentUser().getUsuario();
-        boolean valid = cBO.save(conf,username);
+        boolean valid = cBO.save(conf);
         cargarHome();
         String msg;
         if(valid)
@@ -256,5 +263,36 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void actualizarUsuario() {
         cargarUsuario();
+    }
+
+    @Override
+    public void guardarCiudadClick(Ciudad ciudad) {
+        ConfiguracionBusiness cBO = Context.getConfiguracionBusiness();
+        Configuracion conf = cBO.getConfiguracion();
+        conf.setCiudad(ciudad);
+        guardarConfiguracionClick(conf);
+    }
+
+    @Override
+    public void swipeRigth(Integer index) {
+        FragmentClimaExtendido ce = new FragmentClimaExtendido(this,index,false);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.setCustomAnimations(R.anim.entrar_por_derecha,
+                R.anim.salir_por_izquierda,
+                R.anim.entrar_por_izquierda,
+                R.anim.salir_por_derecha);
+        loadFragmentWithAnim(ce,ft);
+    }
+
+    @Override
+    public void swipeLeft(Integer index) {
+        FragmentClimaExtendido ce = new FragmentClimaExtendido(this,index,false);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.setCustomAnimations(
+                R.anim.entrar_por_izquierda,
+                R.anim.salir_por_derecha,
+                R.anim.entrar_por_derecha,
+                R.anim.salir_por_izquierda);
+        loadFragmentWithAnim(ce,ft);
     }
 }

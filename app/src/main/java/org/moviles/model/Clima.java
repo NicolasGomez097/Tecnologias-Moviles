@@ -1,23 +1,70 @@
 package org.moviles.model;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "clima")
 public class Clima {
-    private String dia;
-    private Integer diaNumero;
+
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    private Integer id;
+
+    @NonNull
+    private Integer dia;
+
+    @NonNull
     private String mes;
+
+    @NonNull
     private Integer anio;
+
+    @NonNull
+    private String fechaNumeros;
+
+    @NonNull
     private String descripcion;
-    private Double temperatura;
-    private Double tempMaxima;
-    private Double tempMinima;
-    private Integer humedad;
+
+    private String temperatura;
+
+    private String tempMaxima;
+
+    private String tempMinima;
+
+    private String hora;
+
+    private String minuto;
+
+    @NonNull
+    private Double humedad;
+
+    @NonNull
     private String condicion;
+
+    @NonNull
     private String viento;
 
-    public String getDia() {
+    @NonNull
+    private Boolean esExtendido;
+
+    public Clima(){
+        esExtendido = true;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(@NonNull Integer id) {
+        this.id = id;
+    }
+
+    public Integer getDia() {
         return dia;
     }
 
-    public void setDia(String dia) {
+    public void setDia(Integer dia) {
         this.dia = dia;
     }
 
@@ -45,19 +92,19 @@ public class Clima {
         this.descripcion = descripcion;
     }
 
-    public Double getTemperatura() {
+    public String getTemperatura() {
         return temperatura;
     }
 
-    public void setTemperatura(Double temperatura) {
+    public void setTemperatura(String temperatura) {
         this.temperatura = temperatura;
     }
 
-    public Integer getHumedad() {
+    public Double getHumedad() {
         return humedad;
     }
 
-    public void setHumedad(Integer humedad) {
+    public void setHumedad(Double humedad) {
         this.humedad = humedad;
     }
 
@@ -77,27 +124,69 @@ public class Clima {
         this.viento = viento;
     }
 
-    public Integer getDiaNumero() {
-        return diaNumero;
-    }
-
-    public void setDiaNumero(Integer diaNumero) {
-        this.diaNumero = diaNumero;
-    }
-
-    public Double getTempMaxima() {
+    public String getTempMaxima() {
         return tempMaxima;
     }
 
-    public void setTempMaxima(Double tempMaxima) {
+    public void setTempMaxima(String tempMaxima) {
         this.tempMaxima = tempMaxima;
     }
 
-    public Double getTempMinima() {
+    public String getTempMinima() {
         return tempMinima;
     }
 
-    public void setTempMinima(Double tempMinima) {
+    public void setTempMinima(String tempMinima) {
         this.tempMinima = tempMinima;
+    }
+
+    @NonNull
+    public String getFechaNumeros() {
+        return fechaNumeros;
+    }
+
+    public void setFechaNumeros(@NonNull String fechaNumeros) {
+        this.fechaNumeros = fechaNumeros;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(Integer hora) {
+        if(hora < 10)
+            this.hora = "0"+hora;
+        else{
+            this.hora = hora.toString();
+        }
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
+    }
+
+    public String getMinuto() {
+        return minuto;
+    }
+
+    public void setMinuto(Integer minuto) {
+        if(minuto < 10)
+            this.minuto = "0"+minuto;
+        else{
+            this.minuto = minuto.toString();
+        }
+    }
+
+    public void setMinuto(String minuto) {
+        this.minuto = minuto;
+    }
+
+    @NonNull
+    public Boolean getEsExtendido() {
+        return esExtendido;
+    }
+
+    public void setEsExtendido(@NonNull Boolean esExtendido) {
+        this.esExtendido = esExtendido;
     }
 }

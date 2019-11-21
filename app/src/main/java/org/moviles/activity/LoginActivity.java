@@ -12,7 +12,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import org.moviles.Context;
-import org.moviles.Util;
 import org.moviles.activity.Fragments.FragmentIngresar;
 import org.moviles.activity.Fragments.FragmentListaUsuarios;
 import org.moviles.business.UsuarioBusiness;
@@ -61,7 +60,11 @@ public class LoginActivity extends AppCompatActivity implements FragmentListaUsu
             FragmentIngresar fragmentIngresarContraseña = new FragmentIngresar(this,
                     usersList.get(position).getUsuario());
 
-            fragmentTransaction.setCustomAnimations(R.anim.entrar_por_derecha,R.anim.salir_por_izquierda,R.anim.entrar_por_izquierda,R.anim.salir_por_derecha);
+            fragmentTransaction.setCustomAnimations(
+                    R.anim.entrar_por_derecha,
+                    R.anim.salir_por_izquierda,
+                    R.anim.entrar_por_izquierda,
+                    R.anim.salir_por_derecha);
             fragmentTransaction.replace(R.id.FragmentListaUsuarios, fragmentIngresarContraseña);
 
             fragmentTransaction.commit();
@@ -118,9 +121,9 @@ public class LoginActivity extends AppCompatActivity implements FragmentListaUsu
     }
 
     public void borrarUsuario(int position){
-
-        boolean valid = Util.deleteFileOnPath(Context.getDataDir(),
-                usersList.get(position).getUsuario());
+        String username = usersList.get(position).getUsuario();
+        boolean valid = Context.getUsuarioBusiness().
+                deleteUsuario(username);
 
         if(!valid){
             Toast.makeText(getApplicationContext(),getString(R.string.errorEliminarUsuario),Toast.LENGTH_SHORT).show();

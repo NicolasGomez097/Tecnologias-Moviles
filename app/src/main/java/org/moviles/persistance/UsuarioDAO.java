@@ -3,7 +3,8 @@ package org.moviles.persistance;
 import org.json.JSONObject;
 import org.moviles.Constants;
 import org.moviles.Context;
-import org.moviles.Util;
+import org.moviles.utils.SharedPreferencesUtils;
+import org.moviles.utils.Util;
 import org.moviles.model.Usuario;
 
 import java.io.File;
@@ -57,20 +58,38 @@ public class UsuarioDAO implements IUsuarioDAO {
     }
 
     public Usuario getCurrentUser(){
-        File loged = new File(Context.getDataDir(), Constants.CURRENT_USER_FILE);
-        if(loged.exists()) {
-            return getUsuario(Util.readFile(loged));
-        }else
-            return null;
+
+        /* Metodo viejo para obtener el usuario actual desde un archivo
+
+        File loged = new File(Context.getDataDir(), Constants.CURRENT_USER_FILE);*/
+        String username = SharedPreferencesUtils.getKeyValueString(Constants.CURRENT_USER_FILE);
+
+        if(username != null)
+            return getUsuario(username);
+
+        return null;
     }
 
     public boolean setCurrentUser(String username){
+
+        /*Metodo viejo para guardar el usuario actual en un archivo
+
         if(username == null){
             return Util.deleteFileOnPath(Context.getDataDir(),Constants.CURRENT_USER_FILE);
         }
 
         File loged = new File(Context.getDataDir(), Constants.CURRENT_USER_FILE);
-        return Util.writeFile(loged,username);
+        return Util.writeFile(loged,username);*/
+
+        boolean valid = SharedPreferencesUtils.setKeyValueString(
+                Constants.CURRENT_USER_FILE,
+                username);
+        return valid;
+    }
+
+    @Override
+    public boolean deleteUser(String username) {
+        return Util.deleteFileOnPath(Context.getDataDir(),username);
     }
 
     public Usuario getFromJSON(String jsonUser){

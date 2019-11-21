@@ -5,8 +5,8 @@ import org.moviles.Constants;
 public class Configuracion {
     private String unidad;
     private boolean notificaciones;
-    private String dias;
     private String hora;
+    private Ciudad ciudad;
 
     public Configuracion(){
         unidad = Constants.UNIDAD_METRICA;
@@ -29,19 +29,19 @@ public class Configuracion {
         this.notificaciones = notificaciones;
     }
 
-    public String getDias() {
-        return dias;
-    }
-
-    public void setDias(String dias) {
-        this.dias = dias;
-    }
-
     public String getHora() {
         return hora;
     }
 
     public void setHora(String hora) {
         this.hora = hora;
+    }
+
+    public Ciudad getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(Ciudad ciudad) {
+        this.ciudad = ciudad;
     }
 }

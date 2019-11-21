@@ -25,9 +25,15 @@
     <item android:title="@string/configuracion">
     <menu android:checkableBehavior="single">
             <item
+                android:id="@+id/nav_ciudad"
+                android:icon="@drawable/ic_location"
+                android:title="@string/Ciudad" />
+
+            <item
                 android:id="@+id/nav_email"
                 android:icon="@drawable/ic_email"
                 android:title="@string/consulta" />
+
             <item
                 android:id="@+id/nav_config"
                 android:icon="@drawable/ic_setting"

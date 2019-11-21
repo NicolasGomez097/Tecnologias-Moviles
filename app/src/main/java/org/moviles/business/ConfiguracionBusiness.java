@@ -6,31 +6,46 @@ import org.moviles.model.Usuario;
 import org.moviles.persistance.ConfiguracionDAO;
 import org.moviles.persistance.IConfiguracionDAO;
 
-import java.util.List;
-
 public class ConfiguracionBusiness {
     private IConfiguracionDAO configuracionDAO;
     private Usuario currentUser;
-    private List<Usuario> listaUsuarios;
-    private boolean mantenerSesion;
+    private Configuracion currentConf;
 
     public ConfiguracionBusiness() {
         configuracionDAO = new ConfiguracionDAO();
     }
 
-    public boolean save(Configuracion c, String username) {
-        if(!configuracionDAO.save(c,username))
+    public boolean save(Configuracion c) {
+        if(currentUser == null)
+            currentUser = Context.getUsuarioBusiness().getCurrentUser();
+
+        if(!configuracionDAO.save(c,currentUser.getUsuario()))
             return false;
+
+        currentConf = c;
         return true;
     }
 
-    public Configuracion getConfiguracion(String username) {
-        Configuracion u = null;
-        try {
-            u = configuracionDAO.getConfiguracion(username);
-        } catch (Exception e) {
-            e.printStackTrace();
+    public boolean createConf(Configuracion conf, String username){
+
+        if(!configuracionDAO.save(conf,username))
+            return false;
+
+        return true;
+    }
+
+    public Configuracion getConfiguracion() {
+        if(currentConf == null){
+            currentUser = Context.getUsuarioBusiness().getCurrentUser();
+            currentConf = configuracionDAO.getConfiguracion(currentUser.getUsuario());
+        }else{
+            if(!currentUser.getUsuario().equals(
+                    Context.getUsuarioBusiness().getCurrentUser()
+                ))
+                currentUser = Context.getUsuarioBusiness().getCurrentUser();
+                currentConf = configuracionDAO.getConfiguracion(currentUser.getUsuario());
         }
-        return u;
+
+        return currentConf;
     }
 }

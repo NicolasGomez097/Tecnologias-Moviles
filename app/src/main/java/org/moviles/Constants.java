@@ -6,7 +6,10 @@ public class Constants {
     public static String USER_LIST_FILE = "ListaUsuarios.txt";
     public static String USER_AVATAR = "avatar.png";
     public static String USER_CONFIG = "config.txt";
-    public static String UNIDAD_METRICA = "Metrica";
-    public static String UNIDAD_IMPERIAL = "Imperial";
-
+    public static String UNIDAD_METRICA = "metric";
+    public static String UNIDAD_IMPERIAL = "imperial";
+    public static String SIMBOLO_UNIDAD_C = "°C";
+    public static String SIMBOLO_UNIDAD_F = "°F";
+    public static String VELOCIDAD_KM = "Km/h";
+    public static String VELOCIDAD_MILLA = "Mi/h";
 }

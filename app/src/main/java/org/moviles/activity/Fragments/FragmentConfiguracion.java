@@ -1,11 +1,11 @@
 package org.moviles.activity.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Switch;
@@ -19,7 +19,11 @@ import org.moviles.Constants;
 import org.moviles.Context;
 import org.moviles.activity.R;
 import org.moviles.business.ConfiguracionBusiness;
+import org.moviles.config.AlarmService;
+import org.moviles.config.NotificationService;
 import org.moviles.model.Configuracion;
+
+import java.util.Calendar;
 
 public class FragmentConfiguracion extends Fragment {
 
@@ -27,15 +31,9 @@ public class FragmentConfiguracion extends Fragment {
     private RadioButton radioImperial;
     private Switch switch_notificaicon;
     private LinearLayout contenedorNotificacion;
-    private CheckBox ckLunes;
-    private CheckBox ckMartes;
-    private CheckBox ckMiercoles;
-    private CheckBox ckJueves;
-    private CheckBox ckViernes;
-    private CheckBox ckSabado;
-    private CheckBox ckDomingo;
     private TimePicker hora;
     private Button btnGuardar;
+
     private IFragmentConfiguracionListener onClick;
 
 
@@ -57,16 +55,10 @@ public class FragmentConfiguracion extends Fragment {
         switch_notificaicon = contenedor.findViewById(R.id.switch_notificaicon);
         contenedorNotificacion = contenedor.findViewById(R.id.contenedorNotificacion);
 
-        ckLunes = contenedor.findViewById(R.id.ckLunes);
-        ckMartes = contenedor.findViewById(R.id.ckMartes);
-        ckMiercoles = contenedor.findViewById(R.id.ckMiercoles);
-        ckJueves = contenedor.findViewById(R.id.ckJueves);
-        ckViernes = contenedor.findViewById(R.id.ckViernes);
-        ckSabado = contenedor.findViewById(R.id.ckSabado);
-        ckDomingo = contenedor.findViewById(R.id.ckDomingo);
-
         hora = contenedor.findViewById(R.id.horaNotificacion);
         btnGuardar = contenedor.findViewById(R.id.btnGuardar);
+
+
 
         btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,9 +81,7 @@ public class FragmentConfiguracion extends Fragment {
 
     private void cargarConfiguracion(){
         ConfiguracionBusiness cBO = Context.getConfiguracionBusiness();
-        String username = Context.getUsuarioBusiness().getCurrentUser().getUsuario();
-
-        Configuracion conf = cBO.getConfiguracion(username);
+        Configuracion conf = cBO.getConfiguracion();
 
         if(conf.getUnidad().equals(Constants.UNIDAD_METRICA))
             radioMetrica.setChecked(true);
@@ -101,26 +91,7 @@ public class FragmentConfiguracion extends Fragment {
         switch_notificaicon.setChecked(conf.isNotificaciones());
 
         if(conf.isNotificaciones()){
-            String[] aux = conf.getDias().split(",");
-
-            for(String dia:aux){
-                if(dia.equals("Lun"))
-                    ckLunes.setChecked(true);
-                if(dia.equals("Mar"))
-                    ckMartes.setChecked(true);
-                if(dia.equals("Mie"))
-                    ckMiercoles.setChecked(true);
-                if(dia.equals("Jue"))
-                    ckJueves.setChecked(true);
-                if(dia.equals("Vie"))
-                    ckViernes.setChecked(true);
-                if(dia.equals("Sab"))
-                    ckSabado.setChecked(true);
-                if(dia.equals("Dom"))
-                    ckDomingo.setChecked(true);
-            }
-
-            aux = conf.getHora().split(":");
+            String[] aux = conf.getHora().split(":");
             hora.setHour(Integer.parseInt(aux[0]));
             hora.setMinute(Integer.parseInt(aux[1]));
         }else{
@@ -136,12 +107,6 @@ public class FragmentConfiguracion extends Fragment {
 
             contenedorNotificacion.animate().scaleY(1);
             contenedorNotificacion.animate().setDuration(250);
-
-            /*
-            Animation slide_up = AnimationUtils.loadAnimation(getActivity().getApplicationContext(),
-                    R.anim.slide_down);
-            contenedorNotificacion.setVisibility(View.VISIBLE);
-            contenedorNotificacion.startAnimation(slide_up);*/
         }else{
             contenedorNotificacion.setScaleY(1);
 
@@ -149,47 +114,40 @@ public class FragmentConfiguracion extends Fragment {
             contenedorNotificacion.animate().setDuration(250);
 
             contenedorNotificacion.setVisibility(View.GONE);
-            /*Animation slide_down = AnimationUtils.loadAnimation(getActivity().getApplicationContext(),
-                    R.anim.slide_up);
-            contenedorNotificacion.startAnimation(slide_down);
-            contenedorNotificacion.setVisibility(View.GONE);*/
         }
     }
 
-    private void guardarConfiguracion(){
-        Configuracion conf = new Configuracion();
+    private void guardarConfiguracion() {
+        Configuracion conf = Context.getConfiguracionBusiness().getConfiguracion();
 
-        if(radioMetrica.isChecked())
+        if (radioMetrica.isChecked())
             conf.setUnidad(Constants.UNIDAD_METRICA);
         else
             conf.setUnidad(Constants.UNIDAD_IMPERIAL);
 
         conf.setNotificaciones(switch_notificaicon.isChecked());
 
-        if(switch_notificaicon.isChecked()){
-            String aux = "";
+        if (switch_notificaicon.isChecked()) {
+            Intent intent = new Intent(getContext(), NotificationService.class);
+            AlarmService alarmService = new AlarmService(getContext(),intent);
 
-            if(ckLunes.isChecked())
-                aux += "Lun,";
-            if(ckMartes.isChecked())
-                aux += "Mar,";
-            if(ckMiercoles.isChecked())
-                aux += "Mie,";
-            if(ckJueves.isChecked())
-                aux += "Jue,";
-            if(ckViernes.isChecked())
-                aux += "Vie,";
-            if(ckSabado.isChecked())
-                aux += "Sab,";
-            if(ckDomingo.isChecked())
-                aux += "Dom,";
+            Calendar calendar = Calendar.getInstance();
+            //calendar.setTimeInMillis(System.currentTimeMillis());
 
-            if(aux.length() > 1)
-                aux = aux.substring(0, aux.length()-1);
+            calendar.set(Calendar.HOUR_OF_DAY,hora.getHour());
+            calendar.set(Calendar.MINUTE,hora.getMinute());
+            calendar.set(Calendar.SECOND,0);
 
-            conf.setDias(aux);
+            if(calendar.before(Calendar.getInstance()))
+                calendar.add(Calendar.DATE,1);
+
+            alarmService.SetRepitingDayAlarm(calendar);
 
             conf.setHora(hora.getHour()+":"+hora.getMinute());
+        }else{
+            Intent intent = new Intent(getContext(), NotificationService.class);
+            AlarmService alarmService = new AlarmService(getContext(),intent);
+            alarmService.cancelAlarm();
         }
 
         onClick.guardarConfiguracionClick(conf);

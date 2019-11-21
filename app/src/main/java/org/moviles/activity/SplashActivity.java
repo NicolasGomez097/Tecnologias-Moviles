@@ -16,6 +16,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         Context.setDataDir(getApplicationContext().getDataDir());
+        Context.setContext(getApplicationContext());
 
         Usuario aux = Context.getUsuarioBusiness().getCurrentUser();
         if(aux != null){
