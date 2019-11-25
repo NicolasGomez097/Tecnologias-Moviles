@@ -94,4 +94,11 @@
     <string name="UtlimaActualizacion">Última actualizacón:</string>
     <string name="channel_description">Canal principal de la aplicacion</string>
     <string name="msgNotificacion">Buen día %s, En %s hoy actual:%s, Max: %s, Min: %s.</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="actualizando">Actualizando</string>
+    <string name="errorActualizar">Error en la actualizacion</string>
+    <string name="exitoActualizacion">Actualizado con exito</string>
+    <string name="seleccionarCiudad">Seleccionar una ciudad</string>
+    <string name="noUsuarioRegistrado">No hay un usuario logueado</string>
 </resources>
