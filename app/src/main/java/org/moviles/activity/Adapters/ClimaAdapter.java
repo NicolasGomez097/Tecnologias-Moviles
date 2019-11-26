@@ -44,7 +44,7 @@ public class ClimaAdapter extends RecyclerView.Adapter<ClimaAdapter.ClimaViewHol
         Clima aux = climaList.get(position);
         holder.getFecha().setText(
                 aux.getDia()+" de "+
-                aux.getMes() + " de " +
+                aux.getMesLetras() + " de " +
                 aux.getAnio()+ " " +
                 aux.getHora() + ":" + aux.getMinuto() +
                 "," + ciudad

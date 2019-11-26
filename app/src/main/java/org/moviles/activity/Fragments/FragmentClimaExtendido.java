@@ -162,7 +162,7 @@ public class FragmentClimaExtendido extends Fragment implements GestureDetector.
         @Override
         protected Void doInBackground(Void... voids) {
             ClimaBusiness climaBusiness = Context.getClimaBusiness(getContext());
-            climaList = climaBusiness.getListaClimaGuardado();
+            climaList  = climaBusiness.getListaClimaGuardado();
             return null;
         }
 

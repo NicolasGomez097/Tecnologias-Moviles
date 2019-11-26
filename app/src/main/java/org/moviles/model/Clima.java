@@ -15,7 +15,10 @@ public class Clima {
     private Integer dia;
 
     @NonNull
-    private String mes;
+    private Integer mes;
+
+    @NonNull
+    private String mesLetras;
 
     @NonNull
     private Integer anio;
@@ -68,11 +71,11 @@ public class Clima {
         this.dia = dia;
     }
 
-    public String getMes() {
+    public Integer getMes() {
         return mes;
     }
 
-    public void setMes(String mes) {
+    public void setMes(Integer mes) {
         this.mes = mes;
     }
 
@@ -138,6 +141,15 @@ public class Clima {
 
     public void setTempMinima(String tempMinima) {
         this.tempMinima = tempMinima;
+    }
+
+    @NonNull
+    public String getMesLetras() {
+        return mesLetras;
+    }
+
+    public void setMesLetras(@NonNull String mesLetras) {
+        this.mesLetras = mesLetras;
     }
 
     @NonNull
