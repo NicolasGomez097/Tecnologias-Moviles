@@ -65,7 +65,6 @@ public class NotificationService extends BroadcastReceiver {
 
             try{
                 Context context = contexts[0];
-                org.moviles.Context.setDataDir(context.getDataDir());
                 org.moviles.Context.setContext(context);
 
                 Ciudad ciudad = org.moviles.Context.getConfiguracionBusiness().getConfiguracion().getCiudad();

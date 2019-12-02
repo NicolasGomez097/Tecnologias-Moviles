@@ -10,4 +10,6 @@
     <color name="oscuro">#303030</color>
     <color name="gris">#909090</color>
     <color name="rojo">#FF6969</color>
+    <color name="fonde_widget">#90000000</color>
+    <color name="gris_widget">#E0E0E0</color>
 </resources>

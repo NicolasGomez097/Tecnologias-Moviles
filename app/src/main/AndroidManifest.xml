@@ -15,7 +15,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo"
@@ -34,15 +33,25 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MenuActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RegistrarUsuarioActivity"
             android:parentActivityName=".LoginActivity" />
 
-        <receiver android:name="org.moviles.config.NotificationService"/>
+        <receiver android:name="org.moviles.config.NotificationService" />
+
+        <receiver android:name="org.moviles.widget.ClimaWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_clima" />
+        </receiver>
     </application>
 
 </manifest>

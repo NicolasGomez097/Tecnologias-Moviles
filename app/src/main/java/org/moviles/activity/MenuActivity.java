@@ -113,10 +113,10 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onStop() {
         if(!Context.getUsuarioBusiness().isMantenerSesion())
             Context.getUsuarioBusiness().setCurrentUser(null);
-        super.onDestroy();
+        super.onStop();
     }
 
     private void cargarUsuario(){

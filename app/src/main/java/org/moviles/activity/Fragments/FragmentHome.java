@@ -75,7 +75,8 @@ public class FragmentHome extends Fragment {
         }else{
             if(refreshLayout.isRefreshing())
                 refreshLayout.setRefreshing(false);
-            Toast.makeText(getContext(),"Seleccionar una ciudad",Toast.LENGTH_LONG).show();
+            String msg = Context.getStringContext().getString(R.string.seleccionarCiudad);
+            Toast.makeText(getContext(),msg,Toast.LENGTH_LONG).show();
         }
 
     }

@@ -15,6 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.transitionseverywhere.Fade;
+import com.transitionseverywhere.TransitionManager;
+
 import org.moviles.Constants;
 import org.moviles.Context;
 import org.moviles.activity.R;
@@ -30,7 +33,7 @@ public class FragmentConfiguracion extends Fragment {
     private RadioButton radioMetrica;
     private RadioButton radioImperial;
     private Switch switch_notificaicon;
-    private LinearLayout contenedorNotificacion;
+    private ViewGroup contenedorNotificacion;
     private TimePicker hora;
     private Button btnGuardar;
 
@@ -95,25 +98,18 @@ public class FragmentConfiguracion extends Fragment {
             hora.setHour(Integer.parseInt(aux[0]));
             hora.setMinute(Integer.parseInt(aux[1]));
         }else{
-            contenedorNotificacion.setVisibility(View.GONE);
+            hora.setVisibility(View.GONE);
         }
 
     }
 
     private void cambiarEstadoContenedorNotificacion(){
         if(switch_notificaicon.isChecked()){
-            contenedorNotificacion.setVisibility(View.VISIBLE);
-            contenedorNotificacion.setScaleY(0);
-
-            contenedorNotificacion.animate().scaleY(1);
-            contenedorNotificacion.animate().setDuration(250);
+            TransitionManager.beginDelayedTransition(contenedorNotificacion);
+            hora.setVisibility(View.VISIBLE);
         }else{
-            contenedorNotificacion.setScaleY(1);
-
-            contenedorNotificacion.animate().scaleY(0);
-            contenedorNotificacion.animate().setDuration(250);
-
-            contenedorNotificacion.setVisibility(View.GONE);
+            TransitionManager.beginDelayedTransition(contenedorNotificacion);
+            hora.setVisibility(View.GONE);
         }
     }
 

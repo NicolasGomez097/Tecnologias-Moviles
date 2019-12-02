@@ -76,7 +76,7 @@
             <LinearLayout
                 android:id="@+id/contenedorNotificacion"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TimePicker
@@ -85,25 +85,24 @@
                     android:layout_height="match_parent"
                     android:timePickerMode="spinner"
                     />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:theme="@style/separador" />
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/btnGuardar"
+                    style="@style/BotonAgregar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/marginM"
+                    android:text="@string/guardar" />
             </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:theme="@style/separador" />
-
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <Button
-                android:id="@+id/btnGuardar"
-                style="@style/BotonAgregar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/marginM"
-                android:text="@string/guardar" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

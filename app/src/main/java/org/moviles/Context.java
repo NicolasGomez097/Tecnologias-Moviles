@@ -17,21 +17,20 @@ public class Context {
     private static File dataDir;
     private static android.content.Context context;
 
-    /**
-     * Este metodo debe ser ejecutado si o si para el correcto funcionamiento de la aplicacion.
-    * */
-    public static void setDataDir(File dir){
-        dataDir = dir;
-    }
 
     /**
      * Este metodo debe ser ejecutado si o si para el correcto funcionamiento de la aplicacion.
      * */
     public static void setContext(android.content.Context c){
         context = c;
+        //dataDir = c.getDataDir();
+        dataDir = c.getFilesDir();
     }
     public static android.content.Context getContext(){return context;}
 
+    public static void setDataDir(File dir){
+        dataDir = dir;
+    }
 
     public static File getDataDir(){
         return dataDir;
