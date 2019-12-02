@@ -21,6 +21,7 @@ public class UsuarioBusiness {
     public UsuarioBusiness() {
         usuarioDAO = new UsuarioDAO();
         getCurrentUser();
+        getListaUsuarios();
     }
 
     public boolean save(Usuario u) {
@@ -94,6 +95,7 @@ public class UsuarioBusiness {
                 found = true;
             }
         }
+
         if(found){
             setListaUsuarios(listaUsuarios);
         }

@@ -105,9 +105,6 @@ public class FragmentEditarUsuario extends Fragment {
         UsuarioBusiness usuarioBO = Context.getUsuarioBusiness();
         Usuario currentUser = usuarioBO.getCurrentUser();
 
-        Toast toast = Toast.makeText(getActivity().getApplicationContext(),"Guardado", Toast.LENGTH_SHORT);
-        toast.show();
-
         Usuario user = new Usuario();
         user.setUsuario(nombre.getText().toString());
         user.setPassword(password.getText().toString());
@@ -130,8 +127,8 @@ public class FragmentEditarUsuario extends Fragment {
                 return;
             }
 
-            Util.renameFile(new File(Context.getDataDir(), currentUser.getUsuario()), user.getUsuario());
             usuarioBO.changeUserNameList(currentUser.getUsuario(),user.getUsuario());
+            Util.renameFile(new File(Context.getDataDir(), currentUser.getUsuario()), user.getUsuario());
 
         }
 
@@ -145,6 +142,8 @@ public class FragmentEditarUsuario extends Fragment {
             Util.saveImage(fl, bmp);
         }
 
+        Toast toast = Toast.makeText(getActivity().getApplicationContext(),"Guardado", Toast.LENGTH_SHORT);
+        toast.show();
         onclick.actualizarUsuario();
         onclick.cerrarFramgemntEditarUsuario();
 

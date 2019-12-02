@@ -37,7 +37,7 @@ public class FragmentClimaExtendido extends Fragment implements GestureDetector.
     private Integer listIndex;
     private GestureDetector gestureDetector;
     private FragmentClimaExtendidoListener onClick;
-    private Integer MAX_PAGES = 5;
+    private Integer MAX_PAGES = 6;
     private boolean updateList;
 
     public interface FragmentClimaExtendidoListener{
@@ -122,7 +122,7 @@ public class FragmentClimaExtendido extends Fragment implements GestureDetector.
     }
 
     private boolean hayMasPaginas(){
-        return listIndex <= MAX_PAGES;
+        return (listIndex+1) < MAX_PAGES;
     }
 
     private class updateListaAsyncTask extends AsyncTask<Void,Void,Void>{
@@ -162,7 +162,7 @@ public class FragmentClimaExtendido extends Fragment implements GestureDetector.
         @Override
         protected Void doInBackground(Void... voids) {
             ClimaBusiness climaBusiness = Context.getClimaBusiness(getContext());
-            climaList  = climaBusiness.getListaClimaGuardado();
+            climaList = climaBusiness.getListaClimaGuardado();
             return null;
         }
 
@@ -212,9 +212,10 @@ public class FragmentClimaExtendido extends Fragment implements GestureDetector.
     }
 
     private void swipeRigth(){
-        listIndex++;
-        if(hayMasPaginas())
+        if(hayMasPaginas()){
+            listIndex++;
             onClick.swipeRigth(listIndex);
+        }
     }
 
     private void swipeLeft(){

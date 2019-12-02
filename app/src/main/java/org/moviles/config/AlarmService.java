@@ -30,7 +30,7 @@ public class AlarmService {
 
         alarmManager.setInexactRepeating(AlarmManager.RTC,
                 calendar.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY,
+                1000*60,
                 alarmIntent);
     }
 

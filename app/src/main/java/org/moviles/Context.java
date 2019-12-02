@@ -23,7 +23,8 @@ public class Context {
      * */
     public static void setContext(android.content.Context c){
         context = c;
-        dataDir = c.getDataDir();
+        //dataDir = c.getDataDir();
+        dataDir = c.getFilesDir();
     }
     public static android.content.Context getContext(){return context;}
 
